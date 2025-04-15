@@ -1,0 +1,111 @@
+body {
+  font-family: 'Fira Code', monospace;
+  margin: 0;
+  padding: 2rem;
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+header, footer {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Make pre blocks wrap instead of scrolling */
+pre {
+  white-space: pre-wrap; /* Enables line wrapping */
+  word-wrap: break-word; /* For really long words/URLs */
+  overflow-x: auto;      /* Still scrolls horizontally if absolutely necessary */
+  max-width: 90ch;       /* Constrain width a bit */
+  margin: 1.5rem;        /* Add breathing room */
+  padding: 1rem;
+  background-color: #1e293b;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+pre code {
+  padding: 1rem;
+  display: block;
+  font-family: 'Fira Code', monospace;
+}
+
+pre code.language-flare {
+  background-color: #1e3a8a;
+  color: #ffffff;
+}
+
+pre code.language-assistant {
+  background-color: #334155;
+  color: #ffffff;
+}
+
+.thumbnail {
+  max-height: 150px;
+  cursor: zoom-in;
+  transition: max-height 1s ease, box-shadow 1s ease;
+}
+
+.thumbnail:hover {
+  max-height: 750px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.section {
+  margin: 2rem auto;
+  max-width: 960px;
+  padding: 0 1rem;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #f8fafc;
+  border-bottom: 2px solid #475569;
+  padding-bottom: 0.5rem;
+}
+
+.subsections,
+.entries {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.subsection-card,
+.entry-card {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  text-decoration: none;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.subsection-card:hover,
+.entry-card:hover {
+  background-color: #334155;
+  transform: scale(1.02);
+}
+
+.entry-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #93c5fd;
+}
+
+.entry-card p {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  pre {
+    max-width: 100%;
+    padding: 0.75rem;
+  }
+}
+
