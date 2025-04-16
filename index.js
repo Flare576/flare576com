@@ -9,7 +9,7 @@ const externalSvg = `
 `;
 
 async function readMetaFile (section, subsection) {
-  const metaPath = ["content",section,subsection,"meta.json"].filter(Boolean).join("/");
+  const metaPath = ['content',section,subsection,'meta.json'].filter(Boolean).join('/');
   console.log(metaPath);
   const res = await fetch(metaPath);
   return await res.json();
@@ -18,27 +18,29 @@ async function readMetaFile (section, subsection) {
 async function readEntry (section, subsection, entry) {
   let entryPath;
   if (!subsection) {
-    entrypath=`${section}.md`;
+    entryPath=`${section}.md`;
   } else {
     entryPath = `content/${section}/`;
-    if (entry) entryPath += `${subsection}/entries/${entry}.md`
-    else entryPath += `/entries/${subsection}.md`
+    if (entry) {
+      entryPath += `${subsection}/entries/${entry}.md`;
+    } else {
+      entryPath += `/entries/${subsection}.md`;
+    }
   }
 
   const res = await fetch(entryPath);
   const raw = await res.text();
   return parseFrontMatter(raw);
-  return metadata;
 }
 
 async function buildSection(section) {
   const { title, description, subsections, entries } = await readMetaFile(section);
 
-  let html = `<section class="section">`;
+  let html = '<section class="section">';
   html += `<h2 class="section-title">${title}</h2>`;
 
   if (subsections && subsections.length > 0) {
-    html += `<div class="subsections">`;
+    html += '<div class="subsections">';
     for (const subsection of subsections) {
       const { title, description, subsections, external } = await readMetaFile(section, subsection);
       if (external) {
@@ -52,18 +54,18 @@ async function buildSection(section) {
         html += `<a href="#/${section}/${subsection}" class="subsection-card">${title}</a>`;
       }
     }
-    html += `</div>`;
+    html += '</div>';
   }
 
   if (entries && entries.length > 0) {
-    html += `<div class="entries">`;
+    html += '<div class="entries">';
     for (const entry of entries) {
       html += buildEntry(section, entry);
     }
-    html += `</div>`;
+    html += '</div>';
   }
 
-  html += `</section>`;
+  html += '</section>';
   return html;
 }
 
@@ -113,7 +115,7 @@ function parseFrontMatter (raw) {
   const frontMatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n?/;
   const match = raw.match(frontMatterRegex);
 
-  let metadata = {};
+  const metadata = {};
   let body = raw;
 
   if (match) {
@@ -131,17 +133,14 @@ function parseFrontMatter (raw) {
           .map(v => v.trim().replace(/^"|"$/g, ''))
           .filter(Boolean);
         metadata[key.trim()] = arr;
-      }
+      } else if (value === 'true' || value === 'false') {
       // Handle boolean
-      else if (value === 'true' || value === 'false') {
         metadata[key.trim()] = value === 'true';
-      }
+      } else if (!isNaN(value)) {
       // Handle number
-      else if (!isNaN(value)) {
         metadata[key.trim()] = Number(value);
-      }
+      } else {
       // String fallback
-      else {
         metadata[key.trim()] = value.replace(/^"|"$/g, '');
       }
     });
@@ -155,30 +154,30 @@ async function renderMarkdown(section, subsection, entry) {
 
   const renderer = {
     image ({href, title, text}) {
-      let out = `<img src="${href}" alt="${text}"`
+      let out = `<img src="${href}" alt="${text}"`;
       if (title) {
         out += ` title="${title}"`;
       }
-      if (href.includes("/thumbnail/")) {
-        out += ` class="thumbnail"`;
+      if (href.includes('/thumbnail/')) {
+        out += ' class="thumbnail"';
       }
       out += ' />';
       return out;
     },
   };
-  marked.use({ renderer })
+  marked.use({ renderer });
 
   const html = marked.parse(body);
   document.getElementById('content').innerHTML = html;
 }
 
 function renderError(num) {
-    document.getElementById('content').innerHTML = "Something witty about not being able to find what you're looking for";
+  document.getElementById('content').innerHTML = 'Something witty about not being able to find what you\'re looking for';
 }
 
 async function renderHomepage() {
-  document.getElementById('about-me').style.display = "block";
-  let html = "";
+  document.getElementById('about-me').style.display = 'block';
+  let html = '';
   const { sections } = await readMetaFile();
   for (const section of sections) {
     html += await buildSection(section);
@@ -189,23 +188,23 @@ async function renderHomepage() {
 async function renderSubsection(section, subsection) {
   const { title, description, subsections, entries } = await readMetaFile(section, subsection);
   // For now, re-use the section styling when you load a subsection
-  let html = `<section class="section">`;
+  let html = '<section class="section">';
   html += `<h2 class="section-title">${title}</h2>`;
 
   if (entries && entries.length > 0) {
-    html += `<div class="entries">`;
+    html += '<div class="entries">';
     for (const entry of entries) {
       html += await buildEntry(section, subsection, entry);
     }
-    html += `</div>`;
+    html += '</div>';
   }
 
-  html += `</section>`;
+  html += '</section>';
   document.getElementById('content').innerHTML = html;
 }
 
 async function renderPage() {
-  document.getElementById('about-me').style.display = "none";
+  document.getElementById('about-me').style.display = 'none';
   const theHash = window.location.hash.replace(/^[^\w]+/, '');
   const pathParts = theHash.split('/').filter(Boolean);
   const [section, subsection, entry] = pathParts;
