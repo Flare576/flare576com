@@ -11,6 +11,19 @@ header, footer {
   margin-bottom: 2rem;
 }
 
+.header-link {
+  color: inherit;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.header-link:hover {
+  text-decoration: none;
+  opacity: 0.95;
+  transform: scale(1.01);
+}
+
+
 /* Make pre blocks wrap instead of scrolling */
 pre {
   white-space: pre-wrap; /* Enables line wrapping */
@@ -100,6 +113,54 @@ pre code.language-assistant {
   font-size: 0.9rem;
   color: #cbd5e1;
   margin-top: 0.5rem;
+}
+
+.about-container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  background-color: #0f172a;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.about-avatar {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-text p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin: 0.5rem 0;
+}
+
+.social-links {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.social-links img {
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) invert(1); /* Makes logos white-ish */
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.social-links img:hover {
+  transform: scale(1.1);
+  filter: brightness(1) invert(0.8);
 }
 
 @media (max-width: 600px) {

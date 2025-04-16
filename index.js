@@ -1,3 +1,62 @@
+async function readMetaFile (section, subsection) {
+  const metaPath = ["content",section,subsection,"meta.json"].filter(Boolean).join("/");
+  console.log(metaPath);
+  const res = await fetch(metaPath);
+  return await res.json();
+}
+
+async function readEntry (section, subsection, entry) {
+  let entryPath = `content/${section}/`;
+  if (entry) entryPath += `${subsection}/entries/${entry}.md`
+  else entryPath += `/entries/${subsection}.md`
+
+  const res = await fetch(entryPath);
+  const raw = await res.text();
+  return parseFrontMatter(raw);
+  return metadata;
+}
+
+async function buildSection(section) {
+  const { title, description, subsections, entries } = await readMetaFile(section);
+
+  let html = `<section class="section">`;
+  html += `<h2 class="section-title">${title}</h2>`;
+
+  if (subsections && subsections.length > 0) {
+    html += `<div class="subsections">`;
+    for (const subsection of subsections) {
+      const { title, description, subsections, entries } = await readMetaFile(section, subsection);
+      html += `<a href="#/${section}/${subsection}" class="subsection-card">${title}</a>`;
+    }
+    html += `</div>`;
+  }
+
+  if (entries && entries.length > 0) {
+    html += `<div class="entries">`;
+    for (const entry of entries) {
+      html += buildEntry(section, entry);
+    }
+    html += `</div>`;
+  }
+
+  html += `</section>`;
+  return html;
+}
+
+async function buildEntry(section, subsection, entry) {
+  const { metadata } = await readEntry(section, subsection, entry);
+
+  const entryPath = subsection
+    ? `#/${section}/${subsection}/${entry}`
+    : `#/${section}/${entry}`;
+
+  return `
+    <a href="${entryPath}" class="entry-card">
+      <h3>${metadata.title}</h3>
+      <p>${metadata.description || ''}</p>
+    </a>`;
+}
+
 function updateMetaTags(metadata) {
   // Set <title>
   if (metadata.title) {
@@ -66,14 +125,8 @@ function parseFrontMatter (raw) {
   return { metadata, body };
 }
 
-async function loadMarkdown(section, subsection, post) {
-  let postPath = `content/${section}/`;
-  if (post) postPath += `${subsection}/entries/${post}.md`
-  else postPath += `/entries/${subsection}.md`
-
-  const res = await fetch(postPath);
-  const raw = await res.text();
-  const { metadata, body } = parseFrontMatter(raw);
+async function renderMarkdown(section, subsection, entry) {
+  const { metadata, body } = await readEntry(section, subsection, entry);
   updateMetaTags(metadata);
 
   const renderer = {
@@ -99,28 +152,41 @@ function renderError(num) {
     document.getElementById('content').innerHTML = "Something witty about not being able to find what you're looking for";
 }
 
-async function readMetaFile (section, subsection) {
-  const metaPath = ["content",section,subsection,"meta.json"].filter(Boolean).join("/");
-  console.log(metaPath);
-  const res = await fetch(metaPath);
-  return await res.json();
+function buildAboutMe() {
+  return `
+  <section class="section about-me">
+    <div class="about-container">
+      <img
+        src="https://www.gravatar.com/avatar/e48bcf18380a4aa636d620c535b02d03?s=120"
+        alt="Jeremy"
+        class="about-avatar"
+      />
+      <div class="about-text">
+        <h2 class="section-title">About Me</h2>
+        <p>Hey, I'm Jeremy — I write about programming, Steam Deck hacks, interesting convos with my family, and cool stuff I list on eBay.</p>
+        <div class="social-links">
+          <a href="https://bsky.app/profile/YOUR_HANDLE.bsky.social" target="_blank" aria-label="BlueSky">
+            <img src="/images/bluesky.svg" alt="BlueSky" />
+          </a>
+          <a href="https://github.com/flare576" target="_blank" aria-label="GitHub">
+            <img src="/images/github.svg" alt="GitHub" />
+          </a>
+          <a href="https://www.ebay.com/usr/flare576" target="_blank" aria-label="eBay">
+            <img src="/images/ebay.svg" alt="eBay" />
+          </a>
+          <a href="https://www.linkedin.com/in/jeremy-scherer-4268b232" target="_blank" aria-label="LinkedIn">
+            <img src="/images/linkedin.svg" alt="LinkedIn" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+`;
 }
 
-async function buildSection(section, subsection) {
-  const {title, description, subsections, entries } = await readMetaFile(section, subsection);
-  let html = `<div>${title}</div>`;
-  if (subsections) {
-    for (const subsection of subsections) {
-      html += await buildSection(section, subsection);
-    }
-  }
-  return html;
-}
-
-
-async function loadHomepage() {
+async function renderHomepage() {
   // todo: render the personal section
-  let html = "this is you";
+  let html = buildAboutMe();;
   const { sections } = await readMetaFile();
   for (const section of sections) {
     html += await buildSection(section);
@@ -128,30 +194,40 @@ async function loadHomepage() {
   document.getElementById('content').innerHTML = html;
 }
 
-async function loadSection(section, subsection) {
-  document.getElementById('content').innerHTML = buildSection(section, subsection);;
+async function renderSubsection(section, subsection) {
+  const { title, description, subsections, entries } = await readMetaFile(section, subsection);
+  // For now, re-use the section styling when you load a subsection
+  let html = `<section class="section">`;
+  html += `<h2 class="section-title">${title}</h2>`;
+
+  if (entries && entries.length > 0) {
+    html += `<div class="entries">`;
+    for (const entry of entries) {
+      html += await buildEntry(section, subsection, entry);
+    }
+    html += `</div>`;
+  }
+
+  html += `</section>`;
+  document.getElementById('content').innerHTML = html;
 }
 
-async function loadPage() {
+async function renderPage() {
   const theHash = window.location.hash.replace(/^[^\w]+/, '');
   const pathParts = theHash.split('/').filter(Boolean);
-  const [section, subsection, post] = pathParts;
+  const [section, subsection, entry] = pathParts;
   try {
-    if (post) {
-      await loadMarkdown(section, subsection, post);
+    if (entry) {
+      await renderMarkdown(section, subsection, entry);
     } else if (!subsection) {
-      if (!section) {
-        // The root, the root, the root is on fire
-        await loadHomepage();
-      } else {
-        await loadSection(section);
-      }
+      await renderHomepage();
     } else {
       try {
-        await loadSection(section, subsection);
+        await renderSubsection(section, subsection);
       } catch (err) {
-        // Huh. Well, maybe this actually a post without a subsection
-        await loadMarkdown(section, subsection);
+        console.log(err);
+        // Huh. Well, maybe this actually a entry without a subsection
+        await renderMarkdown(section, subsection);
       }
     }
   } catch (err) {
@@ -160,4 +236,8 @@ async function loadPage() {
   }
 }
 
-loadPage();
+window.addEventListener('hashchange', () => {
+  window.scrollTo(0, 0);
+  renderPage();
+});
+renderPage();

@@ -1,0 +1,126 @@
+#!/bin/bash
+version=0.0.1
+usage="$(basename "$0") [-hvsuetda] [<content>]
+Add a new section, subsection, or entry to your site. You're going to need jq.
+
+-h[Help]          Prints this message, then exits
+-v[Version]       Prints this version info, then exits
+-s[Section)       The Section you're working with
+-e[Entry]         The filename for the entry
+-u[sUbsection]    The subsection your working with
+-t[Title]         The title of the entity
+-d[Description]   The description of the entity
+-a[tAg]           No spaces, use commas or multiple -t
+<content>         Start your post!
+"
+
+while getopts ':hvs:u:e:t:d:a:' option; do
+  case "$option" in
+    h) echo "$usage"
+      exit
+      ;;
+    v) echo "version $version"
+      exit
+      ;;
+    s) section="$OPTARG"
+      ;;
+    u) subsection="$OPTARG"
+      ;;
+    e) entry="$OPTARG"
+      ;;
+    t) title="$OPTARG"
+      ;;
+    d) description="$OPTARG"
+      ;;
+    a) tags+=( ${OPTARG//,/ } )
+      ;;
+    *) echo "Unknown Option '$OPTARG', exiting"
+      exit
+      ;;
+  esac
+done
+shift $((OPTIND -1))
+
+if [ -n "$1" ]; then
+  content="$1"
+fi
+
+if [ -z "$section" ]; then
+  echo "You must provide a section"
+  exit 1
+fi
+
+filePath="content/${section}"
+if [ ! -d "$filePath" ] && [ -n "$entry$subsection" ]; then
+  echo "$section doesn't exist yet, make that first! "
+  exit 1
+fi
+
+if [[ -n "${tags[*]}" ]]; then
+  tagString=$(printf '"%s",' "${tags[@]}")
+  tagString=${tagString::-1}
+fi
+
+if [ -n "$entry" ]; then
+  if [ -n "$subsection" ]; then
+    filePath="$filePath/${subsection}"
+    if [ ! -d "$filePath" ]; then
+      echo "$subsection doesn't exist yet, make that first! "
+      exit 1
+    fi
+  fi
+  entryPath="${filePath}/entries/${entry}.md"
+  if [ -f "$filePath" ]; then
+    echo "$entry already exists! Exiting! "
+    exit 1
+  fi
+  metaPath="${filePath}/meta.json"
+
+  jq '.entries += ["'"$entry"'"]' "$metaPath" > /tmp/addNew && mv /tmp/addNew "$metaPath"
+  cat > "$entryPath" <<EOF
+---
+title: "$title"
+date: $(date)
+published: false
+tags: ["programming","ai","ideation"]
+---
+$content
+EOF
+vi "$entryPath"
+elif [ -n "$subsection" ]; then
+  metaPath="${filePath}/meta.json"
+  filePath="${filePath}/$subsection"
+  if [ -d "$filePath" ]; then
+    echo "$subsection already exists! Exiting! "
+    exit 1
+  fi
+  jq '.subsections += ["'"$subsection"'"]' "$metaPath" > /tmp/addNew && mv /tmp/addNew "$metaPath"
+
+  mkdir "$filePath"
+  mkdir "$filePath/entries"
+  cat > "$filePath/meta.json" <<EOF
+{
+  "title": "$title",
+  "description": "$description",
+  "entries": []
+}
+EOF
+else
+  if [ -d "$filePath" ]; then
+    echo "$section already exists! Exiting! "
+    exit 1
+  fi
+  metaPath="content/meta.json"
+  jq '.sections += ["'"$section"'"]' "$metaPath" > /tmp/addNew && mv /tmp/addNew "$metaPath"
+  mkdir "$filePath"
+  mkdir "$filePath/entries" # Just in case I want a section without subsections
+  cat > "$filePath/meta.json" <<EOF
+{
+  "title": "$title",
+  "description": "$description",
+  "subsections": [],
+  "entries": []
+}
+EOF
+fi
+
