@@ -23,7 +23,6 @@ header, footer {
   transform: scale(1.01);
 }
 
-
 /* Make pre blocks wrap instead of scrolling */
 pre {
   white-space: pre-wrap; /* Enables line wrapping */
@@ -78,6 +77,21 @@ pre code.language-assistant {
   border-bottom: 2px solid #475569;
   padding-bottom: 0.5rem;
 }
+
+.section-description {
+  font-size: 1rem;
+  color: #cbd5e1;
+  margin-top: 0.25rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.subsection-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #f8fafc;
+}
+
 
 .subsections,
 .entries {
@@ -187,6 +201,58 @@ pre code.language-assistant {
   transform: scale(1.1);
   color: #f1f5f9;
 }
+
+.subsection-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 1rem;
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  text-decoration: none;
+  gap: 1rem;
+}
+
+.subsection-card:hover {
+  background-color: #334155;
+  transform: scale(1.01);
+}
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.external-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #f8fafc;
+}
+
+.subsection-description {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+
+.external-icon {
+  width: 1.2em;
+  height: 1.2em;
+  flex-shrink: 0;
+  color: #94a3b8;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.subsection-card.external:hover .external-icon {
+  transform: scale(1.1);
+  color: #f1f5f9;
+}
+
 
 @media (max-width: 600px) {
   pre {

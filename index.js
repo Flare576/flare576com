@@ -38,20 +38,33 @@ async function buildSection(section) {
 
   let html = '<section class="section">';
   html += `<h2 class="section-title">${title}</h2>`;
+  if (description) {
+    html += `<p class="section-description">${description}</p>`;
+  }
 
   if (subsections && subsections.length > 0) {
     html += '<div class="subsections">';
     for (const subsection of subsections) {
-      const { title, description, subsections, external } = await readMetaFile(section, subsection);
+      const { title, description, external } = await readMetaFile(section, subsection);
       if (external) {
         html += `
-          <a href="${external}" target="_blank" class="subsection-card external">
-            <span class="external-title">${title}</span>
-            ${externalSvg}
-          </a>
-        `;
+    <a href="${external}" target="_blank" class="subsection-card external">
+      <div class="card-content">
+        <span class="subsection-title">${title}</span>
+        <p class="subsection-description">${description || ''}</p>
+      </div>
+      ${externalSvg}
+    </a>
+  `;
       } else {
-        html += `<a href="#/${section}/${subsection}" class="subsection-card">${title}</a>`;
+        html += `
+    <a href="#/${section}/${subsection}" class="subsection-card">
+      <div class="card-content">
+        <span class="subsection-title">${title}</span>
+        <p class="subsection-description">${description || ''}</p>
+      </div>
+    </a>
+  `;
       }
     }
     html += '</div>';
@@ -186,10 +199,13 @@ async function renderHomepage() {
 }
 
 async function renderSubsection(section, subsection) {
-  const { title, description, subsections, entries } = await readMetaFile(section, subsection);
+  const { title, description, entries } = await readMetaFile(section, subsection);
   // For now, re-use the section styling when you load a subsection
   let html = '<section class="section">';
   html += `<h2 class="section-title">${title}</h2>`;
+  if (description) {
+    html += `<p class="section-description">${description}</p>`;
+  }
 
   if (entries && entries.length > 0) {
     html += '<div class="entries">';
