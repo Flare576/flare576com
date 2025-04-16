@@ -8,6 +8,16 @@ const externalSvg = `
   </svg>
 `;
 
+function setupBackLinkBehavior() {
+  const container = document.querySelector('.back-link-container');
+  if (!container) return;
+
+  window.addEventListener('scroll', () => {
+    const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
+    container.classList.toggle('centered', nearBottom);
+  });
+}
+
 async function readMetaFile (section, subsection) {
   const metaPath = ['content',section,subsection,'meta.json'].filter(Boolean).join('/');
   console.log(metaPath);
@@ -189,11 +199,12 @@ async function renderMarkdown(section, subsection, entry) {
     : `#/${section}`;
 
   html += `
-    <div class="back-link">
-      <a href="${backLinkHref}">Back to ${parentMeta.title} ↑</a>
-    </div>
-  `;
+  <div class="back-link-container">
+    <a href="${backLinkHref}" class="back-link">Back to ${parentMeta.title} ↑</a>
+  </div>
+`;
   document.getElementById('content').innerHTML = html;
+  setupBackLinkBehavior();
 }
 
 function renderError(num) {
