@@ -1,6 +1,6 @@
 ---
-title: "AI Helped me build this site"
-date: 2025-04-15
+title: "AI Helped Me Build This Site"
+date: Wed Apr 16 11:10:49 CDT 2025
 published: false
 tags: ["programming","ai","ideation"]
 ---

@@ -58,7 +58,8 @@ fi
 
 if [[ -n "${tags[*]}" ]]; then
   tagString=$(printf '"%s",' "${tags[@]}")
-  tagString=${tagString::-1}
+  # Remove trailing comma
+  tagString=${tagString::${#tagString}-1}
 fi
 
 if [ -n "$entry" ]; then
@@ -82,7 +83,7 @@ if [ -n "$entry" ]; then
 title: "$title"
 date: $(date)
 published: false
-tags: ["programming","ai","ideation"]
+tags: [$tagString]
 ---
 $content
 EOF

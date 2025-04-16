@@ -31,6 +31,28 @@ a {
   transform: scale(1.01);
 }
 
+/* Error Page */
+.error-message {
+  text-align: center;
+  margin-top: 4rem;
+  padding: 2rem;
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.3);
+}
+
+.error-message h2 {
+  color: #f87171; /* soft red */
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.error-message p {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+}
+
 /* ==========================================================================
    Code Blocks & Markdown Content
    ========================================================================== */
@@ -134,6 +156,14 @@ pre code.language-assistant {
 }
 
 /* Entry Content */
+
+.entry-date {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  font-style: italic;
+  text-align: right;
+  margin-top: 2rem;
+}
 
 .entry-card h3 {
   margin: 0;

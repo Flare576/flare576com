@@ -8,9 +8,22 @@ const externalSvg = `
   </svg>
 `;
 
+const timeTerms = [
+  'Stardate', 'Chronocode', 'Timecode', 'Galactic Date', 'Log Entry',
+  'Cycle', 'Pulse', 'Tick', 'Run', 'Riftmark', 'Starclock', 'Spacetime Mark',
+  'Neurostamp', 'Orbital Time', 'Chronostamp', 'Fluxdate', 'Temporal Mark',
+  'DimensioStamp', 'Aeonpoint', 'Epoch Index', 'WarpTime'
+];
+
+function getRandomTimeLabel() {
+  return timeTerms[Math.floor(Math.random() * timeTerms.length)];
+}
+
 function setupBackLinkBehavior() {
   const container = document.querySelector('.back-link-container');
-  if (!container) return;
+  if (!container) {
+    return;
+  }
 
   window.addEventListener('scroll', () => {
     const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
@@ -18,10 +31,18 @@ function setupBackLinkBehavior() {
   });
 }
 
+async function safeFetch(url) {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status}: ${url}`);
+  }
+  return res;
+}
+
 async function readMetaFile (section, subsection) {
   const metaPath = ['content',section,subsection,'meta.json'].filter(Boolean).join('/');
   console.log(metaPath);
-  const res = await fetch(metaPath);
+  const res = await safeFetch(metaPath);
   return await res.json();
 }
 
@@ -38,7 +59,7 @@ async function readEntry (section, subsection, entry) {
     }
   }
 
-  const res = await fetch(entryPath);
+  const res = await safeFetch(entryPath);
   const raw = await res.text();
   return parseFrontMatter(raw);
 }
@@ -190,11 +211,14 @@ async function renderMarkdown(section, subsection, entry) {
   };
   marked.use({ renderer });
 
-  let html = marked.parse(body);
+  const dateLabel = getRandomTimeLabel();
+  let html = `<p class="entry-date">${dateLabel}: ${metadata.date}</p>`;
+
+  html += marked.parse(body);
 
   const parentMeta = await readMetaFile(section, subsection);
 
-  let backLinkHref = subsection
+  const backLinkHref = subsection
     ? `#/${section}/${subsection}`
     : `#/${section}`;
 
@@ -207,8 +231,32 @@ async function renderMarkdown(section, subsection, entry) {
   setupBackLinkBehavior();
 }
 
-function renderError(num) {
-  document.getElementById('content').innerHTML = 'Something witty about not being able to find what you\'re looking for';
+function renderError(code) {
+  let message;
+
+  switch (code) {
+  case 404:
+    message = 'Huh. That doesn’t seem to exist. Perhaps lost in a wormhole?';
+    break;
+  case 500:
+    message = 'Something broke — and it wasn’t your fault. Probably.';
+    break;
+  case 403:
+    message = 'You don’t have access to that. Or maybe it doesn’t have access to you.';
+    break;
+  case 418:
+    message = 'Error 418: I’m a teapot. No further explanation needed.';
+    break;
+  default:
+    message = 'An unknown anomaly occurred. Try refreshing your warp core.';
+  }
+
+  document.getElementById('content').innerHTML = `
+    <div class="error-message">
+      <h2>Error ${code}</h2>
+      <p>${message}</p>
+    </div>
+  `;
 }
 
 async function renderHomepage() {
@@ -223,7 +271,6 @@ async function renderHomepage() {
 
 async function renderSubsection(section, subsection) {
   const { title, description, entries } = await readMetaFile(section, subsection);
-  // For now, re-use the section styling when you load a subsection
   let html = '<section class="section">';
   html += `<h2 class="section-title">${title}</h2>`;
   if (description) {
