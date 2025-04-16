@@ -30,7 +30,7 @@ lftp -u "$CMS_FTP_USER","$CMS_FTP_PASS" sftp://$CMS_FTP_HOST:$CMS_FTP_PORT <<EOF
 lcd $CMS_LOCAL_DIR
 cd $CMS_FTP_REMOTE_DIR
 mirror --reverse --delete --verbose \
-  --exclude ^\.git$ \
+  --exclude ^\..*$ \
   --exclude .*\.swp \
   --exclude ^tags$
 bye
