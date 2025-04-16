@@ -1,7 +1,7 @@
 ---
 title: "AI Helped Me Build This Site"
 date: Wed Apr 16 11:10:49 CDT 2025
-published: false
+published: true
 tags: ["programming","ai","ideation"]
 ---
 

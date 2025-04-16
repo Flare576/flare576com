@@ -1,12 +1,12 @@
 ---
 title: "Better Than I Know Myself"
 date: Wed Apr 16 11:25:31 CDT 2025
-published: false
+published: true
 tags: ["programming","ai","funny"]
 ---
 # It Wasn't What I Asked For
 
-But it was what I wanted
+But it was what I wanted.
 
 ```flare
 Ok, error handling. I'd like a clean switch statement for renderError, but my brain often mixes Ruby, JS, Java, etc. syntax. What's the cleanest way to get a string then write it to the content block based on the number passed in?

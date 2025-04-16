@@ -61,7 +61,11 @@ async function readEntry (section, subsection, entry) {
 
   const res = await safeFetch(entryPath);
   const raw = await res.text();
-  return parseFrontMatter(raw);
+  const parsed = parseFrontMatter(raw);
+  if (window.location.host.startsWith("localhost:") || parsed.metadata?.published) {
+    return parsed;
+  }
+  return {};
 }
 
 async function buildSection(section) {
@@ -115,6 +119,10 @@ async function buildSection(section) {
 
 async function buildEntry(section, subsection, entry) {
   const { metadata } = await readEntry(section, subsection, entry);
+
+  if (!metadata) { // either not there, or not published, just skip
+    return '';
+  }
 
   const entryPath = subsection
     ? `#/${section}/${subsection}/${entry}`
@@ -194,6 +202,11 @@ function parseFrontMatter (raw) {
 
 async function renderMarkdown(section, subsection, entry) {
   const { metadata, body } = await readEntry(section, subsection, entry);
+  if (!metadata) {
+    // It was there (or we'd have thrown an error), but it's not published yet. Sneaky
+    renderError(403);
+    return;
+  }
   updateMetaTags(metadata);
 
   const renderer = {
