@@ -147,6 +147,32 @@ pre code.language-assistant {
   margin-top: 0.5rem;
 }
 
+.back-link {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background-color: #1e293b;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  z-index: 100;
+}
+
+.back-link a {
+  font-size: 0.95rem;
+  color: #93c5fd;
+  text-decoration: none;
+  background-color: #1e293b;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.back-link a:hover {
+  background-color: #334155;
+  transform: translateY(-2px);
+}
+
 /* Subsection Card Content Layout */
 
 .subsection-card {

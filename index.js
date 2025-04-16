@@ -180,7 +180,19 @@ async function renderMarkdown(section, subsection, entry) {
   };
   marked.use({ renderer });
 
-  const html = marked.parse(body);
+  let html = marked.parse(body);
+
+  const parentMeta = await readMetaFile(section, subsection);
+
+  let backLinkHref = subsection
+    ? `#/${section}/${subsection}`
+    : `#/${section}`;
+
+  html += `
+    <div class="back-link">
+      <a href="${backLinkHref}">Back to ${parentMeta.title} ↑</a>
+    </div>
+  `;
   document.getElementById('content').innerHTML = html;
 }
 
