@@ -163,6 +163,31 @@ pre code.language-assistant {
   filter: brightness(1) invert(0.8);
 }
 
+.subsection-card.external {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.subsection-card.external .external-title {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.external-icon {
+  width: 1.2em;
+  height: 1.2em;
+  color: #94a3b8;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.subsection-card.external:hover .external-icon {
+  transform: scale(1.1);
+  color: #f1f5f9;
+}
+
 @media (max-width: 600px) {
   pre {
     max-width: 100%;

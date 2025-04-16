@@ -1,3 +1,13 @@
+const externalSvg = `
+  <svg xmlns="http://www.w3.org/2000/svg" class="external-icon" viewBox="0 0 24 24" fill="none">
+    <path d="M10.0002 5H8.2002C7.08009 5 6.51962 5 6.0918 5.21799C5.71547 5.40973 5.40973 5.71547 5.21799 6.0918C5 6.51962 5 7.08009 5 8.2002V15.8002C5 16.9203 5 17.4801 5.21799 17.9079C5.40973 18.2842 5.71547 18.5905 6.0918 18.7822C6.5192 19 7.07899 19 8.19691 19H15.8031C16.921 19 17.48 19 17.9074 18.7822C18.2837 18.5905 18.5905 18.2839 18.7822 17.9076C19 17.4802 19 16.921 19 15.8031V14M20 9V4M20 4H15M20 4L13 11"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"/>
+  </svg>
+`;
+
 async function readMetaFile (section, subsection) {
   const metaPath = ["content",section,subsection,"meta.json"].filter(Boolean).join("/");
   console.log(metaPath);
@@ -6,9 +16,14 @@ async function readMetaFile (section, subsection) {
 }
 
 async function readEntry (section, subsection, entry) {
-  let entryPath = `content/${section}/`;
-  if (entry) entryPath += `${subsection}/entries/${entry}.md`
-  else entryPath += `/entries/${subsection}.md`
+  let entryPath;
+  if (!subsection) {
+    entrypath=`${section}.md`;
+  } else {
+    entryPath = `content/${section}/`;
+    if (entry) entryPath += `${subsection}/entries/${entry}.md`
+    else entryPath += `/entries/${subsection}.md`
+  }
 
   const res = await fetch(entryPath);
   const raw = await res.text();
@@ -25,8 +40,17 @@ async function buildSection(section) {
   if (subsections && subsections.length > 0) {
     html += `<div class="subsections">`;
     for (const subsection of subsections) {
-      const { title, description, subsections, entries } = await readMetaFile(section, subsection);
-      html += `<a href="#/${section}/${subsection}" class="subsection-card">${title}</a>`;
+      const { title, description, subsections, external } = await readMetaFile(section, subsection);
+      if (external) {
+        html += `
+          <a href="${external}" target="_blank" class="subsection-card external">
+            <span class="external-title">${title}</span>
+            ${externalSvg}
+          </a>
+        `;
+      } else {
+        html += `<a href="#/${section}/${subsection}" class="subsection-card">${title}</a>`;
+      }
     }
     html += `</div>`;
   }
@@ -152,41 +176,9 @@ function renderError(num) {
     document.getElementById('content').innerHTML = "Something witty about not being able to find what you're looking for";
 }
 
-function buildAboutMe() {
-  return `
-  <section class="section about-me">
-    <div class="about-container">
-      <img
-        src="https://www.gravatar.com/avatar/e48bcf18380a4aa636d620c535b02d03?s=120"
-        alt="Jeremy"
-        class="about-avatar"
-      />
-      <div class="about-text">
-        <h2 class="section-title">About Me</h2>
-        <p>Hey, I'm Jeremy — I write about programming, Steam Deck hacks, interesting convos with my family, and cool stuff I list on eBay.</p>
-        <div class="social-links">
-          <a href="https://bsky.app/profile/YOUR_HANDLE.bsky.social" target="_blank" aria-label="BlueSky">
-            <img src="/images/bluesky.svg" alt="BlueSky" />
-          </a>
-          <a href="https://github.com/flare576" target="_blank" aria-label="GitHub">
-            <img src="/images/github.svg" alt="GitHub" />
-          </a>
-          <a href="https://www.ebay.com/usr/flare576" target="_blank" aria-label="eBay">
-            <img src="/images/ebay.svg" alt="eBay" />
-          </a>
-          <a href="https://www.linkedin.com/in/jeremy-scherer-4268b232" target="_blank" aria-label="LinkedIn">
-            <img src="/images/linkedin.svg" alt="LinkedIn" />
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-`;
-}
-
 async function renderHomepage() {
-  // todo: render the personal section
-  let html = buildAboutMe();;
+  document.getElementById('about-me').style.display = "block";
+  let html = "";
   const { sections } = await readMetaFile();
   for (const section of sections) {
     html += await buildSection(section);
@@ -213,6 +205,7 @@ async function renderSubsection(section, subsection) {
 }
 
 async function renderPage() {
+  document.getElementById('about-me').style.display = "none";
   const theHash = window.location.hash.replace(/^[^\w]+/, '');
   const pathParts = theHash.split('/').filter(Boolean);
   const [section, subsection, entry] = pathParts;
