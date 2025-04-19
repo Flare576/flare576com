@@ -82,9 +82,10 @@ I hit enter and wait for some sort of ASCII mess to show up on my screen...
 
 Huh. That's... actually pretty great. I was imagining side navs and hero images and... But this is... simple. I mean, there's some inconsistency between the sub-categories, headings, etc., but if I look at those as "options" instead of "mistakes," I get some pretty great ideas. In fact, I think I see the folder structure already
 
-```flare
+````flare
 Ok, I think I understand how I can make that work from a JavaScript and folder approach... I'm thinking
 
+```
 root/
 ├─ content/
 │  ├─ steamDeck/
@@ -100,18 +101,19 @@ root/
 ├─ index.js
 ├─ main.css
 ├─ index.html
+```
 
 Where index.js would parse through the folder structure, read the title/description for each folder from meta.js, and then render the cards on the main page.... I think I'm building more of a Single-page-application here, and there's two things I noticed that I don't have good solutions for:
 
 1. When do the md files get converted into HTML?
 2. Where does the system get the pageName or other meta type of info for those MD files? Adding it to the top-level folder's meta.js would allow a lot of control over when articles go live, but it's also likely a very manual process...
-```
+````
 
 # The Answers May Surprise You
 
 Here's where the AI legitimately surprises me, though.
 
-```assistant
+````assistant
 Let's dive into your questions
 
 ✅ 1. When Do the .md Files Get Converted Into HTML?
@@ -121,12 +123,13 @@ Client-Side Markdown Rendering
 
 You can use a small JS library like:
 
-    Marked – fast and popular
-    markdown-it – extensible and robust
+- Marked – fast and popular
+- markdown-it – extensible and robust
 
 In your index.js, you’d fetch each .md file via fetch() or XMLHttpRequest, then run it through the parser and inject it into your DOM.
 Example:
 
+```javascript
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
 
 fetch('content/steamDeck/entries/article1.md')
@@ -135,6 +138,7 @@ fetch('content/steamDeck/entries/article1.md')
     const html = marked(md);
     document.querySelector('#content').innerHTML = html;
   });
+```
 
 This lets you keep your articles as raw Markdown and only convert them as needed in the browser — no pre-compiling needed.
 
@@ -148,7 +152,7 @@ This is what you mentioned — and it's actually very clean.
 Option B: Use Front Matter in Each Markdown File
 
 This is popular in static site generators (e.g. Eleventy, Hugo, etc.).
-```
+````
 
 I... didn't ask for client-side rendering. I didn't ask about "Front Matter." Hell, I've never even **HEARD** of Front Matter.
 
@@ -160,16 +164,19 @@ But they're both **EXACTLY** what I need for this. I prepare to start to search 
 I'm drafting my first article to test the idea and realize I'm probably going to want a little formatting control - for example, I'm going to have my messages to you and your responses back, and it'd be great to be able to color-code them. Does markdown (or either of the tools you recommended for client-side rendering) support in-markdown styling?
 ```
 
-```assistant
+````assistant
 ✅ 1. Use HTML Directly in Markdown
 
 Markdown allows raw HTML by default, so you can do this:
 
-<p class="user-msg">Holy smokes, "Front Matter" looks amazing...</p>
-<p class="assistant-msg">Yes! You’re in luck — Markdown doesn’t support styling out of the box, but...</p>
+```html
+&#x3C;p class=&#x22;user-msg&#x22;&#x3E;Holy smokes, &#x22;Front Matter&#x22; looks amazing...&#x3C;/p&#x3E;
+&#x3C;p class=&#x22;assistant-msg&#x22;&#x3E;Yes! You&#x2019;re in luck &#x2014; Markdown doesn&#x2019;t support styling out of the box, but...&#x3C;/p&#x3E;
+```
 
 Then in main.css:
 
+```css
 .user-msg {
   background-color: #1e3a8a; /* blue-ish */
   color: white;
@@ -186,6 +193,7 @@ Then in main.css:
   margin-bottom: 1em;
 }
 ```
+````
 
 Ehhh, if I wanted to write HTML, I'd just write HTML... that idea isn't gre...
 
@@ -194,16 +202,19 @@ Ehhh, if I wanted to write HTML, I'd just write HTML... that idea isn't gre...
 
 Another clean approach is to repurpose code blocks for styled messages:
 
-```user
+```markdown
+&#x60;&#x60;&#x60;user
 Holy smokes, "Front Matter" looks amazing...
-```
+&#x60;&#x60;&#x60;
 
-```assistant
+&#x60;&#x60;&#x60;assistant
 Yes! You’re in luck — Markdown doesn’t support styling out of the box...
+&#x60;&#x60;&#x60;
 ```
 
 Then use CSS:
 
+```css
 pre code.language-user {
   background-color: #1e3a8a;
   color: #ffffff;
@@ -221,6 +232,7 @@ pre code.language-assistant {
   display: block;
   margin-bottom: 1em;
 }
+```
 
 And make sure your renderer (e.g., marked) isn’t stripping out language classes — which it usually doesn’t.
 ````
