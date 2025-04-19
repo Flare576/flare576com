@@ -83,15 +83,34 @@ pre code.language-assistant {
   overflow-wrap: break-word;
 }
 
-pre code.language-flare {
-  background-color: #1e3a8a;
-  color: #ffffff;
+pre {
+  position: relative;
+  background-color: #1e293b;
+  padding-top: 2.2rem; /* room for label */
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-pre code.language-assistant {
-  background-color: #334155;
-  color: #ffffff;
+.code-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #0f172a;
+  color: #facc15;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #475569;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
+
+.code-label[data-lang="bash"]       { color: #00f6b0; }
+.code-label[data-lang="javascript"] { color: #facc15; }
+.code-label[data-lang="flare"]      { color: #fdb714; }
+.code-label[data-lang="assistant"]  { color: #93c5fd; }
 
 /* Regular links */
 #content a {

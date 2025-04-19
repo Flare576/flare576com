@@ -30,6 +30,24 @@ function setupBackLinkBehavior() {
   });
 }
 
+function labelCodeBlocks() {
+  document.querySelectorAll('pre > code[class^="language-"]').forEach(code => {
+    const langMatch = code.className.match(/language-([a-z0-9\-]+)/i);
+    if (!langMatch) return;
+
+    const lang = langMatch[1];
+    const label = document.createElement('div');
+    label.className = 'code-label';
+    label.dataset.lang = lang.toLowerCase();
+    label.textContent = lang.charAt(0).toUpperCase() + lang.slice(1);
+
+    const pre = code.parentElement;
+
+    // Insert label as first child inside <pre>
+    pre.insertBefore(label, code);
+  });
+}
+
 async function safeFetch(url) {
   const res = await fetch(url);
   if (!res.ok) {
@@ -246,6 +264,7 @@ async function renderMarkdown(section, subsection, entry) {
 `;
   document.getElementById('content').innerHTML = html;
   setupBackLinkBehavior();
+  labelCodeBlocks();
   Prism.highlightAll();
 }
 
@@ -308,6 +327,7 @@ async function renderSubsection(section, subsection) {
 }
 
 async function renderPage() {
+  document.getElementById('content').innerHTML = '';
   document.getElementById('about-me').style.display = 'none';
   const theHash = window.location.hash.replace(/^[^\w]+/, '');
   const pathParts = theHash.split('/').filter(Boolean);
