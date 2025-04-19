@@ -54,39 +54,7 @@ function renderError(code) {
 ---
 
 ## ✅ Optional CSS (to make it classy)
-
-```css
-.error-message {
-  text-align: center;
-  margin-top: 4rem;
-  padding: 2rem;
-  background-color: #1e293b;
-  color: #e2e8f0;
-  border-radius: 8px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.3);
-}
-
-.error-message h2 {
-  color: #f87171; /* soft red */
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.error-message p {
-  font-size: 1.1rem;
-  color: #cbd5e1;
-}
-```
-
----
-
-## 🧠 Notes
-
-- `switch` uses `break` to prevent fallthrough — classic JS quirk
-- You can return early instead of using `let message`, but this layout is easier to expand or debug later
-- The `default` case is like Ruby's `else`
-
----
-
-Let me know if you want to animate the error panel in (like a fade or bounce) or show a little “go home” link for lost explorers.
+...
 ````
+
+I didn't even need to waste my time being clever, and lord knows I need all the help I can get being _classy_.

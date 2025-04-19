@@ -3,6 +3,8 @@
   "description": "You'll only be replaced if you can't use the modern tools",
   "entries": [
     "thisSite",
-    "better_than_i_know_myself"
+    "better-than-I-know-myself",
+    "cursor-1",
+    "shellcheck-tip-suppression"
   ]
 }

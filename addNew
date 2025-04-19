@@ -6,7 +6,7 @@ Add a new section, subsection, or entry to your site. You're going to need jq.
 -h[Help]          Prints this message, then exits
 -v[Version]       Prints this version info, then exits
 -s[Section)       The Section you're working with
--e[Entry]         The filename for the entry
+-e[Entry]         Flag to indicate you want a new Entry
 -u[sUbsection]    The subsection your working with
 -t[Title]         The title of the entity
 -d[Description]   The description of the entity
@@ -14,7 +14,7 @@ Add a new section, subsection, or entry to your site. You're going to need jq.
 <content>         Start your post!
 "
 
-while getopts ':hvs:u:e:t:d:a:' option; do
+while getopts ':hves:u:t:d:a:' option; do
   case "$option" in
     h) echo "$usage"
       exit
@@ -26,7 +26,7 @@ while getopts ':hvs:u:e:t:d:a:' option; do
       ;;
     u) subsection="$OPTARG"
       ;;
-    e) entry="$OPTARG"
+    e) entry="true"
       ;;
     t) title="$OPTARG"
       ;;
@@ -50,7 +50,10 @@ if [ -z "$section" ]; then
   exit 1
 fi
 
-filePath="content/${section}"
+# Just jump to the right place
+SCRIPT_DIR="$(dirname "${BASH_SOURCE[0]}")"
+
+filePath="$SCRIPT_DIR/content/${section}"
 if [ ! -d "$filePath" ] && [ -n "$entry$subsection" ]; then
   echo "$section doesn't exist yet, make that first! "
   exit 1
@@ -70,6 +73,13 @@ if [ -n "$entry" ]; then
       exit 1
     fi
   fi
+
+  entry="$(echo "$title" \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed -E 's/[^a-z0-9]+/-/g' \
+    | sed -E 's/^-+|-+$//g'
+  )"
+  echo "$entry"
   entryPath="${filePath}/entries/${entry}.md"
   if [ -f "$filePath" ]; then
     echo "$entry already exists! Exiting! "
