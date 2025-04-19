@@ -61,7 +61,6 @@ pre {
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-x: auto;
-  max-width: 90ch;
   margin: 1.5rem;
   padding: 1rem;
   background-color: #1e293b;
@@ -76,6 +75,14 @@ pre code {
   font-family: 'Fira Code', monospace;
 }
 
+pre code.language-flare,
+pre code.language-assistant {
+  white-space: pre-wrap;
+  word-break: break-word;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
 pre code.language-flare {
   background-color: #1e3a8a;
   color: #ffffff;
@@ -85,6 +92,35 @@ pre code.language-assistant {
   background-color: #334155;
   color: #ffffff;
 }
+
+/* Regular links */
+#content a {
+  color: #93c5fd;
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+#content a:hover {
+  color: #bfdbfe;
+  text-decoration: none;
+}
+
+/* Inline external icon */
+.external-icon-inline {
+  width: 1em;
+  height: 1em;
+  margin-left: 0.25em;
+  vertical-align: middle;
+  color: #94a3b8;
+  transition: transform 0.2s ease;
+}
+
+a:hover .external-icon-inline {
+  transform: scale(1.1);
+  color: #f1f5f9;
+}
+
 
 /* ==========================================================================
    Images

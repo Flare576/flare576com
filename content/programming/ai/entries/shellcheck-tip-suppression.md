@@ -44,7 +44,7 @@ export $(echo "$secret_output" | jq -r '.SecretString' | jq -r 'to_entries|map("
 Sweet, that `2>/dev/null` in there is the sauce that makes it *silently* error instead of *LOUDLY* error, and the check means I'm not flooding my environment with nonsense... But what does `shellcheck` think?
 
 ```bash
-☕  projects/myScripts   feature-branch±  shellcheck runner.sh
+☕ ▶ projects/myScripts ▶ ⎇ feature-branch± ▶ shellcheck runner.sh
 
 In runner.sh line 79:
   if [ $? -ne 0 ] || [ -z "$secret_output" ]; then

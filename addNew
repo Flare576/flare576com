@@ -50,7 +50,7 @@ if [ -z "$section" ]; then
   exit 1
 fi
 
-# Just jump to the right place
+# Find the right folder
 SCRIPT_DIR="$(dirname "${BASH_SOURCE[0]}")"
 
 filePath="$SCRIPT_DIR/content/${section}"

@@ -5,8 +5,7 @@ const externalSvg = `
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"/>
-  </svg>
-`;
+  </svg>`;
 
 const timeTerms = [
   'Stardate', 'Chronocode', 'Timecode', 'Galactic Date', 'Log Entry',
@@ -221,6 +220,11 @@ async function renderMarkdown(section, subsection, entry) {
       out += ' />';
       return out;
     },
+    link ({href, title, text}) {
+      const isExternal = /^https?:\/\//i.test(href);
+      const svgIcon = isExternal ? externalSvg : '';
+      return `<a href="${href}"${isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''}>${text}${svgIcon}</a>`;
+    }
   };
   marked.use({ renderer });
 
@@ -242,6 +246,7 @@ async function renderMarkdown(section, subsection, entry) {
 `;
   document.getElementById('content').innerHTML = html;
   setupBackLinkBehavior();
+  Prism.highlightAll();
 }
 
 function renderError(code) {
