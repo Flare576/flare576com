@@ -242,39 +242,6 @@ async function renderMarkdown(section, subsection, entry) {
   }
   updateMetaTags(metadata);
 
-  const renderer = {
-    image ({href, title, text}) {
-      let out = `<img src="${href}" alt="${text}"`;
-      if (title) {
-        out += ` title="${title}"`;
-      }
-      if (href.includes('/thumbnail/')) {
-        out += ' class="thumbnail"';
-      }
-      out += ' />';
-      return out;
-    },
-    link ({href, title, text}) {
-      const isExternal = /^https?:\/\//i.test(href);
-      const svgIcon = isExternal ? externalSvg : '';
-      return `<a href="${href}"${isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''}>${text}${svgIcon}</a>`;
-    },
-    code ({text, lang}) {
-      if (lang === 'flare' || lang === 'assistant') {
-      const innerHTML = marked.parse(text.trim());
-      return `
-        <div class="dialog-block ${lang}">
-          ${innerHTML}
-        </div>
-      `;
-    }
-
-      // fallback to Prism style blocks
-      return `<pre><code class="language-${lang}">${text}</code></pre>`;
-    },
-  };
-  marked.use({ renderer });
-
   const dateLabel = getRandomTimeLabel();
   let html = `<p class="entry-date">${dateLabel}: ${metadata.date}</p>`;
 
@@ -381,8 +348,44 @@ async function renderPage() {
   }
 }
 
+function enhanceMarked() {
+  const renderer = {
+    image ({href, title, text}) {
+      let out = `<img src="${href}" alt="${text}"`;
+      if (title) {
+        out += ` title="${title}"`;
+      }
+      if (href.includes('/thumbnail/')) {
+        out += ' class="thumbnail"';
+      }
+      out += ' />';
+      return out;
+    },
+    link ({href, title, text}) {
+      const isExternal = /^https?:\/\//i.test(href);
+      const svgIcon = isExternal ? externalSvg : '';
+      return `<a href="${href}"${isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''}>${text}${svgIcon}</a>`;
+    },
+    code ({text, lang}) {
+      if (lang === 'flare' || lang === 'assistant') {
+      const innerHTML = marked.parse(text.trim());
+      return `
+        <div class="dialog-block ${lang}">
+          ${innerHTML}
+        </div>
+      `;
+    }
+
+      // fallback to Prism style blocks
+      return `<pre><code class="language-${lang}">${text}</code></pre>`;
+    },
+  };
+  marked.use({ renderer });
+}
+
 window.addEventListener('hashchange', () => {
   window.scrollTo(0, 0);
   renderPage();
 });
+enhanceMarked();
 renderPage();
