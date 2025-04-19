@@ -1,0 +1,112 @@
+#!/bin/bash
+version=0.0.1
+usage="$(basename "$0") [-hve] [<content>]
+Post to Bluesky, optionally pre-format your post
+
+-h[Help]          Prints this message, then exits
+-v[Version]       Prints this version info, then exits
+-e[Entry]         Retrieve latest entry information
+"
+
+while getopts ':hve' option; do
+  case "$option" in
+    h) echo "$usage"
+      exit
+      ;;
+    v) echo "version $version"
+      exit
+      ;;
+    e) entry="true"
+      ;;
+    *) echo "Unknown Option '$OPTARG', exiting"
+      exit
+      ;;
+  esac
+done
+shift $((OPTIND -1))
+
+if [ -n "$1" ]; then
+  content="$1"
+fi
+
+# === CONFIG ===
+# These should be set as environment variables:
+# BLUESKY_HANDLE      → domain or IP of your SFTP server
+# BLUESKY_PASSWORD    → your SFTP username
+
+# === VALIDATION ===
+if [[ -z "$BLUESKY_HANDLE" || -z "$BLUESKY_PASSWORD" ]]; then
+  echo "One or more required BLUESKY_* environment variables are missing."
+  echo "Make sure BLUESKY_HANDLE and BLUESKY_PASSWORD are set."
+  exit 1
+fi
+
+# === ANCHOR ===
+cd "$(dirname "${BASH_SOURCE[0]}")"
+
+# === BLUESKY ===
+timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+if [ -n "$entry" ]; then
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS (BSD find + stat)
+    latest_file=$(find content -type f -path "*/entries/*.md" \
+      -exec stat -f "%m %N" {} + 2>/dev/null \
+      | sort -n -r | head -n 1 | cut -d' ' -f2-)
+  else
+    # Linux (GNU find + stat)
+    latest_file=$(find content -type f -path "*/entries/*.md" \
+      -exec stat --format="%Y %n" {} + 2>/dev/null \
+      | sort -n -r | head -n 1 | cut -d' ' -f2-)
+  fi
+
+  echo "DEBUG[latest_file]: [$latest_file]"
+  [[ -f "$latest_file" ]] || echo "ERROR: Not a valid file path."
+
+  slug=$(basename "$latest_file" .md)
+  IFS='/' read -r _ section subsection _ <<< "$latest_file"
+  entry_url="https://flare576.com/#$section/$subsection/$slug"
+  title=$(awk '/^---/{flag=1;next}/^---/{flag=0}flag && /^title:/{print substr($0, index($0,$2))}' "$latest_file")
+  echo "Latest entry: $title ($entry_url)."
+fi
+
+cat > "$timestamp.txt" <<EOF
+$title
+$content
+$entry_url
+EOF
+
+echo "Opening vim, exit with :cq to cancel."
+
+if vi "$timestamp.txt"; then
+  auth_response=$(curl -s -X POST https://bsky.social/xrpc/com.atproto.server.createSession \
+    -H "Content-Type: application/json" \
+    -d '{
+      "identifier": "'"$BLUESKY_HANDLE"'",
+      "password": "'"$BLUESKY_PASSWORD"'"
+    }')
+  access_token=$(echo "$auth_response" | jq -r '.accessJwt')
+  did=$(echo "$auth_response" | jq -r '.did')
+
+  post_text="$(<$timestamp.txt)"
+
+  post_data=$(jq -n \
+    --arg text "$post_text" \
+    --arg time "$timestamp" \
+    --arg type "app.bsky.feed.post" \
+    '{
+      "$type": $type,
+      "text": $text,
+      "createdAt": $time
+    }')
+
+  curl -vs -X POST https://bsky.social/xrpc/com.atproto.repo.createRecord \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $access_token" \
+    -d "$(jq -n \
+      --arg repo "$did" \
+      --argjson record "$post_data" \
+      --arg collection "app.bsky.feed.post" \
+      '{repo: $repo, collection: $collection, record: $record}')"
+  rm "$timestamp.txt"
+fi
+

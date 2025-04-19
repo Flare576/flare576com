@@ -1,4 +1,29 @@
 #!/bin/bash
+version=0.0.1
+usage="$(basename "$0") [-hvp]
+Deploy to the CMS
+
+-h[Help]          Prints this message, then exits
+-v[Version]       Prints this version info, then exits
+-p[Post]          Also initiate a post to BlueSky afterward
+"
+
+while getopts ':hvp' option; do
+  case "$option" in
+    h) echo "$usage"
+      exit
+      ;;
+    v) echo "version $version"
+      exit
+      ;;
+    p) post="true"
+      ;;
+    *) echo "Unknown Option '$OPTARG', exiting"
+      exit
+      ;;
+  esac
+done
+shift $((OPTIND -1))
 
 # === CONFIG ===
 # These should be set as environment variables:
@@ -37,4 +62,9 @@ bye
 EOF
 
 echo "✅ CMS deployment complete via SFTP!"
+
+# === BLUESKY ===
+if [ -n "$post" ]; then
+  ./post -e
+fi
 
