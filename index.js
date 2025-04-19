@@ -36,15 +36,31 @@ function labelCodeBlocks() {
     if (!langMatch) return;
 
     const lang = langMatch[1];
-    const label = document.createElement('div');
-    label.className = 'code-label';
-    label.dataset.lang = lang.toLowerCase();
-    label.textContent = lang.charAt(0).toUpperCase() + lang.slice(1);
-
     const pre = code.parentElement;
 
-    // Insert label as first child inside <pre>
+    // Create label
+    const label = document.createElement('div');
+    label.className = 'code-label';
+    label.textContent = lang.charAt(0).toUpperCase() + lang.slice(1);
+    label.dataset.lang = lang.toLowerCase();
+
+    // Create copy button
+    const button = document.createElement('button');
+    button.className = 'copy-button';
+    button.textContent = 'Copy';
+
+    button.addEventListener('click', () => {
+      navigator.clipboard.writeText(code.textContent).then(() => {
+        button.textContent = 'Copied!';
+        setTimeout(() => button.textContent = 'Copy', 2000);
+      }).catch(err => {
+        console.error('Copy failed:', err);
+        button.textContent = 'Error';
+      });
+    });
+
     pre.insertBefore(label, code);
+    pre.appendChild(button);
   });
 }
 

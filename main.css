@@ -83,14 +83,16 @@ pre code.language-assistant {
   overflow-wrap: break-word;
 }
 
+/* Adjust pre padding to make room for buttons */
 pre {
   position: relative;
-  background-color: #1e293b;
-  padding-top: 2.2rem; /* room for label */
+  padding-top: 2.2rem;
   border-radius: 8px;
+  background-color: #1e293b;
   overflow: hidden;
 }
 
+/* Code block label */
 .code-label {
   position: absolute;
   top: 0;
@@ -104,7 +106,27 @@ pre {
   letter-spacing: 0.05em;
   border-bottom: 1px solid #475569;
   border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+}
+
+/* Copy button */
+.copy-button {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.5rem;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  color: #cbd5e1;
+  background-color: #334155;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+  opacity: 1;
+  background-color: #475569;
 }
 
 .code-label[data-lang="bash"]       { color: #00f6b0; }
