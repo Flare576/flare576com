@@ -20,26 +20,32 @@ But, that doesn't mean you can't tidy up once you're done - I recommend [Shellch
 ````flare
 This bash script explodes whenever aws secret manager returns an error instead of a payload. Can you split it up so that does the aws step, checks for failure, then continues?
 
-```
+```bash
   export $(aws secretsmanager get-secret-value --secret-id my-secret-name | jq -r '.SecretString' | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]')
 ```
 ````
 
-```assistant
+````assistant
 ✅ Improved Bash Script
 
-# Step 1: Attempt to retrieve the secret
+## Step 1: Attempt to retrieve the secret
+```bash
 secret_output=$(aws secretsmanager get-secret-value --secret-id my-secret-name 2>/dev/null)
+```
 
-# Step 2: Check for failure
+## Step 2: Check for failure
+```bash
 if [ $? -ne 0 ] || [ -z "$secret_output" ]; then
   echo "Failed to retrieve secret from AWS Secrets Manager"
   exit 1
 fi
+```
 
-# Step 3: Parse and export the secrets
+## Step 3: Parse and export the secrets
+```bash
 export $(echo "$secret_output" | jq -r '.SecretString' | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]') 
 ```
+````
 
 Sweet, that `2>/dev/null` in there is the sauce that makes it *silently* error instead of *LOUDLY* error, and the check means I'm not flooding my environment with nonsense... But what does `shellcheck` think?
 
@@ -58,7 +64,7 @@ Usually not, but sometimes a developer knows why they are _more right_ than the 
 ````flare
 I never know how to feel about this shell-check warning, but what do you think?
 
-```
+```bash
 ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
 ```
 ````

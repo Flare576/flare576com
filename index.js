@@ -258,7 +258,20 @@ async function renderMarkdown(section, subsection, entry) {
       const isExternal = /^https?:\/\//i.test(href);
       const svgIcon = isExternal ? externalSvg : '';
       return `<a href="${href}"${isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''}>${text}${svgIcon}</a>`;
+    },
+    code ({text, lang}) {
+      if (lang === 'flare' || lang === 'assistant') {
+      const innerHTML = marked.parse(text.trim());
+      return `
+        <div class="dialog-block ${lang}">
+          ${innerHTML}
+        </div>
+      `;
     }
+
+      // fallback to Prism style blocks
+      return `<pre><code class="language-${lang}">${text}</code></pre>`;
+    },
   };
   marked.use({ renderer });
 
