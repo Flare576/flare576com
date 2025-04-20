@@ -29,6 +29,59 @@ if [ -n "$1" ]; then
   content="$1"
 fi
 
+# === HELPERS ===
+get_entry() {
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS (BSD find + stat)
+    latest_file=$(find content -type f -path "*/entries/*.md" \
+      -exec stat -f "%m %N" {} + 2>/dev/null \
+      | sort -n -r | head -n 1 | cut -d' ' -f2-)
+  else
+    # Linux (GNU find + stat)
+    latest_file=$(find content -type f -path "*/entries/*.md" \
+      -exec stat --format="%Y %n" {} + 2>/dev/null \
+      | sort -n -r | head -n 1 | cut -d' ' -f2-)
+  fi
+
+  [[ -f "$latest_file" ]] || echo "ERROR: Not a valid file path."
+
+  slug=$(basename "$latest_file" .md)
+  IFS='/' read -r _ section subsection _ <<< "$latest_file"
+  entry_url="https://flare576.com/#$section/$subsection/$slug"
+  title=$(awk '/^---/{flag=1;next}/^---/{flag=0}flag && /^title:/{print substr($0, index($0,$2))}' "$latest_file")
+  published=$(awk '/^---/{flag=1;next}/^---/{flag=0}flag && /^published:/{print substr($0, index($0,$2))}' "$latest_file")
+  if [ "$published" == "false" ]; then
+    echo "Latest entry not published. Exiting"
+    exit 1
+  fi
+  echo "Latest entry: $title ($entry_url)."
+}
+
+generate_facets() {
+  local text="$1"
+  local facets=()
+  local utf8_text
+  utf8_text=$(echo -n "$text" | iconv -f utf-8 -t utf-8)
+
+  # Use grep-compatible URL pattern (matches most http/https URLs)
+  local url_regex='https?://[^ ]+'
+
+  while read -r url; do
+    # Get byte offsets of each match
+    start=$(printf "%s" "$utf8_text" | grep -b -o "$url" | head -n1 | cut -d: -f1)
+    end=$((start + ${#url}))
+
+    # Append facet object
+    facets+=("{
+      \"index\": {\"byteStart\": $start, \"byteEnd\": $end},
+      \"features\": [{\"\$type\": \"app.bsky.richtext.facet#link\", \"uri\": \"$url\"}]
+    }")
+  done < <(grep -oE "$url_regex" <<< "$utf8_text")
+
+  # Output full facets array as JSON
+  printf '[%s]\n' "$(IFS=,; echo "${facets[*]}")"
+}
+
 # === CONFIG ===
 # These should be set as environment variables:
 # BLUESKY_HANDLE      → domain or IP of your SFTP server
@@ -47,26 +100,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 # === BLUESKY ===
 timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 if [ -n "$entry" ]; then
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS (BSD find + stat)
-    latest_file=$(find content -type f -path "*/entries/*.md" \
-      -exec stat -f "%m %N" {} + 2>/dev/null \
-      | sort -n -r | head -n 1 | cut -d' ' -f2-)
-  else
-    # Linux (GNU find + stat)
-    latest_file=$(find content -type f -path "*/entries/*.md" \
-      -exec stat --format="%Y %n" {} + 2>/dev/null \
-      | sort -n -r | head -n 1 | cut -d' ' -f2-)
-  fi
-
-  echo "DEBUG[latest_file]: [$latest_file]"
-  [[ -f "$latest_file" ]] || echo "ERROR: Not a valid file path."
-
-  slug=$(basename "$latest_file" .md)
-  IFS='/' read -r _ section subsection _ <<< "$latest_file"
-  entry_url="https://flare576.com/#$section/$subsection/$slug"
-  title=$(awk '/^---/{flag=1;next}/^---/{flag=0}flag && /^title:/{print substr($0, index($0,$2))}' "$latest_file")
-  echo "Latest entry: $title ($entry_url)."
+  get_entry
 fi
 
 cat > "$timestamp.txt" <<EOF
@@ -88,18 +122,21 @@ if vi "$timestamp.txt"; then
   did=$(echo "$auth_response" | jq -r '.did')
 
   post_text="$(<$timestamp.txt)"
+  facets_json=$(generate_facets "$post_text")
 
   post_data=$(jq -n \
     --arg text "$post_text" \
     --arg time "$timestamp" \
     --arg type "app.bsky.feed.post" \
+    --argjson facets "$facets_json" \
     '{
       "$type": $type,
       "text": $text,
-      "createdAt": $time
+      "createdAt": $time,
+      "facets": $facets
     }')
 
-  curl -vs -X POST https://bsky.social/xrpc/com.atproto.repo.createRecord \
+  curl -s -X POST https://bsky.social/xrpc/com.atproto.repo.createRecord \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $access_token" \
     -d "$(jq -n \
