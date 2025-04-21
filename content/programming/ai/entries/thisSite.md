@@ -5,6 +5,10 @@ published: true
 tags: ["programming","ai","ideation"]
 ---
 
+# TL;DR
+
+Treat AI like a friend while ideating, and like a very enthusiastic junior dev while coding - they'll find docs faster than you, but always test what they give you. And remember to have fun.
+
 # Starting is the Hardest Step
 
 I knew I needed to start over, but looking at a blank page has always been intimidating for me - give me a piece of bad code, a flawed algroithm, or an error log any day - and this was no different.
