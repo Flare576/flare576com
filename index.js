@@ -74,7 +74,6 @@ async function safeFetch(url) {
 
 async function readMetaFile (section, subsection) {
   const metaPath = ['content',section,subsection,'meta.json'].filter(Boolean).join('/');
-  console.log(metaPath);
   const res = await safeFetch(metaPath);
   return await res.json();
 }
@@ -171,7 +170,7 @@ async function buildEntry(section, subsection, entry) {
 function updateMetaTags(metadata) {
   // Set <title>
   if (metadata.title) {
-    document.title = `${document.title} | ${metadata.title}`;
+    document.title = `Flare576 | ${metadata.title}`;
   }
 
   // Set or update <meta name="description">
@@ -293,6 +292,7 @@ function renderError(code) {
 }
 
 async function renderHomepage() {
+  document.title = 'Flare576';
   document.getElementById('about-me').style.display = 'block';
   let html = '';
   const { sections } = await readMetaFile();
@@ -304,6 +304,8 @@ async function renderHomepage() {
 
 async function renderSubsection(section, subsection) {
   const { title, description, entries } = await readMetaFile(section, subsection);
+  document.title = `Flare576 | ${title}`;
+
   let html = '<section class="section">';
   html += `<h2 class="section-title">${title}</h2>`;
   if (description) {
