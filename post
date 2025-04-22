@@ -78,6 +78,37 @@ generate_facets() {
     }")
   done < <(grep -oE "$url_regex" <<< "$utf8_text")
 
+  # Use grep-compatible mention pattern (matches most http/https URLs)
+  local mention_regex='@[^ ]+'
+
+  while read -r mention; do
+    # Get byte offsets of each match
+    start=$(printf "%s" "$utf8_text" | grep -b -o "$mention" | head -n1 | cut -d: -f1)
+    end=$((start + ${#mention}))
+
+    # Append facet object
+    facets+=("{
+      \"index\": {\"byteStart\": $start, \"byteEnd\": $end},
+      \"features\": [{\"\$type\": \"app.bsky.richtext.facet#mention\", \"did\": \"$mention\"}]
+    }")
+  done < <(grep -oE "$mention_regex" <<< "$utf8_text")
+
+  # Use grep-compatible hashtag pattern (matches most http/https URLs)
+  local hashtag_regex='#[^ ]+'
+
+  while read -r hashtag; do
+    # Get byte offsets of each match
+    start=$(printf "%s" "$utf8_text" | grep -b -o "$hashtag" | head -n1 | cut -d: -f1)
+    end=$((start + ${#hashtag}))
+
+    # Append facet object
+    cleanTag=${hashtag:1}
+    facets+=("{
+      \"index\": {\"byteStart\": $start, \"byteEnd\": $end},
+      \"features\": [{\"\$type\": \"app.bsky.richtext.facet#tag\", \"tag\": \"$cleanTag\"}]
+    }")
+  done < <(grep -oE "$hashtag_regex" <<< "$utf8_text")
+
   # Output full facets array as JSON
   printf '[%s]\n' "$(IFS=,; echo "${facets[*]}")"
 }
@@ -109,9 +140,9 @@ $content
 $entry_url
 EOF
 
-echo "Opening vim, exit with :cq to cancel."
+echo "Opening $EDITOR, exit with :cq to cancel."
 
-if vi "$timestamp.txt"; then
+if $EDITOR "$timestamp.txt"; then
   auth_response=$(curl -s -X POST https://bsky.social/xrpc/com.atproto.server.createSession \
     -H "Content-Type: application/json" \
     -d '{
@@ -144,6 +175,6 @@ if vi "$timestamp.txt"; then
       --argjson record "$post_data" \
       --arg collection "app.bsky.feed.post" \
       '{repo: $repo, collection: $collection, record: $record}')"
-  rm "$timestamp.txt"
 fi
+rm "$timestamp.txt"
 
