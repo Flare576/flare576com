@@ -95,7 +95,7 @@ async function readEntry (section, subsection, entry) {
   const res = await safeFetch(entryPath);
   const raw = await res.text();
   const parsed = parseFrontMatter(raw);
-  if (window.location.host.startsWith("localhost:") || parsed.metadata?.published) {
+  if (window.location.host.startsWith("127.0.0.1:") || parsed.metadata?.published) {
     return parsed;
   }
   return {};
