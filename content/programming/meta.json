@@ -2,6 +2,7 @@
   "title": "Programming",
   "description": "Tips, tricks, and teachings about telling computers what to do",
   "subsections": [
-    "ai"
+    "ai",
+    "scripting"
   ]
 }
