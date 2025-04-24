@@ -94,7 +94,7 @@ find content -type f -path "*/entries/*.md" | while read -r md_file; do
   <meta charset="UTF-8" />
   <meta property="og:title" content="$title" />
   <meta property="og:description" content="$description" />
-  <meta property="og:keywords" content="$clean_keywords" />
+  <meta name="keywords" content="$clean_keywords" />
   <meta property="og:url" content="$url" />
   <meta http-equiv="refresh" content="0; url=$url">
   <title>$title</title>
