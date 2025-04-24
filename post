@@ -1,7 +1,7 @@
 #!/bin/bash
 version=0.0.1
 usage="$(basename "$0") [-hve] [<content>]
-Post to Bluesky, optionally pre-format your post
+Post to Bluesky, optionally pre-format your post. Expects \$BLUESKY_HANDLE and \$BLUESKY_PASSWORD to be set.
 
 -h[Help]          Prints this message, then exits
 -v[Version]       Prints this version info, then exits
@@ -78,7 +78,7 @@ generate_facets() {
     }")
   done < <(grep -oE "$url_regex" <<< "$utf8_text")
 
-  # Use grep-compatible mention pattern (matches most http/https URLs)
+  # Use grep-compatible mention pattern
   local mention_regex='@[^ ]+'
 
   while read -r mention; do
@@ -87,14 +87,19 @@ generate_facets() {
     end=$((start + ${#mention}))
 
     # Append facet object
-    facets+=("{
-      \"index\": {\"byteStart\": $start, \"byteEnd\": $end},
-      \"features\": [{\"\$type\": \"app.bsky.richtext.facet#mention\", \"did\": \"$mention\"}]
-    }")
+    local did="$(get_did "${mention:1}")"
+    if [ $? -eq 0 ] && [ -n "$did" ]; then
+      facets+=("{
+        \"index\": {\"byteStart\": $start, \"byteEnd\": $end},
+        \"features\": [{\"\$type\": \"app.bsky.richtext.facet#mention\", \"did\": \"$did\"}]
+      }")
+    else
+      echo "Skipping unresolved handle: $mention" >&2
+    fi
   done < <(grep -oE "$mention_regex" <<< "$utf8_text")
 
-  # Use grep-compatible hashtag pattern (matches most http/https URLs)
-  local hashtag_regex='#[^ ]+'
+  # Use grep-compatible hashtag pattern
+  local hashtag_regex='( |^)(#[^ ]+)'
 
   while read -r hashtag; do
     # Get byte offsets of each match
@@ -111,6 +116,51 @@ generate_facets() {
 
   # Output full facets array as JSON
   printf '[%s]\n' "$(IFS=,; echo "${facets[*]}")"
+}
+
+get_did() {
+  local handle="$1"
+  local response
+  local did
+
+  response=$(curl -s -X GET https://bsky.social/xrpc/com.atproto.identity.resolveHandle?handle=$handle)
+  did="$(echo "$response" | jq -r '.did // empty')"
+  if [ -z "$did" ]; then
+    echo "WARNING: Could not resolve handle @$handle" >&2
+    return 1
+  fi
+
+  printf "%s" "$did"
+}
+
+generate_embed() {
+  local text="$1"
+  local embedUrl
+  local utf8_text
+  utf8_text=$(echo -n "$text" | iconv -f utf-8 -t utf-8)
+
+  # Use grep-compatible URL pattern (matches most http/https URLs)
+  local url_regex='https?://[^ ]+'
+
+  while read -r url; do
+    # If this is the first link, or if it's a link to our own site, set it as the embedURL
+    if [ -z "$embedUrl" ] || [[ "$url" == *flare576.com* ]]; then
+      embedUrl="$url"
+    fi
+  done < <(grep -oE "$url_regex" <<< "$utf8_text")
+
+  if [ -n "$embedUrl" ]; then
+    printf '{
+    "$type": "app.bsky.embed.external",
+    "external": {
+      "uri": "%s",
+      "title": Flare576 | %s,
+      "description": "Personal hub for Flare576 - Steam Deck, programming, family life, and more."
+    }
+  }' "$embedUrl" "$title"
+  else
+    printf '{}'
+  fi
 }
 
 # === CONFIG ===
@@ -140,6 +190,7 @@ $content
 $entry_url
 EOF
 
+
 echo "Opening $EDITOR, exit with :cq to cancel."
 
 if $EDITOR "$timestamp.txt"; then
@@ -154,17 +205,20 @@ if $EDITOR "$timestamp.txt"; then
 
   post_text="$(<$timestamp.txt)"
   facets_json=$(generate_facets "$post_text")
+  embed_json=$(generate_embed "$post_text")
 
   post_data=$(jq -n \
     --arg text "$post_text" \
     --arg time "$timestamp" \
     --arg type "app.bsky.feed.post" \
     --argjson facets "$facets_json" \
+    --argjson embed "$embed_json" \
     '{
       "$type": $type,
       "text": $text,
       "createdAt": $time,
-      "facets": $facets
+      "facets": $facets,
+      "embed": $embed
     }')
 
   curl -s -X POST https://bsky.social/xrpc/com.atproto.repo.createRecord \
@@ -175,6 +229,10 @@ if $EDITOR "$timestamp.txt"; then
       --argjson record "$post_data" \
       --arg collection "app.bsky.feed.post" \
       '{repo: $repo, collection: $collection, record: $record}')"
+
+  # Only remove the file if posting was successful
+  if [ $? -eq 0 ]; then
+    rm "$timestamp.txt"
+  fi
 fi
-rm "$timestamp.txt"
 
