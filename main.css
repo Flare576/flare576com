@@ -201,13 +201,13 @@ blockquote {
   width: 1em;
   height: 1em;
   margin-left: 0.25em;
-  vertical-align: middle;
+  vertical-align: top;
   color: #94a3b8;
   transition: transform 0.2s ease;
 }
 
 a:hover .external-icon-inline {
-  transform: scale(1.1);
+  transform: scale(1.1) translateY(15%);
   color: #f1f5f9;
 }
 
@@ -378,7 +378,7 @@ a:hover .external-icon-inline {
 }
 
 .subsection-card.external:hover .external-icon {
-  transform: scale(1.1);
+  transform: scale(1.5);
   color: #f1f5f9;
 }
 
