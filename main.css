@@ -430,8 +430,8 @@ a:hover .external-icon-inline {
 }
 
 .social-links img:hover {
-  transform: scale(1.1);
-  filter: brightness(1) invert(0.8);
+  transform: scale(1.5);
+  filter: brightness(1) invert(0);
 }
 
 /* ==========================================================================
