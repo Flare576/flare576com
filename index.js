@@ -18,6 +18,54 @@ function getRandomTimeLabel() {
   return timeTerms[Math.floor(Math.random() * timeTerms.length)];
 }
 
+function addDateLine(dateTime, section, subsection, entry) {
+  const dateLabel = getRandomTimeLabel();
+  const dateLine = `${dateLabel}: ${dateTime}`;
+  const permalink = window.location.protocol +
+    '//' +
+    window.location.host +
+    '/' +
+    ['meta',section,subsection,entry].filter(Boolean).join('/') +
+    '.html';
+  const hoverTip = document.createElement('span');
+  hoverTip.textContent = ' (Click for 🔗)';
+  hoverTip.className = 'hover-tip';
+  const link = document.createElement('a');
+  link.href = permalink;
+  link.textContent = dateLine;
+  link.className = 'entry-timestamp';
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    navigator.clipboard.writeText(permalink).then(() => {
+      hoverTip.textContent = ' (🔗 Copied!)';
+      setTimeout(() => {
+        hoverTip.textContent = ' (Click for 🔗)';
+      }, 2000);
+    });
+  });
+  link.append(hoverTip);
+  document.getElementById('content').prepend(link);
+}
+
+async function addBackLink (section, subsection) {
+  const parentMeta = await readMetaFile(section, subsection);
+
+  const backLinkHref = subsection
+    ? `#/${section}/${subsection}`
+    : `#/${section}`;
+
+  const container  = document.createElement('div');
+  container.className = 'back-link-container';
+  const link = document.createElement('a');
+  link.href = backLinkHref;
+  link.textContent = `Back to ${parentMeta.title} ↑`;
+  link.className = 'back-link';
+
+  container.append(link);
+  document.getElementById('content').append(container);
+  setupBackLinkBehavior();
+}
+
 function setupBackLinkBehavior() {
   const container = document.querySelector('.back-link-container');
   if (!container) {
@@ -30,10 +78,12 @@ function setupBackLinkBehavior() {
   });
 }
 
-function labelCodeBlocks() {
+function addCodeBlockLabels() {
   document.querySelectorAll('pre > code[class^="language-"]').forEach(code => {
-    const langMatch = code.className.match(/language-([a-z0-9\-]+)/i);
-    if (!langMatch) return;
+    const langMatch = code.className.match(/language-([a-z0-9-]+)/i);
+    if (!langMatch) {
+      return;
+    }
 
     const lang = langMatch[1];
     const pre = code.parentElement;
@@ -94,7 +144,7 @@ async function readEntry (section, subsection, entry) {
   const res = await safeFetch(entryPath);
   const raw = await res.text();
   const parsed = parseFrontMatter(raw);
-  if (window.location.host.startsWith("127.0.0.1:") || parsed.metadata?.published) {
+  if (window.location.host.startsWith('127.0.0.1:') || parsed.metadata?.published) {
     return parsed;
   }
   return {};
@@ -241,25 +291,11 @@ async function renderMarkdown(section, subsection, entry) {
   }
   updateMetaTags(metadata);
 
-  const dateLabel = getRandomTimeLabel();
-  let html = `<p class="entry-date">${dateLabel}: ${metadata.date}</p>`;
+  document.getElementById('content').innerHTML = marked.parse(body);
 
-  html += marked.parse(body);
-
-  const parentMeta = await readMetaFile(section, subsection);
-
-  const backLinkHref = subsection
-    ? `#/${section}/${subsection}`
-    : `#/${section}`;
-
-  html += `
-  <div class="back-link-container">
-    <a href="${backLinkHref}" class="back-link">Back to ${parentMeta.title} ↑</a>
-  </div>
-`;
-  document.getElementById('content').innerHTML = html;
-  setupBackLinkBehavior();
-  labelCodeBlocks();
+  await addBackLink(section, subsection);
+  addDateLine(metadata.date, section, subsection, entry);
+  addCodeBlockLabels();
   Prism.highlightAll();
 }
 
@@ -366,17 +402,21 @@ function enhanceMarked() {
     link ({href, title, text}) {
       const isExternal = /^https?:\/\//i.test(href);
       const svgIcon = isExternal ? externalSvg : '';
-      return `<a href="${href}"${isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''}>${text}${svgIcon}</a>`;
+      return `<a
+      title="${title}"
+      href="${href}"${isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''}>
+        ${text}${svgIcon}
+      </a>`;
     },
     code ({text, lang}) {
       if (lang === 'flare' || lang === 'assistant') {
-      const innerHTML = marked.parse(text.trim());
-      return `
-        <div class="dialog-block ${lang}">
-          ${innerHTML}
-        </div>
-      `;
-    }
+        const innerHTML = marked.parse(text.trim());
+        return `
+          <div class="dialog-block ${lang}">
+            ${innerHTML}
+          </div>
+        `;
+      }
 
       // fallback to Prism style blocks
       return `<pre><code class="language-${lang}">${text}</code></pre>`;
