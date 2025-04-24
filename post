@@ -1,14 +1,15 @@
 #!/bin/bash
 version=0.0.1
-usage="$(basename "$0") [-hve] [<content>]
+usage="$(basename "$0") [-hven] [<content>]
 Post to Bluesky, optionally pre-format your post. Expects \$BLUESKY_HANDLE and \$BLUESKY_PASSWORD to be set.
 
 -h[Help]          Prints this message, then exits
 -v[Version]       Prints this version info, then exits
 -e[Entry]         Retrieve latest entry information
+-n[No-op]         Prints the payload instead of sending it (dry-run)
 "
 
-while getopts ':hve' option; do
+while getopts ':hvne' option; do
   case "$option" in
     h) echo "$usage"
       exit
@@ -17,6 +18,8 @@ while getopts ':hve' option; do
       exit
       ;;
     e) entry="true"
+      ;;
+    n) dryRun="true"
       ;;
     *) echo "Unknown Option '$OPTARG', exiting"
       exit
@@ -30,6 +33,8 @@ if [ -n "$1" ]; then
 fi
 
 # === HELPERS ===
+source ./helpers.sh
+
 get_entry() {
   if [[ "$OSTYPE" == "darwin"* ]]; then
     # macOS (BSD find + stat)
@@ -45,11 +50,11 @@ get_entry() {
 
   [[ -f "$latest_file" ]] || echo "ERROR: Not a valid file path."
 
-  slug=$(basename "$latest_file" .md)
+  slug=$(basename "$latest_file" .html)
   IFS='/' read -r _ section subsection _ <<< "$latest_file"
-  entry_url="https://flare576.com/#$section/$subsection/$slug"
-  title=$(awk '/^---/{flag=1;next}/^---/{flag=0}flag && /^title:/{print substr($0, index($0,$2))}' "$latest_file")
-  published=$(awk '/^---/{flag=1;next}/^---/{flag=0}flag && /^published:/{print substr($0, index($0,$2))}' "$latest_file")
+  entry_url="https://flare576.com/meta/$section/$subsection/$slug"
+  title=$(get_meta "$latest_file" "title")
+  published=$(get_meta "$latest_file" "published")
   if [ "$published" == "false" ]; then
     echo "Latest entry not published. Exiting"
     exit 1
@@ -154,7 +159,7 @@ generate_embed() {
     "$type": "app.bsky.embed.external",
     "external": {
       "uri": "%s",
-      "title": Flare576 | %s,
+      "title": "Flare576 | %s",
       "description": "Personal hub for Flare576 - Steam Deck, programming, family life, and more."
     }
   }' "$embedUrl" "$title"
@@ -185,7 +190,7 @@ if [ -n "$entry" ]; then
 fi
 
 cat > "$timestamp.txt" <<EOF
-$title
+"$title"
 $content
 $entry_url
 EOF
@@ -221,14 +226,20 @@ if $EDITOR "$timestamp.txt"; then
       "embed": $embed
     }')
 
-  curl -s -X POST https://bsky.social/xrpc/com.atproto.repo.createRecord \
-    -H "Content-Type: application/json" \
-    -H "Authorization: Bearer $access_token" \
-    -d "$(jq -n \
+  final_data="$(jq -n \
       --arg repo "$did" \
       --argjson record "$post_data" \
       --arg collection "app.bsky.feed.post" \
       '{repo: $repo, collection: $collection, record: $record}')"
+
+  if [ -n "$dryRun" ]; then
+    echo "$final_data"
+  else
+    curl -s -X POST https://bsky.social/xrpc/com.atproto.repo.createRecord \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer $access_token" \
+      -d "$final_data"
+  fi
 
   # Only remove the file if posting was successful
   if [ $? -eq 0 ]; then
