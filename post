@@ -50,9 +50,9 @@ get_entry() {
 
   [[ -f "$latest_file" ]] || echo "ERROR: Not a valid file path."
 
-  slug=$(basename "$latest_file" .html)
+  slug=$(basename "$latest_file" .md)
   IFS='/' read -r _ section subsection _ <<< "$latest_file"
-  entry_url="https://flare576.com/meta/$section/$subsection/$slug"
+  entry_url="https://flare576.com/meta/$section/$subsection/$slug.html"
   title=$(get_meta "$latest_file" "title")
   published=$(get_meta "$latest_file" "published")
   if [ "$published" == "false" ]; then
