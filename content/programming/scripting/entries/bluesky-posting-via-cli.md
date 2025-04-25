@@ -11,7 +11,7 @@ I know that's not a shocking revelation, but I feel like I should _qualify_ the 
 When I want to add a post to my website, I don't open SquareSpace, or Wix, or even a web browser. I open my terminal and type
 
 ```bash
-entry -s programming -u scripting -e -t "Bluesky Posting via CLI" -a "bash,cli,bluesky,scripting" "#I'm a Nerd"
+entry -s programming -u scripting -e -t "Bluesky Posting via CLI" -a "bash,cli,bluesky,scripting" "# I'm a Nerd"
 ```
 
 `entry` is an [alias](https://en.wikipedia.org/wiki/Alias_(command)) to [a script](https://github.com/Flare576/flare576com/blob/main/addNew) I wrote (with a little help from AI, not gonna lie). It takes the `-s` (Section] and `-u` (sUbsection) of my site, some properties of the post, and then writes a file in [Markdown](https://www.markdownguide.org/) to start me off.
