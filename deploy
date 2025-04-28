@@ -108,7 +108,18 @@ EOF
   echo "Wrote: $out_file"
 done
 
+echo "Adding uncache line to index.js"
+timestamp=$(date +%s)
+mv index.js index.js.bkp &> /dev/null
+echo "const uncache = \"$timestamp\";" > index.js
+cat index.js.bkp >> index.js
+
 # === DEPLOY ===
+# Excludes Explanation
+# ^\..*$ : any files starting with a dot
+# .*\.swp : any files with `.swp` in the name
+# .*\.bkp : any files with `.bkp` in the name
+# ^tags$ : a file named `tags` in the root dir
 if [ -z "$dryRun" ]; then
   echo "Deploying site via SFTP to $CMS_FTP_HOST:$CMS_FTP_REMOTE_DIR ..."
 
@@ -118,6 +129,7 @@ if [ -z "$dryRun" ]; then
   mirror --reverse --verbose \
     --exclude ^\..*$ \
     --exclude .*\.swp \
+    --exclude .*\.bkp \
     --exclude ^tags$
   bye
 EOF
@@ -126,6 +138,8 @@ EOF
 else
   echo "Dry run, skipping upload"
 fi
+
+mv index.js.bkp index.js &> /dev/null
 
 # === BLUESKY ===
 if [ -n "$post" ]; then
