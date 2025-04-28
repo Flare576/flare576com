@@ -1,5 +1,5 @@
 #!/bin/bash
-version=0.0.1
+version=0.1.0
 usage="$(basename "$0") [-hven] [<content>]
 Post to Bluesky, optionally pre-format your post. Expects \$BLUESKY_HANDLE and \$BLUESKY_PASSWORD to be set.
 
@@ -55,8 +55,9 @@ get_entry() {
   slug=$(basename "$latest_file" .md)
   IFS='/' read -r _ section subsection _ <<< "$latest_file"
   entry_url="https://flare576.com/meta/$section/$subsection/$slug.html"
-  title=$(get_meta "$latest_file" "title")
-  published=$(get_meta "$latest_file" "published")
+  title="$(get_meta "$latest_file" "title")"
+  description="$(get_meta "$latest_file" "description")"
+  published="$(get_meta "$latest_file" "published")"
   if [ "$published" == "false" ]; then
     echo "Latest entry not published. Exiting"
     exit 1
@@ -143,31 +144,68 @@ get_did() {
 generate_embed() {
   local text="$1"
   local embedUrl
+  local embedTitle
+  local embedDesc
   local utf8_text
   utf8_text=$(echo -n "$text" | iconv -f utf-8 -t utf-8)
 
-  # Use grep-compatible URL pattern (matches most http/https URLs)
+  # Find URLs
   local url_regex='https?://[^ ]+'
 
   while read -r url; do
-    # If this is the first link, or if it's a link to our own site, set it as the embedURL
     if [ -z "$embedUrl" ] || [[ "$url" == *flare576.com* ]]; then
       embedUrl="$url"
     fi
   done < <(grep -oE "$url_regex" <<< "$utf8_text")
 
-  if [ -n "$embedUrl" ]; then
-    printf '{
+  if [ -z "$embedUrl" ]; then
+    printf '{}'
+    return
+  fi
+
+  if [[ "$embedUrl" == *flare576.com* ]]; then
+    if [ -n "$title" ]; then
+      embedTitle="Flare576 | $title"
+    else
+      embedTitle="Flare576"
+    fi
+    embedDesc="${description:-Personal hub for Flare576 - Steam Deck, programming, family life, and more.}"
+  else
+    # Fetch title and description from the external site
+    local page
+    page=$(curl -L -s "$embedUrl")
+
+    # === External Title ===
+    embedTitle=$(echo "$page" | sed -n 's:.*<title>\(.*\)</title>.*:\1:p' | head -n 1)
+
+    # === External Description ===
+    embedDesc=$(echo "$page" | sed -nE '
+      s/.*<meta[^>]+name="description"[^>]+content="([^"]*)".*/\1/pI
+      s/.*<meta[^>]+content="([^"]*)"[^>]+name="description"[^>]*>.*/\1/pI
+    ' | head -n 1)
+
+    # === Fallback: Grab first paragraph if no meta description ===
+    if [ -z "$embedDesc" ]; then
+      embedDesc=$(echo "$page" | sed -n 's:.*<p>\(.*\)</p>.*:\1:p' | head -n 1)
+    fi
+  fi
+
+  # Final fallback defaults
+  [ -z "$embedTitle" ] && embedTitle="Link"
+  [ -z "$embedDesc" ] && embedDesc="External link."
+
+  # Escape quotes in one shot
+  embedTitle=$(echo "$embedTitle" | sed 's/"/\\"/g')
+  embedDesc=$(echo "$embedDesc" | sed 's/"/\\"/g')
+
+  printf '{
     "$type": "app.bsky.embed.external",
     "external": {
       "uri": "%s",
-      "title": "Flare576 | %s",
-      "description": "Personal hub for Flare576 - Steam Deck, programming, family life, and more."
+      "title": "%s",
+      "description": "%s"
     }
-  }' "$embedUrl" "$title"
-  else
-    printf '{}'
-  fi
+  }' "$embedUrl" "$embedTitle" "$embedDesc"
 }
 
 # === CONFIG ===
@@ -187,20 +225,19 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 
 # === BLUESKY ===
 timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+tempFile="$timestamp.txt"
 if [ -n "$entry" ]; then
   get_entry
 fi
 
-cat > "$timestamp.txt" <<EOF
-"$title"
-$content
-$entry_url
-EOF
-
+touch "$tempFile"
+[ -n "$title" ] && printf '"%s"\n' "$title" >> "$tempFile"
+[ -n "$content" ] && echo "$content" >> "$tempFile"
+[ -n "$entry_url" ] && echo "$entry_url" >> "$tempFile"
 
 echo "Opening $EDITOR, exit with :cq to cancel."
 
-if $EDITOR "$timestamp.txt"; then
+if $EDITOR "$tempFile"; then
   auth_response=$(curl -s -X POST https://bsky.social/xrpc/com.atproto.server.createSession \
     -H "Content-Type: application/json" \
     -d '{
@@ -210,7 +247,7 @@ if $EDITOR "$timestamp.txt"; then
   access_token=$(echo "$auth_response" | jq -r '.accessJwt')
   did=$(echo "$auth_response" | jq -r '.did')
 
-  post_text="$(<$timestamp.txt)"
+  post_text="$(<$tempFile)"
   facets_json=$(generate_facets "$post_text")
   embed_json=$(generate_embed "$post_text")
 
@@ -245,7 +282,7 @@ if $EDITOR "$timestamp.txt"; then
 
   # Only remove the file if posting was successful
   if [ $? -eq 0 ]; then
-    rm "$timestamp.txt"
+    rm "$tempFile"
   fi
 fi
 

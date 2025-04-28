@@ -1,5 +1,5 @@
 #!/bin/bash
-version=0.0.1
+version=0.1.0
 usage="$(basename "$0") [-hvpn]
 Deploy to the CMS
 

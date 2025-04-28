@@ -3,6 +3,7 @@ title: "VIM + Airline + ByteCount = BlueSky"
 date: Mon Apr 28 07:59:10 CDT 2025
 published: true
 tags: ["vim","programming","airline","customization"]
+description: "Airline.vim config to add byte count to statusline"
 ---
 # Why?
 
