@@ -93,6 +93,7 @@ if [ -n "$entry" ]; then
 title: "$title"
 date: $(date)
 published: false
+description: "$(description)"
 tags: [$tagString]
 ---
 $content

@@ -2,6 +2,7 @@
 title: "Shellcheck Tip: Suppression"
 date: Fri Apr 18 11:35:10 CDT 2025
 published: true
+description: "I had no idea you could suppress warnings from ShellCheck, but now I know, and so do you"
 tags: ["programming","ai","shell","bash","lint"]
 ---
 

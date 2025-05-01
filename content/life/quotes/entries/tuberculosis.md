@@ -2,6 +2,7 @@
 title: "Tuberculosis"
 date: Tue Apr 22 07:23:56 CDT 2025
 published: true
+description: "You don't know it won't cure Tuberculosis..."
 tags: ["funny","youtube","dad"]
 ---
 

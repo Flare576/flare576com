@@ -2,6 +2,7 @@
 title: "The Hundred Line - Last Defense Academy (Demo)"
 date: Thu Apr 24 07:29:00 CDT 2025
 published: true
+description: "The demo of this strategy RPG is worth your time to see if the main game is your thing. You should at least be entertained by one of the characters"
 tags: ["pc","new","demo","review","rpg","strategy"]
 ---
 # TL;DR

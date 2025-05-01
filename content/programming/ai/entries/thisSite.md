@@ -2,6 +2,7 @@
 title: "AI Helped Me Build This Site"
 date: Wed Apr 16 11:10:49 CDT 2025
 published: true
+description: "The inaugural post of the site, explaining how it was made"
 tags: ["programming","ai","ideation"]
 ---
 
@@ -11,7 +12,7 @@ Treat AI like a friend while ideating, and like a very enthusiastic junior dev w
 
 # Starting is the Hardest Step
 
-I knew I needed to start over, but looking at a blank page has always been intimidating for me - give me a piece of bad code, a flawed algroithm, or an error log any day - and this was no different.
+I knew I needed to start over, but looking at a blank page has always been intimidating for me - give me a piece of bad code, a flawed algorithm, or an error log any day - and this was no different.
 
 What was different is that it's 2025 and AI has come a long *long* way. I haven't used it much, though, so I'm no prompt engineer, but I am pretty good at writing things down. I opened my existing notes document and scribbled down some thoughts as I worked on other things.
 

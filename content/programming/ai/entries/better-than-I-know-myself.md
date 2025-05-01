@@ -2,6 +2,7 @@
 title: "Better Than I Know Myself"
 date: Wed Apr 16 11:25:31 CDT 2025
 published: true
+description: "60 second read on AI doing my job for me"
 tags: ["programming","ai","funny"]
 ---
 # It Wasn't What I Asked For

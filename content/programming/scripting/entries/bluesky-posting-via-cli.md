@@ -2,6 +2,7 @@
 title: "Bluesky Posting via CLI"
 date: Wed Apr 23 13:59:25 CDT 2025
 published: true
+description: "Do YOU want a command line BlueSky app? Let me know on... Bluesky."
 tags: ["bash","cli","bluesky","scripting"]
 ---
 # I'm a Nerd
