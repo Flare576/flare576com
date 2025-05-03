@@ -29,7 +29,7 @@ I played it to beat it. I wanted to be "Ready" for the next installment, to get 
 
 You see, Final Fantasy VII:Remake takes place entirely within the city of Midgar - in the original, that's Disc 1 of 3 - some people go so far as to call Midgar the "Introduction" to FFVII.
 
-I went into my experience on the PS4 raw off of spending hundreds of dollars, frustrated that I'd waited 5 years to play the introduction to a game, and raced through the game. When I got to the end, I realized my mistake, but too late.
+I went into my experience on the PS4 raw off of spending hundreds of dollars, frustrated that I'd waited 5 years to play the introduction to a game, and raced through it. When I got to the end, I realized my mistake, but too late.
 
 I'd ruined my chance to enjoy the game.
 
@@ -39,7 +39,7 @@ I tuned out.
 
 They released DLC - Exclusive to the PS5. They released a PC port, "Intergrade", with the added DLC, but I wasn't interested.
 
-Then, in 2024 Part 2 of the remake, entitled [Final Fantasy VII: Rebirth](https://en.wikipedia.org/wiki/Final_Fantasy_VII_Rebirth), released. Only on PS5. There was no way I was buying ANOTHER console to play the SECOND installment, only to eventually need to do it again in 4 years. I sort of gave up on FFVII...
+Then, in 2024, Part 2 of the remake, entitled [Final Fantasy VII: Rebirth](https://en.wikipedia.org/wiki/Final_Fantasy_VII_Rebirth), released. Only on PS5. There was no way I was buying ANOTHER console to play the SECOND installment, only to eventually need to do it again in 4 years. I sort of gave up on FFVII...
 
 Then I acquired a Steam Deck (I'll talk about that in another post in the near future), and Square-Enix announced the PC release of Rebirth... and that it would be [Steam Deck Verified](https://www.steamdeck.com/en/verified).
 
@@ -55,6 +55,14 @@ I have no idea. I played Remake again.
 
 Then I played it on Hard Mode.
 
-Then I unlocked all the wardrobes.
+Then I unlocked all the wardrobes, story lines, and quests.
 
-Then I played Intergrade, and on hard, and 100%'d
+Then I played Intergrade, and on hard, and to 100%.
+
+Then I went BACK to Remake and fought the <span class="spoiler">hidden boss</span>.
+
+I played from my desk, my couch, my kid's archery practice... And, most importantly, I **enjoyed** it.
+
+I've avoided news and spoilers about Rebirth, almost inadvertently, since its PS5 release last year, so I'm going in blind save for the story from Remake/Intergrade...
+
+But, I'll be playing that one *right* the first time.

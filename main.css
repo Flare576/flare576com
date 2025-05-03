@@ -196,6 +196,22 @@ blockquote {
   text-decoration: none;
 }
 
+#content strong {
+  color: #fac157;
+}
+
+.spoiler {
+  background-color: #334155;
+  color: transparent;
+  transition: color 0.3s;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.spoiler:hover {
+  color: #f8fafc;
+}
+
 /* Inline external icon */
 .external-icon-inline {
   width: 1em;
