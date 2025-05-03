@@ -1,7 +1,7 @@
 ---
 title: "Final Fantasy VII: Remake (+Intergrade)"
 date: Wed Apr 30 17:16:50 CDT 2025
-published: false
+published: true
 description: "My failure and triumph with the remake of the most important game of my childhood"
 tags: ["gaming","ffvii","modern","remake","storytime"]
 ---
@@ -13,7 +13,9 @@ I played a lot of FFVII, is what I'm saying.
 
 # Fast-Forward 18 Years
 
-Square Enix announced their plans to release a remake of FFVII in 2015, but that it would come out in 3 parts. I owned a PS3, but the PS4 had been out for a few years already, and I wasn't in the position to upgrade... But that was OK - the game wouldn't be released for a little while... Like, **5 years** little while.
+Square Enix announced their plans to release a remake of FFVII in 2015, but that it would come out in 3 parts. The PS4 had been out for a few years already, so I was pretty sure that's the system it would release on... But I didn't own a PS4,  and I wasn't in the position to upgrade.
+
+But that was OK - the game wouldn't be released for a little while... Like, **5 years** little while.
 
 # Slow-Forward 5 Years
 
@@ -41,7 +43,7 @@ They released DLC - Exclusive to the PS5. They released a PC port, "Intergrade",
 
 Then, in 2024, Part 2 of the remake, entitled [Final Fantasy VII: Rebirth](https://en.wikipedia.org/wiki/Final_Fantasy_VII_Rebirth), released. Only on PS5. There was no way I was buying ANOTHER console to play the SECOND installment, only to eventually need to do it again in 4 years. I sort of gave up on FFVII...
 
-Then I acquired a Steam Deck (I'll talk about that in another post in the near future), and Square-Enix announced the PC release of Rebirth... and that it would be [Steam Deck Verified](https://www.steamdeck.com/en/verified).
+Then I acquired a Steam Deck (I'll talk about that in another post in the near future), and Square Enix announced the PC release of Rebirth... and that it would be [Steam Deck Verified](https://www.steamdeck.com/en/verified).
 
 I thought... Maybe?
 
@@ -59,7 +61,15 @@ Then I unlocked all the wardrobes, story lines, and quests.
 
 Then I played Intergrade, and on hard, and to 100%.
 
-Then I went BACK to Remake and fought the <span class="spoiler">hidden boss</span>.
+![Intergrade 100% Screenshot](images/thumbnail/ffvii_intergrade_100.png)
+
+Then I went BACK to Remake and fought the <span class="spoiler">hidden boss</span> and hit the last few achievements I missed.
+
+![All Achievements Screenshot](images/thumbnail/ffvii_remake_achievements.png)
+
+And then 100%'d the main game.
+
+![Remake 100% Screenshot](images/thumbnail/ffvii_remake_100.png)
 
 I played from my desk, my couch, my kid's archery practice... And, most importantly, I **enjoyed** it.
 
