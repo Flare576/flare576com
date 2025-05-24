@@ -78,6 +78,37 @@ function setupBackLinkBehavior() {
   });
 }
 
+function addHoverToNerds() {
+  addHoverHelper('nerd-goal', 'nerd-goal-tooltip');
+  addHoverHelper('nerd-solution', 'nerd-solution-tooltip');
+}
+
+function addHoverHelper(findId, addId) {
+  document.querySelectorAll(`.code-label[data-lang^="${findId}"]`).forEach(label => {
+    const tooltip = document.getElementById(addId);
+
+    label.addEventListener('mouseenter', () => {
+      const bColor = getComputedStyle(label).color;
+      const rect = label.getBoundingClientRect();
+
+      tooltip.style.top = `${window.scrollY + rect.bottom + 4}px`;
+      tooltip.style.left = `${window.scrollX + rect.left}px`;
+      tooltip.style.borderColor = bColor;
+      tooltip.classList.add('tooltip-active');
+      tooltip.hidden = false;
+    });
+
+    label.addEventListener('mouseleave', () => {
+      tooltip.classList.remove('tooltip-active');
+      tooltip.hidden = true;
+    });
+    label.addEventListener('click', () => {
+      window.open("#/steamdeck/steam-deck-tips-nerd-levels", '_blank');
+    });
+  });
+
+}
+
 function addCodeBlockLabels() {
   document.querySelectorAll('pre > code[class^="language-"]').forEach(code => {
     const langMatch = code.className.match(/language-([a-z0-9-]+)/i);
@@ -90,28 +121,32 @@ function addCodeBlockLabels() {
 
     // Create label
     const label = document.createElement('div');
+    const displayable = lang.replaceAll('-', ' ');
     label.className = 'code-label';
-    label.textContent = lang.charAt(0).toUpperCase() + lang.slice(1);
+    label.textContent = displayable.charAt(0).toUpperCase() + displayable.slice(1);
     label.dataset.lang = lang.toLowerCase();
 
     // Create copy button
-    const button = document.createElement('button');
-    button.className = 'copy-button';
-    button.textContent = 'Copy';
+    if (!lang.startsWith('nerd')) {
+      const button = document.createElement('button');
+      button.className = 'copy-button';
+      button.textContent = 'Copy';
 
-    button.addEventListener('click', () => {
-      navigator.clipboard.writeText(code.textContent).then(() => {
-        button.textContent = 'Copied!';
-        setTimeout(() => button.textContent = 'Copy', 2000);
-      }).catch(err => {
-        console.error('Copy failed:', err);
-        button.textContent = 'Error';
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(code.textContent).then(() => {
+          button.textContent = 'Copied!';
+          setTimeout(() => button.textContent = 'Copy', 2000);
+        }).catch(err => {
+          console.error('Copy failed:', err);
+          button.textContent = 'Error';
+        });
       });
-    });
+      pre.appendChild(button);
+    }
 
     pre.insertBefore(label, code);
-    pre.appendChild(button);
   });
+  addHoverToNerds();
 }
 
 async function safeFetch(url) {
@@ -127,7 +162,11 @@ async function safeFetch(url) {
 async function readMetaFile (section, subsection) {
   const metaPath = ['content',section,subsection,'meta.json'].filter(Boolean).join('/');
   const res = await safeFetch(metaPath);
-  return await res.json();
+  const info = await res.json();
+  if (info.entries) {
+    info.entries = info.entries.reverse();
+  }
+  return info;
 }
 
 async function readEntry (section, subsection, entry) {
@@ -192,7 +231,7 @@ async function buildSection(section) {
   if (entries && entries.length > 0) {
     html += '<div class="entries">';
     for (const entry of entries) {
-      html += buildEntry(section, entry);
+      html += await buildEntry(section, entry);
     }
     html += '</div>';
   }
@@ -208,9 +247,9 @@ async function buildEntry(section, subsection, entry) {
     return '';
   }
 
-  const entryPath = subsection
+  const entryPath = entry
     ? `#/${section}/${subsection}/${entry}`
-    : `#/${section}/${entry}`;
+    : `#/${section}/${subsection}`;
 
   return `
     <a href="${entryPath}" class="entry-card">
@@ -295,7 +334,7 @@ async function renderMarkdown(section, subsection, entry) {
 
   document.getElementById('content').innerHTML = marked.parse(body);
 
-  await addBackLink(section, subsection);
+  await addBackLink(section, entry && subsection);
   addDateLine(metadata.date, section, subsection, entry);
   addCodeBlockLabels();
   Prism.highlightAll();
@@ -391,12 +430,9 @@ async function renderPage() {
 function enhanceMarked() {
   const renderer = {
     image ({href, title, text}) {
-      let out = `<img src="${href}" alt="${text}"`;
+      let out = `<img class="thumbnail" src="${href}" alt="${text}"`;
       if (title) {
         out += ` title="${title}"`;
-      }
-      if (href.includes('/thumbnail/')) {
-        out += ' class="thumbnail"';
       }
       out += ' />';
       return out;
@@ -404,8 +440,9 @@ function enhanceMarked() {
     link ({href, title, text}) {
       const isExternal = /^https?:\/\//i.test(href);
       const svgIcon = isExternal ? externalSvg.replace("external-icon","external-icon-inline") : '';
+      const titleFull = title ? `title="${title}"` : '';
       return `<a
-      title="${title}"
+      ${titleFull}
       href="${href}"${isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''}
       >${text}${svgIcon}</a>`;
     },

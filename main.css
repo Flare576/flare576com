@@ -1,6 +1,8 @@
 /* ==========================================================================
    Base Styles
    ========================================================================== */
+@property --flare     { syntax: "<color>"; inherits: false; initial-value: #fdb714 }
+@property --assistant { syntax: "<color>"; inherits: false; initial-value: #93c5fd }
 
 body {
   font-family: 'Fira Code', monospace;
@@ -129,10 +131,32 @@ pre {
   background-color: #475569;
 }
 
-.code-label[data-lang="bash"]       { color: #00f6b0; }
-.code-label[data-lang="javascript"] { color: #facc15; }
-.code-label[data-lang="flare"]      { color: #fdb714; }
-.code-label[data-lang="assistant"]  { color: #93c5fd; }
+.code-label[data-lang="bash"]           { color: #00f6b0; }
+.code-label[data-lang="javascript"]     { color: #facc15; }
+.code-label[data-lang="html"]           { color: #87ceeb; }
+.code-label[data-lang="css"]            { color: #663399; }
+.code-label[data-lang="markdown"]       { color: #5cb806; }
+.code-label[data-lang="python"]         { color: #4584b6; }
+.code-label[data-lang="php"]            { color: #8993be; }
+.code-label[data-lang="xml"]            { color: #ff6961; }
+.code-label[data-lang="ruby"]           { color: #9b111e; }
+
+.code-label[data-lang="flare"]          { color: var(--flare); }
+.code-label[data-lang="assistant"]      { color: var(--assistant); }
+
+.code-label[data-lang$="level-0"],  .nerd-level-0   { color: #f7d460; }
+.code-label[data-lang$="level-1"],  .nerd-level-1   { color: #f5c958; }
+.code-label[data-lang$="level-2"],  .nerd-level-2   { color: #f2b84c; }
+.code-label[data-lang$="level-3"],  .nerd-level-3   { color: #efa032; }
+.code-label[data-lang$="level-4"],  .nerd-level-4   { color: #e78c1f; }
+.code-label[data-lang$="level-5"],  .nerd-level-5   { color: #e16614; }
+.code-label[data-lang$="level-6"],  .nerd-level-6   { color: #d94d14; }
+.code-label[data-lang$="level-7"],  .nerd-level-7   { color: #c6251d; }
+.code-label[data-lang$="level-8"],  .nerd-level-8   { color: #b30d22; }
+.code-label[data-lang$="level-9"],  .nerd-level-9   { color: #8b0a1a; }
+.code-label[data-lang$="level-10"], .nerd-level-10  { color: #7a288a; }
+
+li > span { color: #ccc; }
 
 .dialog-block, blockquote {
   margin: 2rem auto;
@@ -149,15 +173,54 @@ blockquote {
 }
 
 .dialog-block.flare {
-  border-left: 4px solid #facc15;
+  border-left: 4px solid var(--flare);
 }
 
 .dialog-block.assistant {
-  border-left: 4px solid #38bdf8;
+  border-left: 4px solid var(--assistant);
 }
 
 .dialog-block strong {
   color: #f1f5f9;
+}
+
+/* Nerd-Level Tool Tips */
+
+/* Trigger styling */
+.code-label[data-lang*="-level-"] {
+  cursor: pointer;
+}
+
+/* Tooltip content */
+.tooltip-content {
+  position: absolute;
+  z-index: 200;
+  top: 125%;
+  left: 0;
+  background-color: #222233;
+  color: #e2e8f0;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--flare);
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  width: max-content;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  display: none;
+  white-space: nowrap;
+}
+
+.tooltip-content ol {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.tooltip-content li {
+  margin: 0;
+}
+
+.tooltip-active {
+  display: block !important;
 }
 
 .entry-timestamp {
@@ -175,7 +238,7 @@ blockquote {
   font-size: 0.75rem;
   visibility: none;
   opacity: 0;
-  transition: visibility 0s, opacity 0.5s linear;;
+  transition: visibility 0s, opacity 1s linear;;
 }
 
 .entry-timestamp:hover .hover-tip {
