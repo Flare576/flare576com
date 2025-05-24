@@ -62,8 +62,17 @@ find content -type f -path "*/entries/*.md" | while read -r md_file; do
   IFS='/' read -r _ section subsection _ <<< "$md_file"
 
   # Output path
-  out_dir="meta/$section/$subsection"
+  out_dir="meta/$section"
+  # Full link
+  url="https://flare576.com/#/$section"
+
+  if [ "$subsection" != "entries" ]; then
+    out_dir="$out_dir/$subsection"
+    url="$url/$subsection"
+  fi
+
   out_file="$out_dir/$slug.html"
+  url="$url/$slug"
 
   # Skip if up-to-date
   if [ -f "$out_file" ] && [ "$out_file" -nt "$md_file" ]; then
@@ -81,9 +90,6 @@ find content -type f -path "*/entries/*.md" | while read -r md_file; do
   # Fallbacks
   [ -z "$title" ] && title="Flare576 | $slug"
   [ -z "$description" ] && description="Read more at flare576.com"
-
-  # Full link
-  url="https://flare576.com/#/$section/$subsection/$slug"
 
   mkdir -p "$out_dir"
 

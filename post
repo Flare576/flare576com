@@ -54,7 +54,13 @@ get_entry() {
 
   slug=$(basename "$latest_file" .md)
   IFS='/' read -r _ section subsection _ <<< "$latest_file"
-  entry_url="https://flare576.com/meta/$section/$subsection/$slug.html"
+
+  entry_url="https://flare576.com/meta/$section"
+  if [ "$subsection" != "entries" ]; then
+    entry_url="$entry_url/$subsection"
+  fi
+  entry_url="$entry_url/$slug.html"
+
   title="$(get_meta "$latest_file" "title")"
   description="$(get_meta "$latest_file" "description")"
   published="$(get_meta "$latest_file" "published")"
