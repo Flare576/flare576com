@@ -103,7 +103,7 @@ function addHoverHelper(findId, addId) {
       tooltip.hidden = true;
     });
     label.addEventListener('click', () => {
-      window.open("#/steamdeck/steam-deck-tips-nerd-levels", '_blank');
+      window.open('#/steamdeck/steam-deck-tips-nerd-levels', '_blank');
     });
   });
 
@@ -150,6 +150,7 @@ function addCodeBlockLabels() {
 }
 
 async function safeFetch(url) {
+  // eslint-disable-next-line no-undef
   const safeUnCache = typeof uncache !== 'undefined' ? uncache : Math.random();
   const unCachedUrl = url + (url.includes('?') ? `&v=${safeUnCache}` : `?v=${safeUnCache}`);
   const res = await fetch(unCachedUrl);
@@ -439,7 +440,7 @@ function enhanceMarked() {
     },
     link ({href, title, text}) {
       const isExternal = /^https?:\/\//i.test(href);
-      const svgIcon = isExternal ? externalSvg.replace("external-icon","external-icon-inline") : '';
+      const svgIcon = isExternal ? externalSvg.replace('external-icon','external-icon-inline') : '';
       const titleFull = title ? `title="${title}"` : '';
       return `<a
       ${titleFull}

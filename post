@@ -34,7 +34,7 @@ fi
 
 # === HELPERS ===
 SCRIPT_DIR="$(dirname "${BASH_SOURCE[0]}")"
-pushd "$SCRIPT_DIR" &> /dev/null
+pushd "$SCRIPT_DIR" &> /dev/null || exit
 source ./helpers.sh
 
 get_entry() {
@@ -98,6 +98,7 @@ generate_facets() {
 
   # Use grep-compatible mention pattern
   local mention_regex='@[^ ]+'
+  local did
 
   while read -r mention; do
     # Get byte offsets of each match
@@ -105,8 +106,7 @@ generate_facets() {
     end=$((start + ${#mention}))
 
     # Append facet object
-    local did="$(get_did "${mention:1}")"
-    if [ $? -eq 0 ] && [ -n "$did" ]; then
+    if did="$(get_did "${mention:1}")" && [ -n "$did" ]; then
       facets+=("{
         \"index\": {\"byteStart\": $start, \"byteEnd\": $end},
         \"features\": [{\"\$type\": \"app.bsky.richtext.facet#mention\", \"did\": \"$did\"}]
@@ -141,7 +141,7 @@ get_did() {
   local response
   local did
 
-  response=$(curl -s -X GET https://bsky.social/xrpc/com.atproto.identity.resolveHandle?handle=$handle)
+  response=$(curl -s -X GET "https://bsky.social/xrpc/com.atproto.identity.resolveHandle?handle=$handle")
   did="$(echo "$response" | jq -r '.did // empty')"
   if [ -z "$did" ]; then
     echo "WARNING: Could not resolve handle @$handle" >&2
@@ -205,9 +205,10 @@ generate_embed() {
   [ -z "$embedDesc" ] && embedDesc="External link."
 
   # Escape quotes in one shot
-  embedTitle=$(echo "$embedTitle" | sed 's/"/\\"/g')
-  embedDesc=$(echo "$embedDesc" | sed 's/"/\\"/g')
+  embedTitle="${embedTitle//\"/\\\"}"
+  embedDesc="${embedDesc//\"/\\\"}"
 
+  # shellcheck disable=SC2016 # we don't want expansion here
   printf '{
     "$type": "app.bsky.embed.external",
     "external": {
@@ -224,7 +225,7 @@ generate_embed() {
 # BLUESKY_PASSWORD    → your SFTP username
 
 # === VALIDATION ===
-if [[ -z "$BLUESKY_HANDLE" || -z "$BLUESKY_PASSWORD" ]]; then
+if {[ -z "$BLUESKY_HANDLE" || -z "$BLUESKY_PASSWORD" ]}; then
   echo "One or more required BLUESKY_* environment variables are missing."
   echo "Make sure BLUESKY_HANDLE and BLUESKY_PASSWORD are set."
   exit 1
@@ -258,7 +259,7 @@ if $EDITOR "$tempFile"; then
   access_token=$(echo "$auth_response" | jq -r '.accessJwt')
   did=$(echo "$auth_response" | jq -r '.did')
 
-  post_text="$(<$tempFile)"
+  post_text="$(<"$tempFile")"
   facets_json=$(generate_facets "$post_text")
   embed_json=$(generate_embed "$post_text")
 
@@ -292,9 +293,10 @@ if $EDITOR "$tempFile"; then
   fi
 
   # Only remove the file if posting was successful
+  # shellcheck disable=SC2181 # either command above can provide this value
   if [ $? -eq 0 ]; then
     rm "$tempFile"
   fi
 fi
 
-popd &> /dev/null
+popd &> /dev/null || exit

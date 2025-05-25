@@ -129,7 +129,7 @@ cat index.js.bkp >> index.js
 if [ -z "$dryRun" ]; then
   echo "Deploying site via SFTP to $CMS_FTP_HOST:$CMS_FTP_REMOTE_DIR ..."
 
-  lftp -u "$CMS_FTP_USER","$CMS_FTP_PASS" sftp://$CMS_FTP_HOST:$CMS_FTP_PORT <<EOF
+  lftp -u "$CMS_FTP_USER","$CMS_FTP_PASS" "sftp://$CMS_FTP_HOST:$CMS_FTP_PORT" <<EOF
   lcd $CMS_LOCAL_DIR
   cd $CMS_FTP_REMOTE_DIR
   mirror --reverse --verbose \
