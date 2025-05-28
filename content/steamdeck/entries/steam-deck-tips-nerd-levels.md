@@ -3,7 +3,7 @@ title: "Steam Deck Tips: Nerd Levels"
 date: Fri May 16 11:29:56 PM CDT 2025
 published: true
 description: "An introduction to my Steam Deck articles"
-tags: ["storytime","steamdeck"]
+tags: ["guide","steamdeck"]
 ---
 # Nerd Levels
 
@@ -11,7 +11,7 @@ A Steam Deck can be a lot of different things to different people - a handheld g
 
 I'm using it as all of those, and more, but I wanted a mechanism to let a reader quickly determine if the problem, solution, or review was likely to be meaningful to them.
 
-I decided using a Nerd Level at the top of each article would probably be the easiest way for someone to quickly determine that. Here's a rough gauge of what each level means for the Problem/Goal and the Solution:
+I decided using a Nerd Level at the top of each article would probably be the easiest way for someone to do that. Here's a rough gauge of what each level means for the Problem/Goal and the Solution:
 
 ```nerd-level-0
 Goal: Something that every Steam Deck user will want or need to do.

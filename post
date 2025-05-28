@@ -63,6 +63,10 @@ get_entry() {
 
   title="$(get_meta "$latest_file" "title")"
   description="$(get_meta "$latest_file" "description")"
+  tags="$(get_meta "$latest_file" "tags")"
+  tags="$(echo "$tags" | jq -r '[.[] | "#"+.] | join(" ")')"
+  echo "$tags"
+
   published="$(get_meta "$latest_file" "published")"
   if [ "$published" == "false" ]; then
     echo "Latest entry not published. Exiting"
@@ -240,6 +244,7 @@ touch "$tempFile"
 [ -n "$title" ] && printf '"%s"\n' "$title" >> "$tempFile"
 [ -n "$content" ] && echo "$content" >> "$tempFile"
 [ -n "$entry_url" ] && echo "$entry_url" >> "$tempFile"
+[ -n "$tags" ] && echo "$tags" >> "$tempFile"
 
 echo "Opening $EDITOR, exit with :cq to cancel."
 
