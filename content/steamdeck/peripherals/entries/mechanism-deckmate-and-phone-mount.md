@@ -3,6 +3,8 @@ title: "Mechanism Deckmate And Phone Mount"
 date: Fri May 23 12:25:36 PM CDT 2025
 published: true
 description: "Unironically extremely useful device for both phone and Steam Deck"
+goal: 5
+solution: 1
 tags: ["steamdeck","accessory","peripheral","deckmate","phone"]
 ---
 ````flare

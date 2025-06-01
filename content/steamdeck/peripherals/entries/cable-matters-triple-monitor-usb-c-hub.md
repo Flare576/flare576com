@@ -3,6 +3,8 @@ title: "Cable Matters Triple Monitor USB-C Hub"
 date: Thu May 22 09:34:31 PM CDT 2025
 published: true
 description: "The only USB-C dock I could find that did multiple Display Port outputs, and it is AWESOME"
+goal: 4
+solution: 0
 tags: ["peripheral","dock","review"]
 ---
 ````flare

@@ -3,6 +3,8 @@ title: "GaN 100W USB-C/USB-A 4-Port Charger"
 date: Fri May 23 04:58:03 PM CDT 2025
 published: true
 description: "Cheap Powah"
+goal: 0
+solution: 0
 tags: ["steamdeck","peripheral","usbc","accessory","power"]
 ---
 ````flare

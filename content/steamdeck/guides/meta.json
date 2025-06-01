@@ -1,0 +1,11 @@
+{
+  "title": "Guides",
+  "description": "Information or step-by-step how-to's to get stuff done on your Steam Deck",
+  "entries": [
+    "play-a-game",
+    "desktop-mode-sudo-password",
+    "emudeck",
+    "copy-roms",
+    "retroarch-remap-hotkey"
+  ]
+}

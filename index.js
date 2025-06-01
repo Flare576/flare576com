@@ -79,12 +79,15 @@ function setupBackLinkBehavior() {
 }
 
 function addHoverToNerds() {
-  addHoverHelper('nerd-goal', 'nerd-goal-tooltip');
-  addHoverHelper('nerd-solution', 'nerd-solution-tooltip');
+  addHoverHelper('.code-label[data-lang^="nerd-goal"]',     'nerd-goal-tooltip');
+  addHoverHelper('.nerd-goal',                              'nerd-goal-tooltip');
+
+  addHoverHelper('.code-label[data-lang^="nerd-solution"]', 'nerd-solution-tooltip');
+  addHoverHelper('.nerd-solution',                          'nerd-solution-tooltip');
 }
 
-function addHoverHelper(findId, addId) {
-  document.querySelectorAll(`.code-label[data-lang^="${findId}"]`).forEach(label => {
+function addHoverHelper(findClass, addId) {
+  document.querySelectorAll(findClass).forEach(label => {
     const tooltip = document.getElementById(addId);
 
     label.addEventListener('mouseenter', () => {
@@ -146,7 +149,6 @@ function addCodeBlockLabels() {
 
     pre.insertBefore(label, code);
   });
-  addHoverToNerds();
 }
 
 async function safeFetch(url) {
@@ -251,11 +253,21 @@ async function buildEntry(section, subsection, entry) {
   const entryPath = entry
     ? `#/${section}/${subsection}/${entry}`
     : `#/${section}/${subsection}`;
+  const levels = metadata.goal >= 0 && metadata.solution >= 0
+    ? `<div class="nerd-guide">
+        <div
+          class="nerd-goal nerd-level-${metadata.goal}"
+          >${metadata.goal}</div><div
+          class="nerd-solution nerd-level-${metadata.solution}"
+          >${metadata.solution}</div>
+      </div>`
+    : '';
 
   return `
     <a href="${entryPath}" class="entry-card">
       <h3>${metadata.title}</h3>
       <p>${metadata.description || ''}</p>
+      ${levels}
     </a>`;
 }
 
@@ -426,6 +438,7 @@ async function renderPage() {
     console.log(err);
     renderError(404);
   }
+  addHoverToNerds();
 }
 
 function enhanceMarked() {

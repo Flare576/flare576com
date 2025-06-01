@@ -3,13 +3,15 @@ title: "Crucial X10 Pro 4TB SSD"
 date: Fri May 23 07:16:23 PM CDT 2025
 published: true
 description: "Way more storage than we need... right now (always buy storage for tomorrow)"
+goal: 8
+solution: 1
 tags: ["steamdeck","peripheral","usbc","accessory","storage"]
 ---
 ````flare
 ```nerd-goal-level-8
 Goal: Run a whole family of storage/media/backups.
 ```
-```nerd-solution-level-0
+```nerd-solution-level-1
 Solution: Literally plug it in.
 ```
 ````

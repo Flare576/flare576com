@@ -1,5 +1,5 @@
 #!/bin/bash
-version=0.1.0
+version=0.1.1
 usage="$(basename "$0") [-hvsuetda] [<content>]
 Add a new section, subsection, or entry to your site. You're going to need jq.
 
@@ -11,10 +11,11 @@ Add a new section, subsection, or entry to your site. You're going to need jq.
 -t[Title]         The title of the entity
 -d[Description]   The description of the entity
 -a[tAg]           No spaces, use commas or multiple -t
+-l[Levels]        'Goal,Solution' level for Steam Deck articles
 <content>         Start your post!
 "
 
-while getopts ':hves:u:t:d:a:' option; do
+while getopts ':hves:u:l:t:d:a:' option; do
   case "$option" in
     h) echo "$usage"
       exit
@@ -29,6 +30,8 @@ while getopts ':hves:u:t:d:a:' option; do
     e) entry="true"
       ;;
     t) title="$OPTARG"
+      ;;
+    l) levels="$OPTARG"
       ;;
     d) description="$OPTARG"
       ;;
@@ -87,6 +90,14 @@ if [ -n "$entry" ]; then
   fi
   metaPath="${filePath}/meta.json"
 
+  goal="N/A"
+  solution="N/A"
+  if [ -n "$levels" ]; then
+    IFS=',' read -ra splits <<< "$levels"
+    goal="${splits[0]}"
+    solution="${splits[1]}"
+  fi
+
   jq '.entries += ["'"$entry"'"]' "$metaPath" > /tmp/addNew && mv /tmp/addNew "$metaPath"
   cat > "$entryPath" <<EOF
 ---
@@ -94,6 +105,8 @@ title: "$title"
 date: $(date)
 published: false
 description: "$description"
+goal: $goal
+solution: $solution
 tags: [$tagString]
 ---
 $content

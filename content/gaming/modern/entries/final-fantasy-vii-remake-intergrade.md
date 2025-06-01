@@ -43,7 +43,7 @@ They released DLC - Exclusive to the PS5. They released a PC port, "Intergrade",
 
 Then, in 2024, Part 2 of the remake, entitled [Final Fantasy VII: Rebirth](https://en.wikipedia.org/wiki/Final_Fantasy_VII_Rebirth), released. Only on PS5. There was no way I was buying ANOTHER console to play the SECOND installment, only to eventually need to do it again in 4 years. I sort of gave up on FFVII...
 
-Then I acquired a Steam Deck (I'll talk about that in another post in the near future), and Square Enix announced the PC release of Rebirth... and that it would be [Steam Deck Verified](https://www.steamdeck.com/en/verified).
+Then I [acquired a Steam Deck](#/steamdeck/how-i-got-my-steam-deck), and Square Enix announced the PC release of Rebirth... and that it would be [Steam Deck Verified](https://www.steamdeck.com/en/verified).
 
 I thought... Maybe?
 

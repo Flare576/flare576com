@@ -3,6 +3,8 @@ title: "JSAUX Universal Tablet Stand"
 date: Fri May 23 12:52:41 PM CDT 2025
 published: true
 description: "It's a collapsable stand... Review for completeness"
+goal: 2
+solution: 0
 tags: ["steamdeck","accessory","peripheral","stand"]
 ---
 ````flare

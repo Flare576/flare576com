@@ -3,11 +3,13 @@ title: "USB-C 10ft 3.2 Gen 2"
 date: Fri May 23 04:14:01 PM CDT 2025
 published: true
 description: "USB-C cords are crazy complicated, yo"
+goal: 3
+solution: 0
 tags: ["steamdeck","accessory","peripheral","usbc","cord"]
 ---
 ````flare
 ```nerd-goal-level-3
-Goal: Run multiple monitors from the Steam Deck via Display Port.
+Goal: Optimize Steam Deck functionality 10ft away from dock
 ```
 ```nerd-solution-level-0
 Solution: Literally plug it in.
