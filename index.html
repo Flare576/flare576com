@@ -31,8 +31,16 @@
 
   <script>
     Prism.plugins.autoloader.languages_path = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/';
+
+    // Prevent Prism from attempting to load styles/rules for conversational code types
     Prism.languages.flare = {};
     Prism.languages.assistant = {};
+    for (let i = 0; i <= 10; i++) {
+      Prism.languages[`nerd-level-${i}`] = {}
+      Prism.languages[`nerd-goal-level-${i}`] = {}
+      Prism.languages[`nerd-solution-level-${i}`] = {}
+      Prism.languages[`nerd-note-level-${i}`] = {}
+    }
   </script>
 
 </head>
@@ -111,7 +119,6 @@
   <footer>
     <p>&copy; 2025 Jeremy Scherer. All rights reserved.</p>
   </footer>
-  <script "module" src="index.js"></script>
 
   <div id="nerd-goal-tooltip" class="tooltip-content" hidden>
     Nerd Goal
@@ -145,5 +152,6 @@
       <li class="nerd-level-10"><span>Screwdriver</span></li>
     </ol>
   </div>
+  <script "module" src="index.js"></script>
 </body>
 </html>

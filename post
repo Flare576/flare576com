@@ -65,14 +65,12 @@ get_entry() {
   description="$(get_meta "$latest_file" "description")"
   tags="$(get_meta "$latest_file" "tags")"
   tags="$(echo "$tags" | jq -r '[.[] | "#"+.] | join(" ")')"
-  echo "$tags"
 
   published="$(get_meta "$latest_file" "published")"
   if [ "$published" == "false" ]; then
     echo "Latest entry not published. Exiting"
     exit 1
   fi
-  echo "Latest entry: $title ($entry_url)."
 }
 
 generate_facets() {
@@ -225,7 +223,7 @@ generate_embed() {
 # BLUESKY_PASSWORD    → your SFTP username
 
 # === VALIDATION ===
-if {[ -z "$BLUESKY_HANDLE" || -z "$BLUESKY_PASSWORD" ]}; then
+if [ -z "$BLUESKY_HANDLE" ] || [ -z "$BLUESKY_PASSWORD" ]; then
   echo "One or more required BLUESKY_* environment variables are missing."
   echo "Make sure BLUESKY_HANDLE and BLUESKY_PASSWORD are set."
   exit 1
@@ -286,6 +284,7 @@ if $EDITOR "$tempFile"; then
   if [ -n "$dryRun" ]; then
     echo "$final_data"
   else
+    # I could redirect this output to /dev/null, but I do kind of like seeing it on success
     curl -s -X POST https://bsky.social/xrpc/com.atproto.repo.createRecord \
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer $access_token" \

@@ -1,7 +1,7 @@
 ---
 title: "RetroArch: Remap Hotkey"
 date: Sat May 31 07:48:26 PM CDT 2025
-published: false
+published: true
 description: "A quick tip for adjusting the hotkey in RetroArch"
 goal: 2
 solution: 0
