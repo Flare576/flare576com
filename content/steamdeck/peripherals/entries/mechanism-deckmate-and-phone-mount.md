@@ -30,7 +30,7 @@ I bought this as I was playing old-school NES-era RPGs (Dragon Warrior I, II, an
 
 Additionally, the pack comes with an extra mount, which I've attached to a stand for taking Ebay pictures, so it's even more useful for me.
 
-The ability for the Deckmate to hold two MicroSD cards pretty securely also adds to the utility. 
+The ability for the Deckmate to hold two MicroSD cards pretty securely also adds to the utility.
 
 # The Bad
 

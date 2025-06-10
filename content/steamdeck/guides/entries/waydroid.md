@@ -52,7 +52,7 @@ There's basically two steps to this process:
 
 Before you go back to Game Mode, you may want to make some quick adjustments. Open Steam (I use the icon in the System Tray), then open your Library
 
-1. Find Android_Waydroid_Cage.sh, and Left-Click (or `L1` if you're doing all this without a keyboard/mouse, you mad lad)
+1. Find Android_Waydroid_Cage.sh, and Left-Click (or `R2` if you're doing all this without a keyboard/mouse, you mad lad)
     1. Move to Collection
         1. Click the Gear (⚙️) icon on the right
         2. Choose "Add To" then "Launchers" (or whatever you called your collection for these sorts of things)
@@ -71,7 +71,7 @@ Before you go back to Game Mode, you may want to make some quick adjustments. Op
         7. Go to "System" at the top
         8. Tap "Touchscreen Native Support"
         9. Tap "Back" 2x
-2. Find "steamos-nested-desktop", and Left-Click (or `L1`)
+2. Find "steamos-nested-desktop", and Left-Click (or `R2`)
     1. Move to Collection
         1. Click the Gear (⚙️) icon on the right
         2. Choose "Add To" then "Launchers" (or whatever you called your collection for these sorts of things)
