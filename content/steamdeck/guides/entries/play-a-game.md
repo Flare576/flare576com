@@ -34,4 +34,4 @@ Solution: Steam Deck Game Mode!
 This works for "Windows-only" games, too, by using something called Proton
 ```
 
-For a fantastic explanation of how Proton works, check out [MonroeWorld's Proton 101](https://www.youtube.com/watch?v=Pfsb4M7swbE), but the TL;DR version is that Proton bundles up the Linux version of the important files games use from Windows, puts them into a file structure that LOOKS like Windows, and then lies to the game about BEING Windows. It's not **emulation**, it's MAGIC.
+For a fantastic explanation of how Proton works, check out [MonroeWorld's Proton 101](https://www.youtube.com/watch?v=Pfsb4M7swbE), or my in-depth review of [ProtonDB Badges for Decky](#/steamdeck/decky/protondb-badges), but the TL;DR version is that Proton bundles up the Linux version of the important files games use from Windows, puts them into a file structure that LOOKS like Windows, and then lies to the game about BEING Windows. It's not **emulation**, it's MAGIC.

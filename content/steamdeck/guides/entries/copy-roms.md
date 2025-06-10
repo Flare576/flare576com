@@ -45,15 +45,15 @@ There's 4 basic steps, which I'll go into detail for below, but:
 
 1. Point your browser at [github.com/Flare576/copyroms](https://github.com/Flare576/copyroms)
 2. On the right under Releases, tap "V0.0.2 - Xbox 360 Adjustments" (Or whatever the latest release is)
-3. Tap "copyroms_steamos.zip"
+3. Tap **copyroms_steamos.zip**
 4. If you're prompted for a download location, choose wherever you told [EmuDeck](#/steamdeck/guides/emudeck) to setup your folders
 5. If you're NOT prompted, you'll need to move the zip file from "Downloads" to that location
 
-> NOTE: You should see a folder called "Emulation" in the same folder as `copyroms_steamos.zip` at this point.
+> NOTE: You should see a folder called "Emulation" in the same folder as **copyroms_steamos.zip** at this point.
 
 ## Extract it
 
-On the Steam Deck, by default, the Left Trigger (L2) is "Right Click," use that to "Extract" -> "Extract Here".
+On the Steam Deck, by default, the Left Trigger (`L2`) is "Right Click," use that to "Extract" -> "Extract Here".
 
 ## Edit Your Lists
 
@@ -96,7 +96,7 @@ I spent a lot of time on this project, and compiled some statistics while I was 
 
 **SIZES ARE IN MB**
 
-| Name                     | Release     | 1G1R ROMS | 1G1R Size  | Avg Size | TOP ROMS | TOP Size |
+| Name                     | Release     | 1G1R ROMs | 1G1R Size  | Avg Size | TOP ROMs | TOP Size |
 |--------------------------|-------------|:---------:|:----------:|:--------:|:--------:|:--------:|
 | Atari 2600               | 1977-9-11   | 481       | 2          | 0.0      | 43       | 1        |
 | Atari 5200               | 1982-11-1   | 65        | 1          | 0.0      | 11       | 1        |

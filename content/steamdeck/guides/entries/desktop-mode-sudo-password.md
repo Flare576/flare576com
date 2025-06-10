@@ -23,7 +23,7 @@ Simply
 - Press the "Steam" button on the left-hand side of your device
 - Scroll down (or up) to "Power"
 - Scroll down (or up) to "Switch to Desktop"
-- Press "A"
+- Press `A`
 
 Looks kinda like a PC, doesn't it? That's because it IS. Under-the-covers, SteamOS is [Arch Linux](https://archlinux.org/).
 
@@ -37,19 +37,21 @@ On "sudo" - If you're used to Windows, "sudo" is a lot like the "admin mode" Win
 Any tool, script, etc. I talk about on my site, unless I throw warnings all over the page to say "DON'T USE THIS," is something I've personally installed and use, but it's always a good idea to either keep sensitive information OFF the Steam Deck, or familiarize yourself with the tool/script before executing it.
 ```
 
-The safest way I've found to set your initial `sudo` password is to
+The safest way I've found to set your initial **`sudo`** password is to
 1. Tap the SteamOS logo in the bottom-left (a.k.a., the "Application Launcher")
-2. Tap "System"
-3. Tap "Konsole"
-4. Press the "X" button to launch the On-Screen Keyboard (OSK)
-5. Type **`passwd`** (Yes, that's how it is spelled)
-> I know, I know, entering commands is <span class="nerd-level-5">Nerd Level 5</span>, but doing it this way will save you a ton of headache, because [Resetting the Sudo Password](https://www.youtube.com/watch?v=jWFjZNxFHew) is <span class="nerd-level-9">Nerd Level 9</span>. Trust me on this one.
-6. Press "A" or the "Enter" button on the OSK
-7. Use the OSK to enter a password
-    - It doesn't need to be crazy secure - you're probably going to be typing it in with the OSK, but it DOES allow god mode on your machine - so maybe not `password` or `1234`)
-8. Use the OSK to confirm the password
-9. Close the Konsole Window
-10. WRITE THAT 💩 DOWN
+2. Tap "Settings"
+3. Tap "System Settings"
+4. Under "Personalization", tap "Users"
+5. Tap "Change Password"
+6. Tap the first box
+7. Press the `X` button to launch the On-Screen Keyboard (OSK) (if it doesn't auto-launch)
+8. Use the OSK to enter a password
+    - It doesn't need to be crazy secure - you're probably going to be typing it in with the OSK, but it DOES allow god mode on your machine - so maybe not "password" or "1234")
+9. Use the OSK to confirm the password
+10. Tap "Set Password"
+11. Tap "Leave Unchanged" when asked about KWallet (Unless you want to, I'm not your dad)
+12. Close the Settings Window
+13. WRITE THAT 💩 DOWN
 
 # Final Touches
 
@@ -76,9 +78,9 @@ By default, the right track pad is setup "As Mouse," which feels fine, but it ca
 
 That's it! Try it out for a while, and if you don't like it, changing it back is super simple - literally follow the above steps but choose "Mouse" on step 8!
 
-## "B" as Backspace
+## `B` as Backspace
 
-"B" defaults to "Escape," but so does the "Start" button (Or "Menu" button, the one above the right joystick), so I don't need both, and having a button for Backspace is useful! To accomplish this, Follow the instructions above, but instead of choosing "Trackpads" and "Mouse," you just choose "Buttons" and "Keyboard"!
+`B` defaults to "Escape," but so does the `Start` button (a.k.a. `☰` button - the one above the right joystick), so I don't need both, and having a button for Backspace is useful! To accomplish this, Follow the instructions above, but instead of choosing "Trackpads" and "Mouse," you just choose "Buttons" and "Keyboard"!
 
 ## D-Pad
 
@@ -91,10 +93,10 @@ The left-joystick and the D-Pad both send Up/Down/Left/Right, and I felt like th
 - Down: Copy ("Down" means "Pull in")
 - Up: Paste ("Up" means "Send away")
 
-Open the Controller settings, go to D-pad, and then tap the button you want to update. To make it send `Ctrl + Z` for "Undo", you:
+Open the Controller settings, go to D-pad, and then tap the button you want to update. To make it send `Ctrl`+`Z` for "Undo", you:
 
-1. Tap the command it's sending right now and choose the "Z" Key from "Keyboard"
-2. Tap the Gear icon, and choose "Add Extra Command"
-3. Choose "Ctrl" from "Keyboard"
+1. Tap the command it's sending right now and choose the `Z` Key from "Keyboard"
+2. Tap the Gear (⚙️) icon, and choose "Add Extra Command"
+3. Choose `Ctrl` from "Keyboard"
 
-To get "Redo," you just add ANOTHER extra command and set that to "Shift" (in most apps, `Ctrl + Shift + Z` is "Redo".
+To get "Redo," you just add ANOTHER extra command and set that to `Shift` (in most apps, `Ctrl`+`Shift`+`Z` is "Redo".

@@ -1,0 +1,15 @@
+{
+  "title": "Decky Loader",
+  "description": "How to Install, why you'd want it, and plugin recommendations",
+  "sticky": [
+    "introduction"
+  ],
+  "entries": [
+    "protondb-badges",
+    "steamgriddb",
+    "isthereanydeal",
+    "hltb",
+    "notebook",
+    "playtime"
+  ]
+}

@@ -6,6 +6,12 @@
     "desktop-mode-sudo-password",
     "emudeck",
     "copy-roms",
-    "retroarch-remap-hotkey"
+    "retroarch-remap-hotkey",
+    "nonsteamlaunchers",
+    "multi-tasking",
+    "desktop-apps-from-game-mode",
+    "flatseal",
+    "screenshots",
+    "waydroid"
   ]
 }

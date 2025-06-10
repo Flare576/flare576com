@@ -147,6 +147,7 @@ pre {
 
 .code-label[data-lang="flare"]          { color: var(--flare); }
 .code-label[data-lang="assistant"]      { color: var(--assistant); }
+.code-label[data-lang="you"]            { color: #5cb806; }
 
 .code-label[data-lang$="level-0"],  .nerd-level-0   { color: #f7d460; }
 .code-label[data-lang$="level-1"],  .nerd-level-1   { color: #f5c958; }
@@ -475,6 +476,13 @@ tbody tr:nth-child(odd) {
 
 tbody tr:nth-child(even) {
   background-color: rgba(255, 255, 255, 0.10);
+}
+
+:not(pre) > code {
+  border: 3px solid black;
+  border-radius: 10px;
+  background-color: black;
+  padding: 0 5px;
 }
 
 

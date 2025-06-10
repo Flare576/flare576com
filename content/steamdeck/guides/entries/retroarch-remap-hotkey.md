@@ -31,24 +31,24 @@ In order to solve that, you can add/remap the Hot Key, and with the Steam Deck, 
 While in-game:
 
 1. Add a Hotkey
-    1. Press both joysticks simultaneously (L3 + R3) to open the Quick Menu
-    2. Press "B" to go back to the Main Menu
-    3. Press "B" to go to the Navigation pane
+    1. Press both joysticks simultaneously (`L3`+`R3`) to open the Quick Menu
+    2. Press `B` to go back to the Main Menu
+    3. Press `B` to go to the Navigation pane
     4. Use the D-pad to highlight "Settings"
-    5. Select "Settings" with "A"
-    6. Select "Input" with "A"
-    7. Select "Hotkeys" with "A"
-    8. Select "Hotkey Enable" with "A"
-    9. Press a different button (I used L5, the bottom grip button)
+    5. Select "Settings" with `A`
+    6. Select "Input" with `A`
+    7. Select "Hotkeys" with `A`
+    8. Select "Hotkey Enable" with `A`
+    9. Press a different button (I used `L5`, the bottom grip button on the left)
 2. Save your settings
-    1. Press "B" Until you're back at the Main Menu's Navigation panel
+    1. Press `B` Until you're back at the Main Menu's Navigation panel
     2. Use the D-pad to highlight "Main Menu"
-    3. Select "Main Menu" with "A"
-    4. Select "Quick Menu" with "A"
-    5. Select "Overrides" with "A"
-    6. Select "Save Core Overrides" with "A"
+    3. Select "Main Menu" with `A`
+    4. Select "Quick Menu" with `A`
+    5. Select "Overrides" with `A`
+    6. Select "Save Core Overrides" with `A`
 3. Resume your game and try your hotkey
-    1. Press both joysticks simultaneously (L3 + R3) to resume the game
-    2. **HOLD** your hotkey and press the right shoulder button (R1) - you should see a notification saying you saved state!
+    1. Press both joysticks simultaneously (`L3`+`R3`) to resume the game
+    2. **HOLD** your hotkey and press the right shoulder button (`R1`) - you should see a notification saying you saved state!
 
 (if these steps don't work for you, PLEASE let me know [on Bluesky](https://bsky.app/profile/flare576.com) so I can update the instructions!)

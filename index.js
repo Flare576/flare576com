@@ -169,6 +169,9 @@ async function readMetaFile (section, subsection) {
   if (info.entries) {
     info.entries = info.entries.reverse();
   }
+  if (info.sticky) {
+    info.entries.unshift(...info.sticky);
+  }
   return info;
 }
 

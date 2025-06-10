@@ -18,7 +18,9 @@ Solution: You'll need to download and run some scripts/installers
 
 # TL;DR
 
-"Flare, there's a lot of words on this page, and I'm more of a... visual learner"
+```you
+Flare, there's a lot of words on this page, and I'm more of a... visual learner
+```
 
 [Tech Cravers - Ultimate Beginners Guide](https://youtu.be/EIrgHI2-Ttg) has you covered, but check out my [Guide to obtaining game backups](#/steamdeck/guides/copy-roms) if you don't already have ROMs of your games!
 
@@ -40,9 +42,9 @@ EmuDeck is NOT necessary to run Emulators on your device, but a lawn mower _also
 
 Ensure you've [started with Desktop Mode](#/steamdeck/guides/desktop-mode-sudo-password) and switch over.
 
-Open Firefox\*, and head to [emudeck.com](https://www.emudeck.com/), tap "Download", and choose SteamOS. This will download a file called **EmuDeck.desktop.download** to your Downloads folder.
+Open Firefox<sup>\*</sup>, and head to [emudeck.com](https://www.emudeck.com/), tap "Download", and choose SteamOS. This will download a file called **EmuDeck.desktop.download** to your Downloads folder.
 
-> \* If this is your first time using Firefox, you'll be taken to the Discover app to install it - Do that!
+> <sup>\*</sup> If this is your first time using Firefox, you'll be taken to the Discover app to install it - Do that!
 
 Either click the "Download" icon in the top-right of Firefox and click the folder icon, or open the Dolphin file browser and navigate to the Downloads folder.
 
@@ -124,7 +126,7 @@ If you have multiple profiles/accounts/profiles, this allows you to choose which
 
 This step intimidates me, so I always toggle the dial in the top-right to OFF, then choose one system at a time.
 
-I **HIGHLY RECOMMEND** doing that, ESPECIALLY if this is your first time parsing and you're not 100% sure how you want to display your ROMS. It's way easier to populate one system, hop back over to Game Mode to see how it looks, then reload Desktop Mode and parse the rest or change your settings.
+I **HIGHLY RECOMMEND** doing that, ESPECIALLY if this is your first time parsing and you're not 100% sure how you want to display your ROMs. It's way easier to populate one system, hop back over to Game Mode to see how it looks, then reload Desktop Mode and parse the rest or change your settings.
 
 ### "Add Games"
 
