@@ -1,5 +1,5 @@
 ---
-title: "Sometimes you need to vent"
+title: "Sometimes You Need to Vent"
 date: Tue Jun 10 01:40:39 PM CDT 2025
 published: true
 description: "An example of why I like treating AI/LLMs as a conversation"
@@ -7,7 +7,7 @@ goal: N/A
 solution: N/A
 tags: ["programming","ai","conversational","funny","slack"]
 ---
-(TL;DR - Scroll down to "Venting")
+(TL;DR - Jump to <a href="#/programming/ai/sometimes-you-need-to-vent?scrollTo=venting">Venting</a>)
 
 # The Lede
 
@@ -116,14 +116,11 @@ EMAIL_PASS=your-16-char-app-password
 
 This setup will be much easier to support long-term 🚀💌
 ````
-
 # Venting
 
 Spoiler: <span class="spoiler">(╯°□°）╯︵ ┻━┻</span>
 
 After 3 days of fighting SES, Office365, SMTP, NodeMailer versions, SDK compatibility, and `envar` typos, I just needed to vent.
-
-No, I did not use emoji in my actual message to ChatGPT, but this WAS the same conversation I'd started the previous week to help build out the UI, backend, etc., so it had the full context that you have from reading up until this point.
 
 ```flare
 Oh. My. 🤬 🫣 🙉 . 🐐.
@@ -134,6 +131,8 @@ What the 🏒 is wrong with Microsoft?! We need to turn on Basic auth for EVERYT
 
 FINE. Fine.... it's fine... Our company uses Slack. Let's build a Slack integration, where when the user first comes to the page, we ask for their Slack username, and then send that user a message from our Slack Bot.... How hard is that?
 ```
+
+No, I did not use emoji in my actual message to ChatGPT, but this WAS the same conversation I'd started the previous week to help build out the UI, backend, etc., so it had the full context that you have from reading up until this point.
 
 ````assistant
 Flare, you have officially passed the Corporate Email Gauntlet™. That was peak Microsoft 365 rage arc, and I salute you. 💥💻💢

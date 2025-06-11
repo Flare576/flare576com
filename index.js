@@ -1,4 +1,3 @@
-const uncache = "1749592201";
 // deploy script will add uncache here, don't manually add
 const externalSvg = `<svg xmlns="http://www.w3.org/2000/svg" class="external-icon" viewBox="0 0 24 24" fill="none">
     <path d="M10.0002 5H8.2002C7.08009 5 6.51962 5 6.0918 5.21799C5.71547 5.40973 5.40973 5.71547 5.21799 6.0918C5 6.51962 5 7.08009 5 8.2002V15.8002C5 16.9203 5 17.4801 5.21799 17.9079C5.40973 18.2842 5.71547 18.5905 6.0918 18.7822C6.5192 19 7.07899 19 8.19691 19H15.8031C16.921 19 17.48 19 17.9074 18.7822C18.2837 18.5905 18.5905 18.2839 18.7822 17.9076C19 17.4802 19 16.921 19 15.8031V14M20 9V4M20 4H15M20 4L13 11"
@@ -19,6 +18,32 @@ function getRandomTimeLabel() {
   return timeTerms[Math.floor(Math.random() * timeTerms.length)];
 }
 
+function createLinkedElement (textContent, permalink) {
+  const hoverTip = document.createElement('span');
+  hoverTip.textContent = ' (Click for 🔗)';
+  hoverTip.className = 'hover-tip';
+  const link = document.createElement('a');
+  link.id = btoa(permalink);
+  link.textContent = textContent;
+  link.classList.add('hover-main');
+  setTimeout(() => {
+    const theLink = document.getElementById(link.id);
+    const hoverTip = theLink.children[0];
+    theLink.addEventListener('click', event => {
+      event.preventDefault();
+      navigator.clipboard.writeText(permalink).then(() => {
+        console.log(hoverTip.textContent);
+        hoverTip.textContent = ' (🔗 Copied!)';
+        setTimeout(() => {
+          hoverTip.textContent = ' (Click for 🔗)';
+        }, 2000);
+      });
+    });
+  }, 100);
+  link.append(hoverTip);
+  return link;
+}
+
 function addDateLine(dateTime, section, subsection, entry) {
   const dateLabel = getRandomTimeLabel();
   const dateLine = `${dateLabel}: ${dateTime}`;
@@ -28,23 +53,8 @@ function addDateLine(dateTime, section, subsection, entry) {
     '/' +
     ['meta',section,subsection,entry].filter(Boolean).join('/') +
     '.html';
-  const hoverTip = document.createElement('span');
-  hoverTip.textContent = ' (Click for 🔗)';
-  hoverTip.className = 'hover-tip';
-  const link = document.createElement('a');
-  link.href = permalink;
-  link.textContent = dateLine;
-  link.className = 'entry-timestamp';
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    navigator.clipboard.writeText(permalink).then(() => {
-      hoverTip.textContent = ' (🔗 Copied!)';
-      setTimeout(() => {
-        hoverTip.textContent = ' (Click for 🔗)';
-      }, 2000);
-    });
-  });
-  link.append(hoverTip);
+  const link = createLinkedElement(dateLine, permalink);
+  link.classList.add('entry-timestamp');
   document.getElementById('content').prepend(link);
 }
 
@@ -65,6 +75,22 @@ async function addBackLink (section, subsection) {
   container.append(link);
   document.getElementById('content').append(container);
   setupBackLinkBehavior();
+}
+
+function maybeScrollToAnchor() {
+  const hash = window.location.hash;
+  const [_, query] = hash.split("?");
+  if (!query) return;
+
+  const params = new URLSearchParams(query);
+  const scrollToId = params.get("scrollTo");
+
+  if (scrollToId) {
+    const el = document.getElementById(scrollToId);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
 }
 
 function setupBackLinkBehavior() {
@@ -355,6 +381,7 @@ async function renderMarkdown(section, subsection, entry) {
   addDateLine(metadata.date, section, subsection, entry);
   addCodeBlockLabels();
   Prism.highlightAll();
+  maybeScrollToAnchor();
 }
 
 function renderError(code) {
@@ -422,7 +449,7 @@ async function renderPage() {
   document.getElementById('content').innerHTML = '';
   document.getElementById('about-me').style.display = 'none';
   const theHash = window.location.hash.replace(/^[^\w]+/, '');
-  const pathParts = theHash.split('/').filter(Boolean);
+  const pathParts = theHash.split('?')[0].split('/').filter(Boolean);
   const [section, subsection, entry] = pathParts;
   try {
     if (entry) {
@@ -463,6 +490,22 @@ function enhanceMarked() {
       ${titleFull}
       href="${href}"${isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''}
       >${text}${svgIcon}</a>`;
+    },
+    heading ({text, depth}) {
+      const slug = text
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '')  // Remove non-word characters
+        .trim()
+        .replace(/\s+/g, '-');     // Replace spaces with dashes
+
+      // Create permalink
+      const permalink = `${window.location.href.split('?')[0]}?scrollTo=${slug}`;
+      const link = createLinkedElement(text, permalink);
+      const heading = document.createElement(`h${depth}`);
+      heading.id = slug;
+      heading.className = 'entry-heading';
+      heading.append(link);
+      return heading.outerHTML;
     },
     code ({text, lang}) {
       if (lang === 'flare' || lang === 'assistant') {

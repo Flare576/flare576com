@@ -232,27 +232,30 @@ blockquote {
   font-size: 0.85rem;
   color: #94a3b8;
   text-align: right;
-  cursor: pointer;
   margin-bottom: 1rem;
   transition: color 0.2s ease;
   position: relative;
 }
 
-.entry-timestamp .hover-tip {
+.hover-main {
+  cursor: pointer;
+}
+
+.hover-main .hover-tip {
   color: #facc15;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   visibility: none;
   opacity: 0;
   transition: visibility 0s, opacity 1s linear;;
 }
 
-.entry-timestamp:hover .hover-tip {
+.hover-main:hover .hover-tip {
   visibility: visible;
   opacity: 1;
 }
 
 /* Regular links */
-#content a {
+#content :not(.entry-heading) a {
   color: #93c5fd;
   text-decoration: underline;
   font-weight: 500;
@@ -267,6 +270,8 @@ blockquote {
 #content strong {
   color: #fac157;
 }
+
+
 
 .spoiler {
   background-color: #334155;
@@ -294,7 +299,6 @@ a:hover .external-icon-inline {
   transform: scale(1.1) translateY(15%);
   color: #f1f5f9;
 }
-
 
 /* ==========================================================================
    Images
