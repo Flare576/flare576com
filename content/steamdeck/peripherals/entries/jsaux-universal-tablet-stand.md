@@ -15,8 +15,9 @@ Goal: Hold your Deck up.
 Solution: ... I honestly don't know, it's a stand.
 ```
 ````
-# [JSAUX Universal Tablet Stand (Amazon)](https://www.amazon.com/dp/B0BJVK7M72?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1)
+# Product Link
 
+[JSAUX Universal Tablet Stand (Amazon)](https://www.amazon.com/dp/B0BJVK7M72?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1)  
 (no, it's not an affiliate link, it's just an Amazon link)
 
 ## Price: $15.99 USD

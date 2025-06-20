@@ -15,8 +15,9 @@ Goal: Run multiple monitors from the Steam Deck via Display Port.
 Solution: Literally plug it in.
 ```
 ````
-# [Cable Matters Triple Monitor USB-C Hub (Amazon)](https://www.amazon.com/dp/B086DXLF37?ref=ppx_yo2ov_dt_b_fed_asin_title)  
+# Product Link
 
+[Cable Matters Triple Monitor USB-C Hub (Amazon)](https://www.amazon.com/dp/B086DXLF37?ref=ppx_yo2ov_dt_b_fed_asin_title)  
 (no, it's not an affiliate link, it's just an Amazon link)
 
 ## Price: $79.99 USD

@@ -15,8 +15,9 @@ Goal: Add a second screen in handheld mode, add MicroSD storage, get a phone kic
 Solution: You're gonna want a case with a MagSafe ring.
 ```
 ````
-# [Mechanism Deckmate and Phone Mount (Amazon)](https://www.amazon.com/dp/B0D893VP5S?ref=ppx_yo2ov_dt_b_fed_asin_title)
+# Product Link
 
+[Mechanism Deckmate and Phone Mount (Amazon)](https://www.amazon.com/dp/B0D893VP5S?ref=ppx_yo2ov_dt_b_fed_asin_title)  
 (no, it's not an affiliate link, it's just an Amazon link)
 
 ## Price: $39.99 USD

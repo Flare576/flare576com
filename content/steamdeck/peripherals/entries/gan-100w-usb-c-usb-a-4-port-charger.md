@@ -15,8 +15,9 @@ Goal: Power your stuff
 Solution: Literally plug it in.
 ```
 ````
-# [GaN 100W USB-C/USB-A 4-Port Charger (Amazon)](https://www.amazon.com/gp/product/B0CDFYGYJN?ie=UTF8&psc=1)
+# Product Link
 
+[GaN 100W USB-C/USB-A 4-Port Charger (Amazon)](https://www.amazon.com/gp/product/B0CDFYGYJN?ie=UTF8&psc=1)  
 (no, it's not an affiliate link, it's just an Amazon link)
 
 ## Price: $25.99 USD

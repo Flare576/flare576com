@@ -15,8 +15,9 @@ Goal: Optimize Steam Deck functionality 10ft away from dock
 Solution: Literally plug it in.
 ```
 ````
-# [USB-C to USB-C 3.2 Gen 2 10ft 100W PD... (Amazon)](https://www.amazon.com/dp/B089FV33QX?ref=ppx_yo2ov_dt_b_fed_asin_title)
+# Product Link
 
+[USB-C to USB-C 3.2 Gen 2 10ft 100W PD... (Amazon)](https://www.amazon.com/dp/B089FV33QX?ref=ppx_yo2ov_dt_b_fed_asin_title)  
 (no, it's not an affiliate link, it's just an Amazon link)
 
 ## Price: $17.99 USD

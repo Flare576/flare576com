@@ -255,7 +255,7 @@ blockquote {
 }
 
 /* Regular links */
-#content :not(.entry-heading) a {
+#content :not(.entry-heading, .section-title) > a {
   color: #93c5fd;
   text-decoration: underline;
   font-weight: 500;

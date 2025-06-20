@@ -15,8 +15,9 @@ Goal: Run a whole family of storage/media/backups.
 Solution: Literally plug it in.
 ```
 ````
-# [Crucial X10 Pro 4TB SSD (Amazon)](https://a.co/d/4gRWDSr)  
+# Product Link
 
+[Crucial X10 Pro 4TB SSD (Amazon)](https://a.co/d/4gRWDSr)  
 (no, it's not an affiliate link, it's just an Amazon link)
 
 ## Price: $279.99 USD

@@ -15,8 +15,9 @@ Goal: Easily connect your Steam Deck to a TV/Charging station/etc.
 Solution: Literally plug it in.
 ```
 ````
-# [Park Sung 7-in-1 HDMI Docking Station (Amazon)](https://www.amazon.com/dp/B0BG7PW7KB?ref=ppx_yo2ov_dt_b_fed_asin_title)
+# Product Link
 
+[Park Sung 7-in-1 HDMI Docking Station (Amazon)](https://www.amazon.com/dp/B0BG7PW7KB?ref=ppx_yo2ov_dt_b_fed_asin_title)  
 (no, it's not an affiliate link, it's just an Amazon link)
 
 ## Price: $21.99 USD

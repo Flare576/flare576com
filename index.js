@@ -59,17 +59,22 @@ function addDateLine(dateTime, section, subsection, entry) {
 }
 
 async function addBackLink (section, subsection) {
-  const parentMeta = await readMetaFile(section, subsection);
+  let text = 'Home';
+  let backLinkHref = '#';
+  if (section) {
+    const parentMeta = await readMetaFile(section, subsection);
+    text = parentMeta.title;
 
-  const backLinkHref = subsection
-    ? `#/${section}/${subsection}`
-    : `#/${section}`;
+    backLinkHref = subsection
+      ? `#/${section}/${subsection}`
+      : `#/${section}`;
+  }
 
   const container  = document.createElement('div');
   container.className = 'back-link-container';
   const link = document.createElement('a');
   link.href = backLinkHref;
-  link.textContent = `Back to ${parentMeta.title} ↑`;
+  link.textContent = `Back to ${text} ↑`;
   link.className = 'back-link';
 
   container.append(link);
@@ -79,16 +84,18 @@ async function addBackLink (section, subsection) {
 
 function maybeScrollToAnchor() {
   const hash = window.location.hash;
-  const [_, query] = hash.split("?");
-  if (!query) return;
+  const [_, query] = hash.split('?');
+  if (!query) {
+    return;
+  }
 
   const params = new URLSearchParams(query);
-  const scrollToId = params.get("scrollTo");
+  const scrollToId = params.get('scrollTo');
 
   if (scrollToId) {
     const el = document.getElementById(scrollToId);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 }
@@ -182,6 +189,7 @@ async function safeFetch(url) {
   // eslint-disable-next-line no-undef
   const safeUnCache = typeof uncache !== 'undefined' ? uncache : Math.random();
   const unCachedUrl = url + (url.includes('?') ? `&v=${safeUnCache}` : `?v=${safeUnCache}`);
+  console.log(unCachedUrl);
   const res = await fetch(unCachedUrl);
   if (!res.ok) {
     throw new Error(`HTTP ${res.status}: ${url}`);
@@ -228,7 +236,7 @@ async function buildSection(section) {
   const { title, description, subsections, entries } = await readMetaFile(section);
 
   let html = '<section class="section">';
-  html += `<h2 class="section-title">${title}</h2>`;
+  html += `<h2 class="section-title"><a href="#${section}">${title}</a></h2>`;
   if (description) {
     html += `<p class="section-description">${description}</p>`;
   }
@@ -412,15 +420,22 @@ function renderError(code) {
   `;
 }
 
-async function renderHomepage() {
+async function renderHomepage(section) {
   document.title = 'Flare576';
-  document.getElementById('about-me').style.display = 'block';
+  if (!section) {
+    document.getElementById('about-me').style.display = 'block';
+  }
   let html = '';
   const { sections } = await readMetaFile();
-  for (const section of sections) {
-    html += await buildSection(section);
+  for (const build of sections) {
+    if (!section || section === build) {
+      html += await buildSection(build);
+    }
   }
   document.getElementById('content').innerHTML = html;
+  if (section) {
+    addBackLink();
+  }
 }
 
 async function renderSubsection(section, subsection) {
@@ -443,6 +458,7 @@ async function renderSubsection(section, subsection) {
 
   html += '</section>';
   document.getElementById('content').innerHTML = html;
+  addBackLink(section);
 }
 
 async function renderPage() {
@@ -455,7 +471,7 @@ async function renderPage() {
     if (entry) {
       await renderMarkdown(section, subsection, entry);
     } else if (!subsection) {
-      await renderHomepage();
+      await renderHomepage(section);
     } else {
       try {
         await renderSubsection(section, subsection);
