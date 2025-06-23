@@ -17,7 +17,7 @@ npm -g install live-server # run once
 live-server --port=48888 --ignore="**/tags*" # run to start
 ```
 
-> Note: the `--ignore` doesn't seem to do anything, but I leave it there 'cause eventually I'd like to get it working ¯\&#95;(ツ)&#95;/¯
+> Note: the `--ignore` doesn't seem to do anything, but I leave it there 'cause eventually I'd like to get it working ¯\\&#95;(ツ)&#95;/¯
 
 ## Linting
 
