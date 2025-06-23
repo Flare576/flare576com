@@ -430,6 +430,7 @@ async function renderHomepage(section) {
   for (const build of sections) {
     if (!section || section === build) {
       html += await buildSection(build);
+      document.getElementById('content').innerHTML = html;
     }
   }
   document.getElementById('content').innerHTML = html;
@@ -452,6 +453,7 @@ async function renderSubsection(section, subsection) {
     html += '<div class="entries">';
     for (const entry of entries) {
       html += await buildEntry(section, subsection, entry);
+      document.getElementById('content').innerHTML = html;
     }
     html += '</div>';
   }
