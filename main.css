@@ -564,6 +564,14 @@ tbody tr:nth-child(even) {
   filter: brightness(1) invert(0);
 }
 
+.calendar {
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+}
+
+.calendar > div {
+  width: 85px;
+}
+
 /* ==========================================================================
    Responsive
    ========================================================================== */
