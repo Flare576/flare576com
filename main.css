@@ -144,6 +144,7 @@ pre {
 .code-label[data-lang="php"]            { color: #8993be; }
 .code-label[data-lang="xml"]            { color: #ff6961; }
 .code-label[data-lang="ruby"]           { color: #9b111e; }
+.code-label[data-lang="plantuml"]       { color: #ffbd3f; }
 
 .code-label[data-lang="flare"]          { color: var(--flare); }
 .code-label[data-lang="assistant"]      { color: var(--assistant); }
@@ -313,6 +314,10 @@ a:hover .external-icon-inline {
 .thumbnail:hover {
   max-height: 750px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.thumbnail.dangerous:hover {
+  max-height: 2200px;
 }
 
 /* ==========================================================================

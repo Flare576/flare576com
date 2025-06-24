@@ -493,7 +493,11 @@ async function renderPage() {
 function enhanceMarked() {
   const renderer = {
     image ({href, title, text}) {
-      let out = `<img class="thumbnail" src="${href}" alt="${text}"`;
+      const classes = ['thumbnail'];
+      if (title === 'huge') {
+        classes.push('dangerous');
+      }
+      let out = `<img class="${classes.join(' ')}" src="${href}" alt="${text}"`;
       if (title) {
         out += ` title="${title}"`;
       }

@@ -3,6 +3,7 @@
   "description": "Tips, tricks, and teachings about telling computers what to do",
   "subsections": [
     "ai",
-    "scripting"
+    "scripting",
+    "uml"
   ]
 }

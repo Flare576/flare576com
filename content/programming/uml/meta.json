@@ -1,0 +1,15 @@
+{
+  "title": "PlantUML",
+  "description": "How to generate diagrams with code",
+  "sticky": [
+    "introduction"
+  ],
+  "entries": [
+    "notes-and-formatting",
+    "boxes-and-groups",
+    "numbering",
+    "blocks",
+    "arrows",
+    "all-together"
+  ]
+}
