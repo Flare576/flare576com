@@ -86,7 +86,7 @@ end
 
 ## Bonus
 
-If you want to show that the **`User`** is waiting while the call is occuring, but don't want the visual noise of the `group`, use the `activate` and `deactivate` commands:
+If you want to show that the **`User`** is waiting while the call is occurring, but don't want the visual noise of the `group`, use the `activate` and `deactivate` commands:
 
 > Note: `activate` and `deactivate` come right AFTER the calls that you want their box to start on
 
