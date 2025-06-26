@@ -4,8 +4,9 @@
   "entries": [
     "thisSite",
     "better-than-I-know-myself",
-    "cursor-1",
     "shellcheck-tip-suppression",
-    "sometimes-you-need-to-vent"
+    "sometimes-you-need-to-vent",
+    "setup-llm",
+    "ai-on-the-cli"
   ]
 }
