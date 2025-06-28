@@ -114,11 +114,10 @@ EOF
   echo "Wrote: $out_file"
 done
 
-echo "Adding uncache line to index.js"
+echo "Adding uncache line to index.js and index.html"
 timestamp=$(date +%s)
-mv index.js index.js.bkp &> /dev/null
-echo "const uncache = \"$timestamp\";" > index.js
-cat index.js.bkp >> index.js
+sed -i".bkp" "s/v_cache/$timestamp/g" index.js
+sed -i".bkp" "s/v_cache/$timestamp/g" index.html
 
 # === DEPLOY ===
 # Excludes Explanation
@@ -145,7 +144,8 @@ else
   echo "Dry run, skipping upload"
 fi
 
-mv index.js.bkp index.js &> /dev/null
+# mv index.js.bkp index.js &> /dev/null
+# mv index.html.bkp index.html &> /dev/null
 
 # === BLUESKY ===
 if [ -n "$post" ]; then
