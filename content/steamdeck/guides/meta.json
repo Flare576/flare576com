@@ -13,6 +13,8 @@
     "flatseal",
     "screenshots",
     "waydroid",
-    "flatpak-sdks"
+    "flatpak-sdks",
+    "zsh-on-steamos",
+    "python-pip-on-steamos"
   ]
 }
