@@ -12,6 +12,7 @@
     "desktop-apps-from-game-mode",
     "flatseal",
     "screenshots",
-    "waydroid"
+    "waydroid",
+    "flatpak-sdks"
   ]
 }

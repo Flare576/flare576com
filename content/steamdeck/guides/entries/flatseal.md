@@ -5,7 +5,7 @@ published: true
 description: "Install Flatseal, control your apps"
 goal: 4
 solution: 1
-tags: ["steamdeck","howto","guide","flatpacks","flatseal"]
+tags: ["steamdeck","howto","guide","flatpaks","flatseal"]
 ---
 ````flare
 ```nerd-goal-level-4

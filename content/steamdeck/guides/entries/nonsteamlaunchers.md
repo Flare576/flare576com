@@ -42,7 +42,7 @@ Double-click on **NonSteamLaunchers.desktop.download**, and when it prompts you,
 
 Tick the boxes next to the launchers and Google Chrome-based Services you're interested in, and click "Ok".
 
-The tool will go through the process of setting up it's folders, installing the launchers and links you asked for, and (if you have [Decky](#/steamdeck/decky/introduction), add a super convenient Plugin to manage your launchers and links from INSIDE Game Mode!
+The tool will go through the process of setting up it's folders, installing the launchers and links you asked for, and (if you have [Decky](#/steamdeck/decky/introduction)), add a super convenient Plugin to manage your launchers and links from INSIDE Game Mode!
 
 After it finishes, it'll restart Steam, and you can stat your launchers from Steam. I personally created a "Launchers" group and added my launchers to it. This lets me easily find them from my Library in Game Mode!
 
