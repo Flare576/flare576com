@@ -1,15 +1,16 @@
 #!/bin/bash
 version=0.1.0
-usage="$(basename "$0") [-hvpn]
+usage="$(basename "$0") [-hvpmn]
 Deploy to the CMS
 
 -h[Help]          Prints this message, then exits
 -v[Version]       Prints this version info, then exits
 -p[Post]          Also initiate a post to BlueSky afterward
+-m[Message]       Also do git commit with this message
 -n[No-op]         Does not upload, but does generate files
 "
 
-while getopts ':hvpn' option; do
+while getopts ':hvpm:n' option; do
   case "$option" in
     h) echo "$usage"
       exit
@@ -18,6 +19,8 @@ while getopts ':hvpn' option; do
       exit
       ;;
     p) post="true"
+      ;;
+    m) message="$OPTARG"
       ;;
     n) dryRun="true"
       ;;
@@ -144,8 +147,15 @@ else
   echo "Dry run, skipping upload"
 fi
 
-# mv index.js.bkp index.js &> /dev/null
-# mv index.html.bkp index.html &> /dev/null
+mv index.js.bkp index.js &> /dev/null
+mv index.html.bkp index.html &> /dev/null
+
+# ===   Git   ===
+if [ -n "$message" ]; then
+  git add .
+  git commit -m "$message"
+  git push
+fi
 
 # === BLUESKY ===
 if [ -n "$post" ]; then

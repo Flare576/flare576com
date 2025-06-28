@@ -49,7 +49,7 @@ This will use your Steam Deck's built-in Python instance, create a local environ
 
 Now you can do this:
 
-```
+```bash
 pip install llm
 ```
 
