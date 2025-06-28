@@ -7,6 +7,14 @@ goal: 8
 solution: 5
 tags: ["steamdeck","howto","guide","flatpak","sdk","vscode"]
 ---
+````flare
+```nerd-goal-level-8
+Goal: Add functionality to flatpaks like Visual Studio Code (VS Code)
+```
+```nerd-solution-level-5
+Solution: Install Flatpak SDKs via command line
+```
+````
 # Flatpak Basics
 
 Linux offers a **lot** of ways to install software (`apt`, `pacman`, `pamac`, `yum`, `yay`, ...), but one of the more universal solutions is [Flatpak](https://flatpak.org/).

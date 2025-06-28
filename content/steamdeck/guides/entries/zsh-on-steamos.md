@@ -7,12 +7,14 @@ goal: 7
 solution: 7
 tags: ["linux","zsh","shell","bash","guide"]
 ---
+````flare
 ```nerd-goal-level-7
 Goal: Have a separate environment to install extra software and customize the Steam Deck without impacting performance
 ```
 ```nerd-solution-level-7
 Solution: Launch and configure ZSH
 ```
+````
 
 # What The Shell
 

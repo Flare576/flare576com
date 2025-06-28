@@ -7,13 +7,14 @@ goal: 6
 solution: 7
 tags: ["linux","python","pip","guide"]
 ---
-
+````flare
 ```nerd-goal-level-6
 Goal: Install and use Python packages
 ```
 ```nerd-solution-level-7
 Solution: Create and activate a python virtual environment
 ```
+````
 
 ```flare
 Heads up - this is one of those things where I highly recommend using [ZSH on SteamOS](#steamdeck/guides/zsh-on-steamos) as you're going to want to add somthing to your Shell profile.
