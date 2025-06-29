@@ -491,17 +491,20 @@ function enhanceMarked() {
   const renderer = {
     image ({href, title, text}) {
       const classes = ['thumbnail'];
+      let printTitle;
       if (title === 'huge') {
         classes.push('dangerous');
       } else if (title === 'med') {
         classes.push('medium');
+      } else {
+        printTitle = title;
       }
       let out = `<img class="${classes.join(' ')}" src="${href}" alt="${text}"`;
-      if (title) {
-        out += ` title="${title}"`;
+      if (printTitle) {
+        out += ` title="${printTitle}"`;
       }
       out += ' />';
-      return out;
+      return `<a href="${href}">${out}</a>`;
     },
     link ({href, title, text}) {
       const isExternal = /^https?:\/\//i.test(href);
