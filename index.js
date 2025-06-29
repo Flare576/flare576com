@@ -493,6 +493,8 @@ function enhanceMarked() {
       const classes = ['thumbnail'];
       if (title === 'huge') {
         classes.push('dangerous');
+      } else if (title === 'med') {
+        classes.push('medium');
       }
       let out = `<img class="${classes.join(' ')}" src="${href}" alt="${text}"`;
       if (title) {
