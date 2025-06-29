@@ -43,7 +43,7 @@ Solution: You'll need tools or programs installed with Pacman.
 ```
 ```nerd-level-7
 Goal: Something that 30% of Steam Deck users will want or need to do.
-Solution: You're probably going to want to do as another user account.
+Solution: You're probably going to want to do with a separate shell/account.
 ```
 ```nerd-level-8
 Goal: Something that 20% of Steam Deck users will want or need to do.
