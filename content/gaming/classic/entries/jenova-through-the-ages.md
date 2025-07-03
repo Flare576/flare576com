@@ -9,15 +9,27 @@ tags: ["gaming","finalfantasy","vii","jenova"]
 ---
 # FFVII - Jenova Through The Ages
 
+```flare
+Quick update! [Gary](https://garystorkamp.artstation.com/) let me know I had the origin of the image from _Final Fantasy VII - Original Game_ wrong! I'd previously described it as "From Shinra Tower," but I've updated the post to be accurate. Thanks, Gary!
+```
+
 I'm going to be honest, I can't really spoil Jenova's story as I'm not 100% sure what it is, or if her story is the same between the original Final Fantasy VII and Remake/Rebirth.
 
-But, I think that Jenova _exists_ is definitely **not** a spoiler. I'm presenting the screenshots in release order here, but I think the *Remake* and *Rebirth* images make it clear they're not in _chronological_ order.
+But, I think that Jenova _exists_ is definitely **not** a spoiler.
 
 ## Final Fantasy VII - Original Game
 
 ![Jenova from OG](./images/thumbnail/jenova_og.png "med")
 
-You're treated to this view during your rescue mission to save Aerith from Shinra Tower if you follow Berret's example and peak into a testing pod. Unlike FFVII:Remake, this event happens within the first 5-10% of gameplay.
+After you leave Midgar, Cloud and the party meet in a nearby village and Cloud tells his tale of meeting Sephiroth and their shared mission to a Mako reactor. But the reactor is home to a terrible secret. As the scene plays out, you get this glimpse of Jenova. 
+
+## Final Fantasy VII - Rebirth
+
+![Jenova from Rebirth](./images/thumbnail/jenova_rebirth.png "med")
+
+This cutscene is part of the "Flashback" exposition that happens at the very beginning of FFVII:Rebirth, set 5 years before the events of Remake/Rebirth.
+
+I love how similar this version of Jenova is to the original, from the bolts on the side of the plate to the hair/cables to the single eye being visible - awesome attention to detail.
 
 ## Final Fantasy VII - Remake
 
@@ -27,10 +39,4 @@ This is the only one I'd be worried about "Spoilers" for as it's literally the L
 
 Similar to the original, you get this scene during Aerith's rescue from Shinra Tower, but instead of being an easy-to-miss cutscene, it's front-and-center in The Drum, and is part of a much larger and more important narrative.
 
-## Final Fantasy VII - Rebirth
-
-![Jenova from Rebirth](./images/thumbnail/jenova_rebirth.png "med")
-
-This cutscene is part of the "Flashback" exposition that happens at the very beginning of FFVII:Rebirth, set 5 years before the events of Remake/Rebirth.
-
-I love how similar this version of Jenova is to the original, from the bolts on the side of the plate to the hair/cables to the single eye being visible - awesome attention to detail.
+If you'd like to see the OG version of this scene (It's not _really_ inappropriate in context, but  I feel like taking a single frame out of the animation could be construed as vulgar), you can see it [via LetsPlayGGs on Youtube](https://www.youtube.com/watch?v=apqLih5GFWE).
