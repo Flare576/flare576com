@@ -79,7 +79,7 @@ Use that fact to your advantage. For example, over the last 24 hours I learned m
 
 Or, I just backup my **CLAUDE.md**, **CLAUDE.local.md**, any valuable notes or code, and revert the rest to how it was when I started. I restarted Claude, fed in my updated context files with my discoveries and new goal/starting points and started working _with_ the AI instead of expecting it to work _for_ me.
 
-## An Assistant, Not A Slave
+## An Assistant, Not A Workhorse
 
 I read the code it produced, I double-checked it's plans, and I even wrote a bit of my own code, too. It found errors I missed, and vice versa. Ultimately, I did more work than in my first approach, but I did WAY less work than if I'd have had to do it all myself.
 
@@ -140,3 +140,9 @@ Claude Code is a command-line tool, so I just have it running in a separate term
 ```flare
 A tip for those still reading: **CLAUDE.md** and **CLAUDE.local.md** are two files in the root of a project that Claude Code reads for every message you send. I recommend using **CLAUDE.md** to describe your project - think of it as an in-depth README.md - and using your **CLAUDE.local.md** to define your current goal, local tool set, cli preferences, etc. Check **CLAUDE.md** into source control, but add **CLAUDE.local.md** to the .gitignore list.
 ```
+
+# More Resources
+
+- [Mastering Claude Code in 30 minutes](https://www.youtube.com/live/6eBSHbLKuN0)
+- [Claude Code - 47 Pro Tips in 9 minutes](https://www.youtube.com/watch?v=TiNpzxoBPz0)
+- [Coding Agents 101: The Art of Actually Getting Things Done](https://devin.ai/agents101)
