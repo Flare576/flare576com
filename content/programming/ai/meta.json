@@ -7,6 +7,7 @@
     "shellcheck-tip-suppression",
     "sometimes-you-need-to-vent",
     "setup-llm",
-    "ai-on-the-cli"
+    "ai-on-the-cli",
+    "claude-code-1"
   ]
 }
