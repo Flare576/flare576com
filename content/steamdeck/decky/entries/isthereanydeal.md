@@ -8,7 +8,7 @@ solution: 0
 tags: ["steamdeck","howto","guide","decky","isthereanydeal"]
 ---
 ````flare
-```nerd-goal-level-0
+```nerd-goal-level-1
 Goal: Quickly determine if Steam has the best deal for a game
 ```
 ```nerd-solution-level-0
