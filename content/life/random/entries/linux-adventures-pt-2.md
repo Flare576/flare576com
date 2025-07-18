@@ -13,7 +13,7 @@ tags: ["linux","computers","daughter","arch","mint"]
 
 My original theory was that choosing [Manjaro](https://manjaro.org/) would allow me to use all the knowledge I'd gained getting things working on my Steam Deck, since they were both based on Arch Linux.
 
-Setting up [Waydroid](https://github.com/waydroid/waydroid) on SteamOS was as easy as running a script.
+Setting up [Waydroid on SteamOS](#/steamdeck/guides/waydroid) was as easy as running a script.
 
 How did that experience translate to Manjaro?
 
