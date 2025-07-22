@@ -12,9 +12,14 @@ tags: ["linux","zsh","shell","bash","guide"]
 Goal: Have a separate environment to install extra software and customize the Steam Deck without impacting performance
 ```
 ```nerd-solution-level-7
-Solution: Launch and configure ZSH
+Solution: Setup ZSH with distrobox
 ```
 ````
+```flare
+_EDITED 2025-07-22_: I [discovered distrobox](#/programming/ai/you-re-wrong) and updated this post accordingly.
+
+If you read this post before the edit you can still follow the new instructions - it's literally all the same files!
+```
 
 # What The Shell
 
@@ -39,6 +44,8 @@ I'm honestly not sure where to start on this one, because I don't know where you
 - PATH - An important envar that tells the shell where to find OTHER commands/tools/etc.
 - **.bashrc**, **.bashenv**, **.zshrc**, **.zshenv** - "Profile" files that are used every time you load the shell
     * This can be when you open a new Terminal Emulator window, run a script, open some applications, and other times
+- Container - A self-contained Operating System, Shell, and additional software running in an isolated process on another computer
+- distrobox - A tool that lets you create tightly-integrated containers on your computer
 
 # Breakdown
 
@@ -73,7 +80,7 @@ The Steam Deck doesn't have any way to ACTUALLY log-in as the other user, so any
 ```
 
 ```flare
-## Approach 2: Set Up ZSH As deck, But Not As Default Shell
+## Approach 2: Use included ZSH, But Not As Default Shell
 
 ### How It Worked
 
@@ -85,10 +92,50 @@ I can still separate my **.bashrc** and my **.zshrc**, allowing me to keep the d
 
 ### Disadvantages
 
-The **/home/deck** folder DOES get a little messy by various programs and operations. Also, since I'm still operating as `deck`, it's more likely that something I mess up will have wider reprecussions (but, that's true in the GUI utilities, too).
+You can't do `pacman -S` to install anything. SteamOS locks down parts of the file system, including those used by `pacman`, and any update to SteamOS can (and probably will) overwrite/delete your changes.
 ```
 
-I've been using Approach 2 for a few weeks and so far I haven't had any problems, so I feel comfortable saying that this is the approach I recommend.
+````flare
+## Approach 3: Utilize `distrobox` to create a container with ZSH
+
+### How It Worked
+
+Distrobox actually comes pre-installed on SteamOS 3.5 and above, but just in case you can check:
+
+```bash
+$ which distrobox
+distrobox not found
+$ flatpak install -y --noninteractive flathub org.distrobox.Distrobox
+```
+
+Once you're sure distrobox is installed, this will get you all setup:
+
+```bash
+distrobox create --name "steamy" --image archlinux:latest
+distrobox enter "steamy" -- \
+bash -c '
+  sudo pacman -Syu --noconfirm
+  sudo pacman -S --noconfirm coreutils tar less findutils diffutils grep sed gawk util-linux procps-ng base-devel git xclip zsh
+  # Wire up zsh as the entry point
+  distrobox-export --bin "/usr/bin/zsh"
+'
+# Need to write the location that distrobox exports to to .bashrc
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
+echo "Done! You may need to open a new Konsole window"
+```
+
+### Advantages
+
+Similar to Appraoch 2, opening a new Konsole window (or running installers, or...) launches into `bash`. The only change to the Bash Profile Files is one extra dir on the `$PATH`.
+
+The advantage over Approach 2 is that once you're in THIS shell, you can install whatever you like without worrying about the SteamOS read-only restrictions. You're not _bypassing_ the security, you're in an isolated container!
+
+### Disadvantages
+
+Distrobox is **tightly** integrated with the SteamOS file system, so if you delete files from `$HOME`, it deletes them from your actual `$HOME`. I actually consider this a feature, but be careful!
+````
+
+I'd been using Approach 2 for months, but Approach 3 is safer, more reliable, and more consistent. Use Approach 3.
 
 ## Ok, But Why ZSH?
 

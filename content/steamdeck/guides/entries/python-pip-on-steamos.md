@@ -24,7 +24,7 @@ Heads up - this is one of those things where I highly recommend using [ZSH on St
 
 Most programming languages I'm familiar with have a concept of the "global" environment, and a local "virtual" environment. NodeJS uses `npm --global install` to install globally, for example.
 
-Python on Steam Deck (well, probably in general) discourages using the "global" space.
+Python discourages using the "global" space.
 
 ![Python error](./images/thumbnail/python_1.png)
 
@@ -34,7 +34,7 @@ But, I already alluded to the solution - and it's in the error message - we shou
 
 As all engineers will tell you when you ask that question, "It depends."
 
-BUT, I do have a recommendation. If all you want to do is install some Python packages or tools, don't mess around with `pyenv` or `pipenv` or `virtualenvwrapper` or...
+BUT, I do have a recommendation. If all you want to do is install some Python packages or tools, don't mess around with `pyenv` or `pipenv` or `virtualenvwrapper` or `asdf`, or probably a dozen others. Just use Python!
 
 ```bash
 python -m venv "$HOME/myenv"
