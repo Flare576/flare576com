@@ -2,7 +2,7 @@
 title: "2025 is a Wierd Place"
 date: Tue Jul 22 07:05:52 PM CDT 2025
 published: true
-description: "I used Claude Code to write a feature for an open-source tooll that uses Gemini"
+description: "I used Claude Code to write a feature for an open-source tool that uses Gemini"
 goal: N/A
 solution: N/A
 tags: ["claude","gemini","llm"]
