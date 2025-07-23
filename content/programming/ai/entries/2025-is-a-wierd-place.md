@@ -20,6 +20,8 @@ llm "Please describe a scene of a mountain-top vista with a rustic swing set. \
 
 # Why This Exists
 
+I posted about the [llm CLI](#programming/ai/setup-llm) before, but I wanted _moar_.
+
 I asked [llm's Discord](https://datasette.io/discord-llm) if anyone was using the tool to create images via the CLI. Two folks had played around with the idea, but hadn't gotten the chance to put together a feature branch.
 
 So, I asked [Claude Code](https://www.anthropic.com/claude-code) to take a crack at it.
