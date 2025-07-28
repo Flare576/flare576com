@@ -30,7 +30,7 @@ Then, follow the [Setup](https://llm.datasette.io/en/stable/setup.html) instruct
 
 ```bash
 llm install llm-gemini
-llm models default gemini-2.0-flash
+llm models default gemini-2.5-flash
 ```
 
 At this point, you should be able to use `llm 'How long would it take to cut down the mightiest tree in the forest with a herring?'`
