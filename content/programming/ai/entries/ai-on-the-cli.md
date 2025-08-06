@@ -8,6 +8,10 @@ solution: N/A
 tags: ["programming","ai","cli","llm","smartcat"]
 ---
 (Note - if you're interested in using LLMs from the command line, I put together a small [Getting Started](#/programming/ai/setup-llm) post!)
+```flare
+_EDITED 2025-08-06_: I refined the way interact with the `repeat` functionality in llm.
+```
+
 
 # The Scenario
 
@@ -71,41 +75,32 @@ Pretty nifty, but `llm` doesn't have a comparable "repeat" or "echo" function...
 From: [Flare576's Dotfiles - llm helper](https://github.com/Flare576/dotfiles/blob/main/.zshenv.llm)
 
 ```bash
-# emulate smartcat (https://github.com/efugier/smartcat)
-# Note: This assumes you've
-# - installed the `llm` tool
-# - created a 'sc' template via llm ... --save sc
-# - put the `-t [other template]` and `-r` arguments before any other (like -c)
-sc () {
+# emulate smartcat (https://github.com/efugier/smartcat) -r functionality
+# Note: This assumes you've installed the `llm` tool
+llmr () {
   [ ! -t 0 ] && input=$(cat)
-  template="sc"
-
-  while [[ $# -gt 0 ]]; do
-    case "$1" in
-      -t)
-        template="$2"
-        shift 2
-        ;;
-      -r)
-        repeat_back="true"
-        shift
-        ;;
-      *)
-        break
-        ;;
-    esac
-  done
-
-  if [ -n "$repeat_back" ]; then
-    echo "$input"
-    echo -n "$input" | llm -t "$template" "$@"
-  else
-    echo -n "$input" | llm -t "$template" "$@"
-  fi
+	echo "$input"
+	echo -n "$input" | llm "$@"
 }
-
 ```
 
-It's not a perfect [shim](https://en.wikipedia.org/wiki/Shim_(computing)) by any means - you'll still need to use `llm`'s arguments and parameters (like `--continue` instead of `--extend-conversation`) - but it delivers the small feature I loved from `smartcat` into llm!
+Then, inside of my editor, I have two sets of shortcuts
 
-So, when I'm working in VIM and I just need a super-smart assistant to crank out some code or ideas, I can use `:sc` and I'll *actually* be using `llm` with my special template under-the-covers, and if I do `:'<,'>!sc -r -c`, it'll continue the previous thread/conversation. THEN, if I move over to another CLI, I can do `llm -c "Hello again, smartcat-imposter"`
+From: [Flare576's Dotfiles - .vimrc](https://github.com/Flare576/dotfiles/blob/main/.vimrc#L139-L148)
+```vimrc
+
+"########################## LLM / AI
+nnoremap <leader>llm :r !llm
+xnoremap <leader>llm :!llm
+
+" 'SC' stands for 'SmartCat', which ships with a great prompt for CLI coding assistance
+" I stole it and created a template for 'llm'
+nnoremap <leader>sc :r !llm -t sc 
+nnoremap <leader>scr :r !llmr -t sc 
+xnoremap <leader>sc :!llm -t sc 
+xnoremap <leader>scr :!llmr -t sc 
+```
+
+With this `llmr` tool and the VIM mappings, I can operate in either Normal or Visual mode and use `<leader>sc` (and `scr` if I want the repeat) if I want to use the standard **sc** template, or `<leader>llm` (and `llmr`) if there's a different template I want to use.
+
+Since I'm using `llm` 100%, I can also continue the previous thread/conversation via another CLI, I can do `llm -c "Hello again, smartcat-imposter"`.

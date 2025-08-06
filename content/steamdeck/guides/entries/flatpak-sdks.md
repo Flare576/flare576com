@@ -35,7 +35,7 @@ I KNOW! I wrote about [PlantUML in VS Code](#/programming/uml/introduction), and
 
 SDKs, or Software Development Kits, are (generally speaking) collections of functionality that you use to perform a specific action. Usually, it's like the [Slack SDK for NodeJS](https://tools.slack.dev/node-slack-sdk/), that makes it easy to integrate with Slack's API.
 
-For our purposes, though, I'm talking about an piece of software that Flatpak uses to _inject_ functionality into an application's sandbox! Instead of giving VS Code access to an instance of Java **outside** of its sandbox, you give it a version of Java **for** its sandbox! Like adding a toy to the sandbox!
+For our purposes, though, I'm talking about a piece of software that Flatpak uses to _inject_ functionality into an application's sandbox! Instead of giving VS Code access to an instance of Java **outside** of its sandbox, you give it a version of Java **for** its sandbox! Like adding a toy to the sandbox!
 
 ## Show, Don't Tell
 
