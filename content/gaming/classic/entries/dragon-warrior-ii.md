@@ -7,6 +7,12 @@ goal: N/A
 solution: N/A
 tags: ["emulation","nes","dragonWarrior","dragonQuest","review"]
 ---
+```flare
+2025-08-08 EDIT
+
+I created a [little tool](https://flare576.github.io/rpg-gear?game=dw2) for making gearing up easier!
+```
+
 # Dragon Warrior II
 
 ![Dragon Warrior II Title](images/thumbnail/dw2_title.png)

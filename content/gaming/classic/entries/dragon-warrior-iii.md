@@ -7,6 +7,11 @@ goal: N/A
 solution: N/A
 tags: ["emulation","nes","dragonWarrior","dragonQuest","review"]
 ---
+```flare
+2025-08-08 EDIT
+
+I created a [little tool](https://flare576.github.io/rpg-gear?game=dw3) for making gearing up easier!
+```
 # Dragon Warrior III
 
 ![Dragon Warrior III Title](images/thumbnail/dw3_title.png)
@@ -101,9 +106,13 @@ I'm hesitant to tell you how to play your game, but after playing through it twi
 
 # Resources
 
-I got tired of having to look up each piece of equipment as I went between shops, so I made an [Equipment Guide](https://docs.google.com/spreadsheets/d/1ZQRjjLBX0vpr6rczxtb7lnsmQHQNQlpWT1OrCZ6QqbA/edit?usp=sharing) that lists the equipment in ascending stats.
+~~I got tired of having to look up each piece of equipment as I went between shops, so I made an [Equipment Guide](https://docs.google.com/spreadsheets/d/1ZQRjjLBX0vpr6rczxtb7lnsmQHQNQlpWT1OrCZ6QqbA/edit?usp=sharing) that lists the equipment in ascending stats.~~
 
-I have an idea to turn that into a bit of a more user-friendly web tool, but since I just finished the game it's only going to happen if either
+~~I have an idea to turn that into a bit of a more user-friendly web tool, but since I just finished the game it's only going to happen if either~~
 
-1. Another game I pick up needs something like that
-2. You ask me to do it on [on Bluesky](https://bsky.app/profile/flare576.com)
+1. ~~Another game I pick up needs something like that~~
+2. ~~You ask me to do it on [on Bluesky](https://bsky.app/profile/flare576.com)~~
+
+Against my better judgement, I started playing Dragon Warrior IV and it totally needed this, so I built it!
+
+[JRPG Equipment Guide](https://flare576.github.io/rpg-gear?game=dw3)
