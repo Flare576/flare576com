@@ -16,6 +16,7 @@
     "flatpak-sdks",
     "zsh-on-steamos",
     "python-pip-on-steamos",
-    "steam-link"
+    "steam-link",
+    "vim-on-arch"
   ]
 }
