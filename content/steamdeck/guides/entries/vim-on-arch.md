@@ -1,7 +1,7 @@
 ---
 title: "Vim on Arch - A Case Of Everyone Knows"
 date: Sun Aug 10 07:23:55 PM CDT 2025
-published: false
+published: true
 description: "I discover one of the things that 'everyone knows' about Linux"
 goal: N/A
 solution: N/A
