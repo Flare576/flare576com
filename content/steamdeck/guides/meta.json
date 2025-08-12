@@ -17,6 +17,7 @@
     "zsh-on-steamos",
     "python-pip-on-steamos",
     "steam-link",
-    "vim-on-arch"
+    "vim-on-arch",
+    "distrobox"
   ]
 }

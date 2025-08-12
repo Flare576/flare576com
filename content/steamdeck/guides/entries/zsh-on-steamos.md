@@ -115,13 +115,19 @@ distrobox create --name "steamy" --image archlinux:latest
 distrobox enter "steamy" -- \
 bash -c '
   sudo pacman -Syu --noconfirm
-  sudo pacman -S --noconfirm coreutils tar less findutils diffutils grep sed gawk util-linux procps-ng base-devel git xclip zsh
+  sudo pacman -S --noconfirm coreutils tar less findutils diffutils grep sed gawk util-linux procps-ng base-devel git zsh
   # Wire up zsh as the entry point
   distrobox-export --bin "/usr/bin/zsh"
 '
-# Need to write the location that distrobox exports to to .bashrc
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
-echo "Done! You may need to open a new Konsole window"
+# May need to write the location that distrobox exports to to .bashrc
+if ! grep -q 'export PATH="$HOME/.local/bin:$PATH"' "$HOME/.bashrc"; then
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
+fi
+# Reload your profile in case you did need the update
+source $HOME/.bashrc
+
+# Launch your new shell
+zsh
 ```
 
 ### Advantages
