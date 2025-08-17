@@ -28,10 +28,44 @@ Short for **Context, Container, Component, Code**, the C4 Model recommends break
 
 # Prerequisites
 
-Before you start working with C4 Diagrams in VS Code, you're going to need to install one additional component - 
+Before you start working with C4 Diagrams in VS Code, you're going to need to install one additional component - [GraphViz](https://graphviz.org/).
 
-Not sure how to install this on steamdeck yet
-TODO: don't forget to update Desc/Title/Filename
+On OSX, it's as easy as:
+
+```bash
+brew install graphviz
+```
+
+On a Steam Deck, I **HIGHLY** recommend [Distrobox](#steamdeck/guides/distrobox).
+
+## Getting Your Feet Wet
+
+
+```plantuml
+@startuml EIA
+
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+
+Person(user, "Primary User", "The human using the device on which EI runs")
+
+Boundary(device, "VR Headset, Handheld device, etc.") {
+    System(eia, "EIA", "Emotional Intelligence Agent")
+    System(biometrics, "Biometrics", "Eye tracking, pulse, skin conductance, etc.")
+    System(os, "Operating System", "Audio playing, game information, class room feedback, etc.")
+
+    Rel(biometrics, eia, "Read reactions")
+    Rel(os, eia, "Read Stimuli")
+    Rel(user, biometrics, "Wears/interacts with/etc.")
+    Rel(user, os, "Views content, plays game, chats, browses, etc.")
+    Rel(eia, user, "Suggests\n- Content\n- Topics\n- Engagement\n- Communities")
+}
+@enduml
+
+```
+
+![C4 Context](/images/thumbnail/c4_context.png)
 
 # Control Your Flow
 

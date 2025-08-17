@@ -3,6 +3,7 @@
   "description": "Bash, ZSH, Python, etc. to make YOUR computer do what you want",
   "entries": [
     "bluesky-posting-via-cli",
-    "vim-airline-bytecount-bluesky"
+    "vim-airline-bytecount-bluesky",
+    "vim-for-writing"
   ]
 }

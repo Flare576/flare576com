@@ -87,7 +87,7 @@ llmr () {
 Then, inside of my editor, I have two sets of shortcuts
 
 From: [Flare576's Dotfiles - .vimrc](https://github.com/Flare576/dotfiles/blob/main/.vimrc#L139-L148)
-```vimrc
+```vim
 
 "########################## LLM / AI
 nnoremap <leader>llm :r !llm

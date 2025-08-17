@@ -135,16 +135,17 @@ pre {
   background-color: #475569;
 }
 
-.code-label[data-lang="bash"]           { color: #00f6b0; }
+.code-label[data-lang="ruby"]           { color: #9b111e; }
+.code-label[data-lang="xml"]            { color: #ff6961; }
+.code-label[data-lang="plantuml"]       { color: #ffbd3f; }
 .code-label[data-lang="javascript"]     { color: #facc15; }
-.code-label[data-lang="html"]           { color: #87ceeb; }
-.code-label[data-lang="css"]            { color: #663399; }
+.code-label[data-lang="vim"]            { color: #7ebf50; }
 .code-label[data-lang="markdown"]       { color: #5cb806; }
+.code-label[data-lang="bash"]           { color: #00f6b0; }
+.code-label[data-lang="html"]           { color: #87ceeb; }
 .code-label[data-lang="python"]         { color: #4584b6; }
 .code-label[data-lang="php"]            { color: #8993be; }
-.code-label[data-lang="xml"]            { color: #ff6961; }
-.code-label[data-lang="ruby"]           { color: #9b111e; }
-.code-label[data-lang="plantuml"]       { color: #ffbd3f; }
+.code-label[data-lang="css"]            { color: #663399; }
 
 .code-label[data-lang="flare"]          { color: var(--flare); }
 .code-label[data-lang="assistant"]      { color: var(--assistant); }
