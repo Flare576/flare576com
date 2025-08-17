@@ -1,7 +1,7 @@
 ---
 title: "Vim For Writing"
 date: Sun Aug 17 12:24:01 PM CDT 2025
-published: false
+published: true
 description: "I go further down the dictionary/thesaurus rabbit hole"
 goal: N/A
 solution: N/A
