@@ -1,6 +1,6 @@
 ---
 title: "Setup llm"
-date: Thu Jun 26 13:48:12 CDT 2025
+date: Thu Jun 26 10:42:49 CDT 2025
 published: true
 description: "Setting up `llm` using Gemini for free"
 goal: N/A

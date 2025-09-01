@@ -1,6 +1,6 @@
 ---
 title: "EmuDeck"
-date: Sat May 31 01:08:20 PM CDT 2025
+date: Sat May 31 01:16:21 PM CDT 2025
 published: true
 description: "The easiest and best way to setup a Steam Deck to play classic games"
 goal: 3

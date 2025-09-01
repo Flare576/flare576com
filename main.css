@@ -325,6 +325,15 @@ a:hover .external-icon-inline {
   max-height: 2200px;
 }
 
+.loading_entries {
+  height: 32px;
+  width: 32px;
+  margin: auto;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: .1; } 100% { opacity: 1; } }
+
 /* ==========================================================================
    Sections & Subsections
    ========================================================================== */
@@ -577,6 +586,17 @@ tbody tr:nth-child(even) {
 
 .calendar > div {
   width: 85px;
+}
+
+/* ==========================================================================
+   Sort and Filter
+   ========================================================================== */
+
+#filterSortControls {
+  postion: absolute;
+  top: 0;
+  right: 0;
+  display: none;
 }
 
 /* ==========================================================================

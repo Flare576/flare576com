@@ -1,6 +1,6 @@
 ---
 title: "Desktop Mode + Sudo Password"
-date: Sat May 31 01:16:21 PM CDT 2025
+date: Sat May 31 01:08:20 PM CDT 2025
 published: true
 description: "Laying the groundwork for everything else"
 goal: 2
@@ -99,4 +99,4 @@ Open the Controller settings, go to D-pad, and then tap the button you want to u
 2. Tap the Gear (⚙️) icon, and choose "Add Extra Command"
 3. Choose `Ctrl` from "Keyboard"
 
-To get "Redo," you just add ANOTHER extra command and set that to `Shift` (in most apps, `Ctrl`+`Shift`+`Z` is "Redo".
+To get "Redo," you just add ANOTHER extra command and set that to `Shift` (in most apps, `Ctrl`+`Shift`+`Z` is "Redo").

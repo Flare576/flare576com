@@ -1,6 +1,6 @@
 ---
 title: "USB-C 10ft 3.2 Gen 2"
-date: Fri May 23 04:14:01 PM CDT 2025
+date: Fri May 23 04:19:55 PM CDT 2025
 published: true
 description: "USB-C cords are crazy complicated, yo"
 goal: 3

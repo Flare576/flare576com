@@ -1,6 +1,6 @@
 ---
 title: "AI on the CLI"
-date: Thu Jun 26 10:42:49 CDT 2025
+date: Thu Jun 26 13:48:12 CDT 2025
 published: true
 description: "I've discovered tools and techniques for using AI from the command line"
 goal: N/A

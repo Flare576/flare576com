@@ -1,23 +1,23 @@
 ---
 title: "Claude Code"
 date: Wed Jul  2 11:13:52 CDT 2025
-published: false
+published: true
 description: "I experiment and learn about using Claude Code"
 goal: N/A
 solution: N/A
-tags: ["programmin","ai","claude","cli"]
+tags: ["programming","ai","claude","cli"]
 ---
 # Claude Code Adventure
 
 ## Project Type
 
 ```flare
-    I think it's important to call out that this article discusses a POC code base, not something with maturity/rigor or multiple previous developers.
+    I think it's important to call out that this article discusses a Proof-Of-Concept (POC) code base, not something with maturity/rigor or multiple previous developers.
 ```
 
 It's an important distinction because it's the difference between asking a mechanic to work on a Honda Civic (a common car they've likely seen before) or a "car" you built from random parts that runs as long as you turn the key twice while pumping the gas.
 
-Yeah, the mechanic (Claude Code in our case, but any AI or even other devs) will **EVENTUALLY** figure out how to fix the car, but giving them a list of parts you used, what problems you see, etc. is going to help them do it MUCH faster (and _probably_ with less swearing).
+Yeah, the mechanic (Claude Code in our case, but any AI or even other devs) will **EVENTUALLY** figure out how to fix the "car", but giving them a list of parts you used, what problems you see, etc. is going to help them do it MUCH faster (and _probably_ with less swearing).
 
 # Context is King
 
@@ -27,7 +27,7 @@ To that end, my overall finding is:
 Investing a few hours up-front to build out the context of the project is **VITAL**.
 ```
 
- You don't have to do it alone, but you can't expect the AI to do it alone, either.
+You don't have to do it alone, but you can't expect the AI to do it alone, either.
 
 My first attempt did exactly that - forced Claude to effectively solo the understanding phase - and it wasn't an unreasonable expectation. The code base wasn't extensive and the output was useful, but not [Business Intelligence](https://en.wikipedia.org/wiki/Business_intelligence)-level of complexity. All I really wanted to do initially was replace the three **.csv** files it used for its data with API calls.
 
@@ -49,13 +49,13 @@ So, both sides of the AI/Human relationship were _assuming_ the other knew what 
 
 > Honestly, two days of flailing to learn a lesson about how to engage with the future of development is actually pretty impressive, and I'm not tooting my own horn or anything - it speaks volumes to the speed that you can iterate with a tool like Claude Code.
 
-The first sign that things were going off-the-rails was actually a day or two earlier, when we added an API call that returned an authorization error, but shouldn't have. It was caused because the AI had discovered an API called "myProduct.com", but the **ACTUAL** API we needed to use was "myProductApp.com" - a similar-but-completely-unrelated company and service.
+The first sign that things were going off-the-rails was actually a day or two earlier, when we added an API call that returned an authorization error, but shouldn't have. It was caused because the AI had discovered an API called "myProduct.com", but the **ACTUAL** API we needed to use was "myProductApp.com" - a similarly-named-but-completely-unrelated company and service.
 
 The correct API was also undocumented.
 
 And unofficial.
 
-And uses a different Account-ID.
+And uses a different Account-ID than the company's _other_ API.
 
 ## But That's Just This Project
 
@@ -69,7 +69,7 @@ Yes, the API I had to use was complicated, but maybe the SDK you're using is 2 y
 
 # Starting Over
 
-The best part about Claude, Cursor, ChapGPT, and any other existing tool is that a clean slate is only a click or command away.
+The best part about Claude, Cursor, ChatGPT, and any other existing tool is that a clean slate is only a click or command away.
 
 ```flare
 You can't tell another human to "Forget everything we've talked about and start over", but that's exactly what LLMs do on every message.

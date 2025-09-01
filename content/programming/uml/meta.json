@@ -2,8 +2,7 @@
   "title": "PlantUML",
   "description": "How to generate diagrams with code",
   "sticky": [
-    "introduction",
-    "c4-diagrams"
+    "introduction"
   ],
   "entries": [
     "notes-and-formatting",
@@ -11,6 +10,7 @@
     "numbering",
     "blocks",
     "arrows",
-    "all-together"
+    "all-together",
+    "c4-diagrams"
   ]
 }

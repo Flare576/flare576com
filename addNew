@@ -111,7 +111,7 @@ tags: [$tagString]
 ---
 $content
 EOF
-vi "$entryPath"
+"$EDITOR" "$entryPath"
 elif [ -n "$subsection" ]; then
   metaPath="${filePath}/meta.json"
   filePath="${filePath}/$subsection"
