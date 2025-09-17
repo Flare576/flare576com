@@ -18,6 +18,7 @@
     "python-pip-on-steamos",
     "steam-link",
     "vim-on-arch",
-    "distrobox"
+    "distrobox",
+    "download-flatpaks"
   ]
 }

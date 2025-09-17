@@ -1,7 +1,7 @@
 ---
-title: "OpenCode + OpenRouter + DeepSeek = Free Claude Code"
+title: "OpenCode + OpenRouter + (free) = Free Claude Code"
 date: Sun Aug 31 06:05:45 PM CDT 2025
-published: false
+published: true
 description: "Step-by-step guide on getting a Steam Deck compatible AI coding experience"
 goal: N/A
 solution: N/A
@@ -22,7 +22,7 @@ You don't need to SPEND the credits (e.g., you can use free providers+models), b
 5. Run `opencode auth login`
 6. Choose "OpenRouter"
 7. Enter your API key
-8. Run `opencode`
+8. Run `opencode` in your project root
 9. Call `/models`
 10. Choose a [(free) Model](https://openrouter.ai/models?max_price=0)
 
@@ -84,7 +84,7 @@ yay -S opencode-bin
 
 ## Now What?
 
-If you were to run `opencode` right now, you would get whatever Provider+Model OpenCode defaults to (_Grok Code Fast 1_ at time of writing), but it's generally a good idea to setup your own auth configuration, and a great way of doing that is to use [OpenRouter](https://openrouter.ai). Why?
+If you were to run `opencode` right now, you would get whatever Provider+Model OpenCode defaults to (_Claude Sonnet 4_ at time of writing), but it will likely fail unless you setup your own auth configuration. A great way of doing that is to use [OpenRouter](https://openrouter.ai). Why?
 
 ## Options
 
@@ -133,7 +133,9 @@ First, you're going to want to know about two files:
 
 1. **~/.local/share/opencode/auth.json**
     - This stores all the auth keys you set with `opencode auth login`
-2. **~/.config/opencode/opencode.json**
+2. **~/.local/state/opencode/tui**
+    - This stores all settings and information about the TUI (Terminal User Interface)
+3. **~/.config/opencode/opencode.json**
     - This stores _just about_ everything else
 
 Personally, I don't like my API keys floating in random locations - I prefer to use a **~/.doNotCommit.d** [folder](https://github.com/Flare576/dotfiles/blob/main/setup/linkFiles.sh#L65) - so I leave **auth.json** empty and set my **opencode.json** like:

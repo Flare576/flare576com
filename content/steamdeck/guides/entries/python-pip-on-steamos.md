@@ -9,61 +9,74 @@ tags: ["linux","python","pip","guide"]
 ---
 ````flare
 ```nerd-goal-level-6
-Goal: Install and use Python packages
+Goal: Install and use Python packages and Applications/tools
 ```
 ```nerd-solution-level-7
-Solution: Create and activate a python virtual environment
+Solution: Use Distrobox + `pacman` and `uv`
 ```
 ````
 
 ```flare
-Heads up - this is one of those things where I highly recommend using [ZSH on SteamOS](#steamdeck/guides/zsh-on-steamos) as you're going to want to add somthing to your Shell profile.
+_EDITED 2025-08-04_: Between [discovering distrobox](#/programming/ai/you-re-wrong) and actually working on some Python projects, my [recommendations have changed](#/programming/scripting/python-preferred-practices). I've updated this post accordingly.
 ```
 
-# Virtual Snake
+# Introduction
 
-Most programming languages I'm familiar with have a concept of the "global" environment, and a local "virtual" environment. NodeJS uses `npm --global install` to install globally, for example.
+First of all, before you do anything, [Setup Distrobox](#/steamdeck/guides/distrobox). The bulk of this process is going to be installing new packages with `pacman`, so it's either distrobox, or disabling the read-only flag of SteamOS.
 
-Python discourages using the "global" space.
+Don't do that to your future self.
+
+# Step 1 - Stop
+
+My "Nerd Goal" up above is misleading - it smashes "Packages" and "Applications" together, when really the process is _dramatically_ different for the two.
+
+# Applications
+
+Pretend you DON'T KNOW the App is written in Python - just install it:
+
+```bash
+# If you're not in your container
+~/.local/bin/zsh # or just `zsh` if you added it to your path before everything else!
+
+# Install like any other App
+sudo pacman -S --noconfirm python-uv
+
+# Or, if it's not there, via AUR / yay
+yay -S opencode-bin
+```
+
+I talk about why in [Python Preferred Practices](#/programming/scripting/python-preferred-practices), the TL;DR is "Dependencies".
+
+# Packages & Uncommon Applications
+
+If you try to just `pip install` stuff, even with `--user`, you're gonna have a bad time:
 
 ![Python error](./images/thumbnail/python_1.png)
 
-But, I already alluded to the solution - and it's in the error message - we should use something called "Virtual Environments!" But... there's a LOT of ways to create and use them.
+This is because Python has become such a core technology in every OS that mucking with the system-level install can be catastrophic.
 
-# What's the Right Way?
+## But I need PackageXYZ or indy_python_tool!
 
-As all engineers will tell you when you ask that question, "It depends."
+Two words, my friend - **`Virtual Environments`**.
 
-BUT, I do have a recommendation. If all you want to do is install some Python packages or tools, don't mess around with `pyenv` or `pipenv` or `virtualenvwrapper` or `asdf`, or probably a dozen others. Just use Python!
-
-```bash
-python -m venv "$HOME/myenv"
-echo 'source "$HOME/myenv/bin/activate"' >> "$HOME/.zshrc"
-source $HOME/myenv/bin/activate
-```
-
-> Note - if you're using Bash, you'll need to change the second line to use `"$HOME/.bashrc"`, but you're using [ZSH on SteamOS](#steamdeck/guides/zsh-on-steamos), right?
-
-This will use your Steam Deck's built-in Python instance, create a local environment for your user, and then write a line to your Profile file to pick it up each time you open a new terminal.
-
-## Now What?
-
-Now you can do this:
+### Applications - uv
 
 ```bash
-pip install llm
+# If you're not in your container
+~/.local/bin/zsh # or just `zsh` if you added it to your path before everything else!
+
+sudo pacman -S --noconfirm python-uv
+uv tool install llm
 ```
 
-And then take advantage of [AI On The CLI](#programming/ai/ai-on-the-cli)!
+`uv` actually spins up a local, focused folder called a **`Virtual Environment`**, then
+- Installs the recommended Python version for the App
+- Downloads the dependency chain of the App
+- Maps the executable to your `$PATH`
 
-# How Do I Get Rid Of It?
+Then, you just run the command you installed, and it just works™.
 
-VERY easily - you just "deactivate" it to remove the envars it sets, then delete the folder
+### Packages - ???
 
-```bash
-deactivate
-rm -rf "$HOME/myenv"
-```
-
-> Don't forget to remove the `source "$HOME/myenv/bin/activate"` line from your Profile!
+If you don't have your answer yet, I can only recommend you head over to [Python Preferred Practices](#/programming/scripting/python-preferred-practices) - you're officially out of "Steam Deck Weirdness" land into "Welcome to ~~hell~~ Python!"
 

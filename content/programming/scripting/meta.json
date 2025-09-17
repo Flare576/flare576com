@@ -4,6 +4,8 @@
   "entries": [
     "bluesky-posting-via-cli",
     "vim-airline-bytecount-bluesky",
-    "vim-for-writing"
+    "vim-for-writing",
+    "docker",
+    "python-preferred-practices"
   ]
 }

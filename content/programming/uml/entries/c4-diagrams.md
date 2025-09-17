@@ -5,7 +5,7 @@ published: true
 description: "Use PlantUML+C4 to build architecture diagrams"
 goal: N/A
 solution: N/A
-tags: ["programming","vscode","uml","plantuml","architecture","complete"]
+tags: ["programming","vscode","uml","plantuml","architecture","c4"]
 ---
 # Introduction
 

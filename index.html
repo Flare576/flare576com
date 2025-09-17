@@ -45,33 +45,33 @@
 
 </head>
 <body>
-  <div id="filterSortControls">
-    <div id="nerdFilter" class="control-group">
-      <label for="nerdLimit">Max Nerd Level: <span id="nerdLevelDisplay">10</span></label>
-      <input type="range" id="nerdLimit" name="nerdLimit" min="0" max="10" value="10">
-    </div>
-
-    <div id="sortOptions" class="control-group">
-      <label for="primarySortKey">Primary Sort:</label>
-      <select id="primarySortKey">
-        <option value="date">Date</option>
-        <option value="nerd">Nerd Level</option>
-      </select>
-
-      <label for="sortDirection">Order:</label>
-      <select id="sortDirection">
-        <!-- Options will be dynamically populated by JS via listener -->
-        <option value="desc">Newest First</option>
-        <option value="asc">Oldest First</option>
-      </select>
-    </div>
-  </div>
   <header>
     <a href="/" class="header-link">
       <h1>Flare576</h1>
       <p>Bits, Bytes &amp; Board Games.</p>
     </a>
   </header>
+
+  <div id="filterSortControls">
+    <div class="sort-toggle">
+      <input type="radio" id="sort-date-desc" name="sort-select" value="date-desc" checked>
+      <label title="Newest First" class="sort-option" for="sort-date-desc">👶<img src="images/asc.svg"/></label>
+
+      <input type="radio" id="sort-date-asc" name="sort-select" value="date-asc">
+      <label title="Oldest First" class="sort-option" for="sort-date-asc">👴<img src="images/desc.svg"/></label>
+
+      <input type="radio" id="sort-nerd-asc" name="sort-select" value="nerd-asc">
+      <label title="Least-Nerdy First" class="sort-option" for="sort-nerd-asc">😎<img src="images/asc.svg"/></label>
+
+      <input type="radio" id="sort-nerd-desc" name="sort-select" value="nerd-desc">
+      <label title="Nerdiest First"  class="sort-option" for="sort-nerd-desc">🤓<img src="images/desc.svg"/></label>
+    </div>
+    <div id="nerdFilter" class="control-group">
+      <label for="nerdLimit">| <a href="#steamdeck/steam-deck-tips-nerd-levels">Max Nerd Level: <span
+                                                             id="nerdLevelDisplay">10</span></a></label>
+      <input type="range" id="nerdLimit" name="nerdLimit" min="0" max="10" value="10">
+    </div>
+  </div>
 
   <section class="section" id="about-me">
     <div class="about-container">

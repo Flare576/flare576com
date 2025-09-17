@@ -1,0 +1,18 @@
+<svg width="110" height="110" viewBox="0 0 110 110" color="#e2e8f0" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Horizontal bars representing values 9 through 1, ascending from top to bottom -->
+
+  <!-- Bar 1 (shortest) -->
+  <rect x="10" y="16" width="9" height="12" fill="currentColor"/>
+  <!-- Bar 3 -->
+  <rect x="10" y="40" width="27" height="12" fill="currentColor"/>
+  <!-- Bar 5 -->
+  <rect x="10" y="64" width="45" height="12" fill="currentColor"/>
+  <!-- Bar 7 -->
+  <rect x="10" y="88" width="63" height="12" fill="currentColor"/>
+
+  <!-- Down-arrow to the right -->
+  <!-- Arrow shaft -->
+  <rect x="85" y="16" width="12" height="60" fill="currentColor"/>
+  <!-- Arrow head (triangle pointing down) -->
+  <path d="M 72 76 L 91 100 L 110 76 Z" fill="currentColor"/>
+</svg>

@@ -15,7 +15,7 @@ I decided using a Nerd Level at the top of each article would probably be the ea
 
 ```nerd-level-0
 Goal: Something that every Steam Deck user will want or need to do.
-Solution:  Able to be done stock in Game Mode.
+Solution: Able to be done stock in Game Mode.
 ```
 ```nerd-level-1
 Goal: Something that 90% of Steam Deck users will want or need to do.

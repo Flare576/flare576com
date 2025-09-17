@@ -149,7 +149,6 @@ function addHoverHelper(findClass, addId) {
       window.open('#/steamdeck/steam-deck-tips-nerd-levels', '_blank');
     });
   });
-
 }
 
 function addCodeBlockLabels() {
@@ -193,13 +192,13 @@ function addCodeBlockLabels() {
 
 async function safeFetch(url) {
   // A new `version` means there's been a deployment since last load - clear cache
-  if (localStorage.getItem('version') !== version || isLocal()) {
-    localStorage.clear();
+  if (sessionStorage.getItem('version') !== version || isLocal()) {
+    sessionStorage.clear();
   }
-  localStorage.setItem('version', version);
+  sessionStorage.setItem('version', version);
 
   try {
-    const cached = JSON.parse(localStorage.getItem(url));
+    const cached = JSON.parse(sessionStorage.getItem(url));
     if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
       return cached.raw;
     }
@@ -213,7 +212,7 @@ async function safeFetch(url) {
     throw new Error(`HTTP ${res.status}: ${url}`);
   }
   const raw = await res.text();
-  localStorage.setItem(url, JSON.stringify({ timestamp: Date.now(), raw }));
+  sessionStorage.setItem(url, JSON.stringify({ timestamp: Date.now(), raw }));
   return raw;
 }
 
@@ -251,23 +250,23 @@ async function renderAllEntries() {
     const [section, subsection] = entryDiv.id.split('_')[0].split('.');
     const { entries, sticky } = await readMetaFile(section, subsection);
 
-    async function getDetails(batch = []) {
+    async function getDetails(batch = [], sticky = false) {
       const store = [];
       for (const entry of batch) {
         const { metadata } = await readEntry(section, subsection, entry);
         if (!metadata) { // either not there, or not published, just skip
           continue;
         }
-        store.push({ entry, metadata });
+        store.push({ entry, metadata: {...metadata, sticky } });
       }
       return store;
     }
 
-    const sortBy = document.getElementById('primarySortKey').value;
-    const direction = document.getElementById('sortDirection').value;
+    const sorty = document.querySelector('input[name="sort-select"]:checked');
+    const [sortBy, direction] = sorty.value.split('-');
     const nerdLimit = document.getElementById('nerdLimit').value;
 
-    const stickyDetails = await getDetails(sticky);
+    const stickyDetails = await getDetails(sticky, true);
     const entryDetails = (await getDetails(entries))
       .filter(({metadata}) => {
         const goal = metadata.goal >= 0 ? metadata.goal : 0;
@@ -282,8 +281,8 @@ async function renderAllEntries() {
           ? Math.max(b.metadata.goal, b.metadata.solution)
           : 0;
         if (aVal === bVal || sortBy === 'date') {
-          aVal = new Date(a.metadata.date);
-          bVal = new Date(b.metadata.date);
+          aVal = new Date(a.metadata.date).getTime();
+          bVal = new Date(b.metadata.date).getTime();
         }
         return direction === 'asc' ? aVal - bVal : bVal - aVal;
       });
@@ -291,13 +290,19 @@ async function renderAllEntries() {
     entryDiv.innerHTML = [...stickyDetails, ...entryDetails].reduce((html, { entry, metadata }) => {
       return html += buildEntryHtml(section, subsection, entry, metadata);
     }, '');
+    addHoverToNerds();
   });
 }
 
 function buildEntryHtml (section, subsection, entry, metadata) {
-  const entryPath = subsection
-    ? `#/${section}/${subsection}/${entry}`
-    : `#/${section}/${subsection}`;
+  const entryPath = '#' + [section, subsection, entry].filter(Boolean).join('/');
+  const classesA = ['entry-card'];
+  let title = '';
+  if (metadata.sticky) {
+    classesA.push('sticky');
+    title = 'title="Sticky"';
+  }
+  const classes = classesA.join(' ');
   const levels = metadata.goal >= 0 && metadata.solution >= 0
     ? `<div class="nerd-guide">
         <div
@@ -309,7 +314,7 @@ function buildEntryHtml (section, subsection, entry, metadata) {
     : '';
 
   return `
-    <a href="${entryPath}" class="entry-card">
+    <a href="${entryPath}" class="${classes}" ${title}>
       <h3>${metadata.title}</h3>
       <p>${metadata.description || ''}</p>
       ${levels}
@@ -444,6 +449,7 @@ async function renderMarkdown(section, subsection, entry) {
   addCodeBlockLabels();
   Prism.highlightAll();
   maybeScrollToAnchor();
+  addHoverToNerds();
 }
 
 function renderError(code) {
@@ -511,37 +517,57 @@ async function renderSubsection(section, subsection) {
 
   html += '</section>';
   document.getElementById('content').innerHTML = html;
+
+  if (section !== 'steamdeck') {
+    const sorty = document.querySelector('input[name="sort-select"]:checked');
+    const [sortBy] = sorty.value.split('-');
+    if (sortBy === 'nerd') {
+      document.querySelector('input[value="date-desc"]').click();
+    }
+  }
+  const nerdy = section === 'steamdeck' ? 'block' : 'none';
+  document.getElementById('nerdFilter').style.display = nerdy;
+  document
+    .querySelectorAll('label[for^="sort-nerd-"]')
+    .forEach(label => {
+      label.style.display = nerdy;
+    });
+
+  document.getElementById('filterSortControls').style.display = 'flex';
   addBackLink(section);
 }
 
-function nerdLocation() {
+async function nerdLocation() {
   const theHash = window.location.hash.replace(/^[^\w]+/, '');
-  const pathParts = theHash.split('?')[0].split('/').filter(Boolean);
-  return pathParts;
+  const [ section, subsection, entry ] = theHash.split('?')[0].split('/').filter(Boolean);
+  if (!entry && subsection) {
+    try {
+      await readMetaFile(section, subsection); // If this doesn't  work, 'subsection' is actually an 'entry'
+    } catch (e) {
+      return { section, subsection: undefined, entry: subsection };
+    }
+  }
+  return { section, subsection, entry };
 }
 
 async function renderPage() {
   document.getElementById('content').innerHTML = '';
   document.getElementById('about-me').style.display = 'none';
-  const [section, subsection, entry] = nerdLocation();
+  document.getElementById('filterSortControls').style.display = 'none';
+  const {section, subsection, entry} = await nerdLocation();
   try {
     if (entry) {
       await renderMarkdown(section, subsection, entry);
     } else if (!subsection) {
       await renderHomepage(section);
     } else {
-      try {
-        await renderSubsection(section, subsection);
-      } catch (err) {
-        console.log(err);
-      }
+      await renderSubsection(section, subsection);
     }
   } catch (err) {
     console.log(err);
     renderError(404);
   }
   renderAllEntries();
-  addHoverToNerds();
 }
 
 function enhanceMarked() {
@@ -609,42 +635,34 @@ function enhanceMarked() {
 document.addEventListener('DOMContentLoaded', function() {
   enhanceMarked();
 
-  const primarySortKeyEl = document.getElementById('primarySortKey');
-  const sortDirectionEl = document.getElementById('sortDirection');
+  // set to last values
+  const sortKey = localStorage.getItem('sortKey');
+  const filterLevel = localStorage.getItem('filterLevel');
+  if (sortKey) {
+    document.getElementById(sortKey).click();
+  }
+  if (filterLevel) {
+    document.getElementById('nerdLevelDisplay').textContent = filterLevel;
+    document.getElementById('nerdLimit').value = filterLevel;
+  }
 
-  const updateSortDirectionOptions = () => {
-    sortDirectionEl.innerHTML = ''; // Clear existing options
-    const currentPrimarySort = primarySortKeyEl.value;
-
-    if (currentPrimarySort === 'date') {
-      sortDirectionEl.add(new Option('Newest First', 'desc'));
-      sortDirectionEl.add(new Option('Oldest First', 'asc'));
-      sortDirectionEl.value = 'desc'; // Default for date
-    } else if (currentPrimarySort === 'nerd') {
-      sortDirectionEl.add(new Option('Lowest First', 'asc'));
-      sortDirectionEl.add(new Option('Highest First', 'desc'));
-      sortDirectionEl.value = 'asc'; // Default for nerdGoal
-    }
-  };
-
+  document.querySelectorAll('input[name="sort-select"]').forEach(input =>
+    input.addEventListener('change', function() {
+      localStorage.setItem('sortKey',input.id);
+      renderAllEntries();
+    })
+  );
   document.getElementById('nerdLimit').addEventListener('input', () => {
-    document.getElementById('nerdLevelDisplay').textContent = document.getElementById('nerdLimit').value;
+    const newVal = document.getElementById('nerdLimit').value;
+    document.getElementById('nerdLevelDisplay').textContent = newVal;
+    localStorage.setItem('filterLevel', newVal);
     renderAllEntries();
   });
-
-  primarySortKeyEl.addEventListener('change', () => {
-    updateSortDirectionOptions(); // Update options first
-    renderAllEntries();
-  });
-  sortDirectionEl.addEventListener('change', renderAllEntries);
 
   window.addEventListener('hashchange', () => {
     window.scrollTo(0, 0);
     renderPage();
   });
-
-  // Initial setup for sort direction options
-  updateSortDirectionOptions();
 
   // Initial page render
   renderPage();
