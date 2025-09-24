@@ -176,7 +176,6 @@ This has ~~two~~ several major advantages:
 
 # Further Reading
 
-- [OpenCode.ai - Setup](#programming/ai/opencode-setup)
 - [OpenCode.ai - Project Introduction](#programming/ai/project-introduction)
 - [OpenCode.ai - Agents](#programming/ai/opencode-agents)
 - [OpenCode.ai - MCP](#programming/ai/opencode-mcp)

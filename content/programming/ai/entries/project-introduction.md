@@ -65,6 +65,8 @@ I don't want to spend any money* on AI tooling for this project.
 
 # Further Reading
 
+- [OpenCode.ai - Setup](#programming/ai/opencode-setup)
 - [OpenCode.ai - Agents](#programming/ai/opencode-agents)
 - [OpenCode.ai - MCP](#programming/ai/opencode-mcp)
 - [OpenCode.ai - Commands](#programming/ai/opencode-commands)
+- [OpenCode.ai - Project Wrap-up](#programming/ai/opencode-dowork)
