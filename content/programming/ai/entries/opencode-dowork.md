@@ -52,6 +52,8 @@ Like, I don't know, a Full Stack Developer or a UI-Designer ([Agents](#programmi
 
 ```flare
 `/generateQuestions fullstack-developer`
+
+`/generateQuestions ui-designer`
 ```
 [GitHub Project: Opencode Commands](https://github.com/Flare576/myLibrary/blob/main/.opencode/command)
 
@@ -103,6 +105,7 @@ If you're using the PRP flow and you have the core ["Idea"](https://github.com/F
 [Tab to "Build"] (so that the Agent can write files)
 
 `/prp-commands/prp-base-create Use @FLARE_IDEA.md for the overall project and the contents of /research for details.`
+
 `/prp-commands/prp-base-execute @PRPs/flare-game-library-aggregator.md`
 ```
 
