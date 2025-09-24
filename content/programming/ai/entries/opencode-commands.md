@@ -1,7 +1,7 @@
 ---
 title: "Commands - OpenCode Features"
 date: Fri Sep 12 02:42:56 PM CDT 2025
-published: false
+published: true
 description: "I introduce custom commands, some examples, and how to use them in OpenCode"
 goal: N/A
 solution: N/A
@@ -23,13 +23,12 @@ If [Agents](#programming/ai/opencode-agents) are **`System Prompts`**, [Commands
 ---
 description: Analyze a provider's APIs for Social Login or SSO
 agent: library-researcher
-model: openrouter/sonoma-sky-alpha
 ---
 
 Please review the API provided by $ARGUMENTS, focusing on the login, oAuth, or
-SSO system used. We want to be able to authenticate the user without a backend
-server if possible, but if we need an API, it will be written in PHP, so check
-for libraries or SDKs.
+SSO system used. After authentication, we need to be able to get a list of the
+user's available games. The server-side integration will need to be written in
+PHP, so check for libraries or SDKs.
 
 Please write your findings to @research/$ARGUMENTS-api.md
 ```
@@ -52,6 +51,7 @@ We're actually going to load in that [PRP Agentic Engineering](https://github.co
 - [OpenCode.ai - Project Introduction](#programming/ai/project-introduction)
 - [OpenCode.ai - Agents](#programming/ai/opencode-agents)
 - [OpenCode.ai - MCP](#programming/ai/opencode-mcp)
+- [OpenCode.ai - Project Wrap-up](#programming/ai/opencode-dowork)
 
 ## Resources
 

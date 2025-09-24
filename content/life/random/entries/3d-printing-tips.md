@@ -9,3 +9,10 @@ tags: []
 ---
 
 [Ziplock Bag spool storage](https://www.instructables.com/How-to-Store-3D-Printing-Filament/)
+
+[Dry box inspiration](https://www.instructables.com/3D-Printer-Filament-Dry-Box/)
+
+Actual build used
+
+[Screwless Filament Feeder](https://www.thingiverse.com/thing:6217386)
+

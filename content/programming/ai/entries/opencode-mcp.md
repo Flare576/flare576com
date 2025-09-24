@@ -1,7 +1,7 @@
 ---
 title: "MCPs - OpenCode Features"
 date: Mon Sep  1 09:18:03 PM CDT 2025
-published: false
+published: true
 description: "I introduce Model Context Protocol (MCP) servers, and what they mean to OpenCode"
 goal: N/A
 solution: N/A
@@ -139,3 +139,4 @@ We're not going to have [Figma](https://www.figma.com/) files or [Jira Tickets](
 - [OpenCode.ai - Project Introduction](#programming/ai/project-introduction)
 - [OpenCode.ai - Agents](#programming/ai/opencode-agents)
 - [OpenCode.ai - Commands](#programming/ai/opencode-commands)
+- [OpenCode.ai - Project Wrap-up](#programming/ai/opencode-dowork)

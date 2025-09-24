@@ -1,7 +1,7 @@
 ---
 title: "Project Introduction"
 date: Mon Sep  1 05:53:12 PM CDT 2025
-published: false
+published: true
 description: "I wax poetic about AI, then I introduce my pet project"
 goal: N/A
 solution: N/A

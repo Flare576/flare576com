@@ -35,7 +35,7 @@ Agents have several characteristics:
 - Tools: Which tools the agent does (or does not) have access to by default
     * **`write`**, **`edit`**, **`bash`**, [full list](https://opencode.ai/docs/agents/#available-tools) set to `true` or `false`
     * If no tools are specified, **ALL TOOLS RE ENABLED BY DEFAULT**
-- Permission: Of the allowed tools, how should the agent interact with them
+- Permission: Three categories (**`bash`**, **`edit`**, and **`webfetch`**), broken down by:
     * **`allow`**, **`ask`**, **`deny`**
     * `bash` is unique, because it gives access to many **`commands`**, so you can get specific
     * See below for Markdown example, or [Source docs](https://opencode.ai/docs/agents/#permissions) for JSON
@@ -67,6 +67,8 @@ mode: subagent
 model: google/gemini-2.5-flash
 temperature: 0.2
 permission:
+  webfetch: deny
+  edit: ask
   bash:
     "*": allow
     "git push": ask
@@ -76,7 +78,7 @@ You are a hoopy frood that sasses everyone and always knows where your towel is.
 ```
 
 ```flare
-Note: The order of those Permissions is important:
+Note: The order of those **`bash`** Permissions is important:
 - `"*": allow` - Unless noted, allow
 - `"git push": ask` - Ask for each `git push`
 - `"rm": deny` - This agent cannot `rm` files/folders
@@ -84,16 +86,16 @@ Note: The order of those Permissions is important:
 
 # Our Project
 
-Since OpenCode.ai already has **Build** and **Plan**, we're going to need three other agents:
+Since OpenCode.ai already has **Build** and **Plan**, we're going to need a few other agents:
 
 - **Researcher**
-    * [See Wirasm's PRPs Agentic - Library Researcher](https://github.com/Wirasm/PRPs-agentic-eng/blob/development/.claude/agents/library-researcher.md)
+    * See [Wirasm's PRPs Agentic - Library Researcher](https://github.com/Wirasm/PRPs-agentic-eng/blob/development/.claude/agents/library-researcher.md) & [My OpenCode Version](https://github.com/Flare576/myLibrary/blob/main/.opencode/agent/library-researcher.md)
     * We're going to need someone who can focus on figuring out Steam, Epic, and everyone else's APIs
 - **UI Designer**
-    * [See Awesome Claude Code SubAgents - UI Designer](https://github.com/VoltAgent/awesome-claude-code-subagents/blob/main/categories/01-core-development/ui-designer.md)
+    * See [Awesome Claude Code SubAgents - UI Designer](https://github.com/VoltAgent/awesome-claude-code-subagents/blob/main/categories/01-core-development/ui-designer.md) & [My OpenCode Version](https://github.com/Flare576/myLibrary/blob/main/.opencode/agent/ui-designer.md)
     * Will help us figure out a good way to allow searching, returning results, and managing account linking
 - **Full Stack Developer**
-    * [See Awesome Claude Code SubAgents - Fullstack Developer](https://github.com/VoltAgent/awesome-claude-code-subagents/blob/main/categories/01-core-development/fullstack-developer.md)
+    * See [Awesome Claude Code SubAgents - Fullstack Developer](https://github.com/VoltAgent/awesome-claude-code-subagents/blob/main/categories/01-core-development/fullstack-developer.md) & [My OpenCode Version](https://github.com/Flare576/myLibrary/blob/main/.opencode/agent/fullstack-developer.md)
     * Will help us ask questions we didn't think about during planning
 
 # Further Reading
@@ -102,6 +104,7 @@ Since OpenCode.ai already has **Build** and **Plan**, we're going to need three 
 - [OpenCode.ai - Project Introduction](#programming/ai/project-introduction)
 - [OpenCode.ai - MCP](#programming/ai/opencode-mcp)
 - [OpenCode.ai - Commands](#programming/ai/opencode-commands)
+- [OpenCode.ai - Project Wrap-up](#programming/ai/opencode-dowork)
 
 # Resources:
 

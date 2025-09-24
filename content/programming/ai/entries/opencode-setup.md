@@ -174,6 +174,11 @@ This has ~~two~~ several major advantages:
     - Keybinds: There's LOTS of shortcuts if you want to use 'em
     - MCPs: Additional tools / functionality
 
-# Bonus Material
+# Further Reading
 
-Coming Soon: MCPs, Commands, and Agents that make all of this worthwhile.
+- [OpenCode.ai - Setup](#programming/ai/opencode-setup)
+- [OpenCode.ai - Project Introduction](#programming/ai/project-introduction)
+- [OpenCode.ai - Agents](#programming/ai/opencode-agents)
+- [OpenCode.ai - MCP](#programming/ai/opencode-mcp)
+- [OpenCode.ai - Commands](#programming/ai/opencode-commands)
+- [OpenCode.ai - Project Wrap-up](#programming/ai/opencode-dowork)
