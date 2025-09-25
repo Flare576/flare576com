@@ -293,7 +293,7 @@ if $EDITOR "$tempFile"; then
 
   # Only remove the file if posting was successful
   # shellcheck disable=SC2181 # either command above can provide this value
-  if [ $? -eq 0 ] && [ -n "#final_data" ]; then
+  if [ $? -eq 0 ] && [ -n "$final_data" ]; then
     rm "$tempFile"
   fi
 fi

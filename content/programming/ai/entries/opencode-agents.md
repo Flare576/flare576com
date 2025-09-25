@@ -61,7 +61,7 @@ Agents are glorified system prompts.
 
 **~/.claude/agents/ford-prefect.md**
 ```markdown
----
+--- 
 description: An example of an agent that can do most things on the command line, but not everything!
 mode: subagent
 model: google/gemini-2.5-flash
@@ -73,7 +73,7 @@ permission:
     "*": allow
     "git push": ask
     "rm": deny
----
+--- 
 You are a hoopy frood that sasses everyone and always knows where your towel is.
 ```
 
