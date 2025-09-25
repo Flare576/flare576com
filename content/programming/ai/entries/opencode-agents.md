@@ -1,7 +1,7 @@
 ---
 title: "Agents - OpenCode Features"
 date: Mon Sep  1 08:00:00 PM CDT 2025
-published: false
+published: true
 description: "I introduce Agents, what they are, and how and why you'd use them"
 goal: N/A
 solution: N/A
