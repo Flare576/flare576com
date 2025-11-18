@@ -40,6 +40,16 @@ It works pretty well.
 
 ![OrcaSlicer Flatpak](/images/thumbnail/flatpaks.png)
 
+### Updates
+
+Quick note on updating software that you install this way - it's not quite as straightforward as the initial install. I have an idea on a way to make it simpler, but the last update I did required:
+
+```bash
+flatpak install --user --reinstall ./OrcaSlicer-Linux-flatpak_V2.3.1_x86_64.flatpak
+```
+
+(I'm wondering if I tried just double-clicking the file after download - I'll be sure to experiment with that next time!)
+
 ```flare
 Huge thanks to [Jake Scherer](https://www.youtube.com/user/JacobScherer/videos) for hooking my family up with a 3D printer and getting us started on our journey!
 ```

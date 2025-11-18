@@ -32,9 +32,9 @@ This guide will not tell you how to download ROMs. Emulators should be used to v
 
 "Emulators" are applications that simulate different hardware, firmware, or software for the purposes of running games and programs as if the original systems were being used. "Emulation" is used to describe the process of using Emulators to run software.
 
-# What is [EmuDeck](https://www.emudeck.com/)
+# What is EmuDeck
 
-EmuDeck aims to simplify the process of finding and installing Emulators and managing ROMs on the Steam Deck (and other systems, but we don't talk about those here).
+[EmuDeck](https://www.emudeck.com/) aims to simplify the process of finding and installing Emulators and managing ROMs on the Steam Deck (and other systems, but we don't talk about those here).
 
 EmuDeck is NOT necessary to run Emulators on your device, but a lawn mower _also_ isn't necessary if you want to cut your grass, but it **is** a fantastic tool to help get the job done.
 

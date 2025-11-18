@@ -20,10 +20,10 @@ If [Agents](#programming/ai/opencode-agents) are **`System Prompts`**, [Commands
 **.opencode/command/analyzeLogin.md**
 
 ```markdown
----
+--- 
 description: Analyze a provider's APIs for Social Login or SSO
 agent: library-researcher
----
+--- 
 
 Please review the API provided by $ARGUMENTS, focusing on the login, oAuth, or
 SSO system used. After authentication, we need to be able to get a list of the

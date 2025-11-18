@@ -1,9 +1,10 @@
 {
-  "title": "Programming",
+  "title": "Software/Programming",
   "description": "Tips, tricks, and teachings about telling computers what to do",
   "subsections": [
     "ai",
     "scripting",
-    "uml"
+    "uml",
+    "linux"
   ]
 }

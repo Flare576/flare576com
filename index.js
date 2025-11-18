@@ -441,6 +441,9 @@ async function renderMarkdown(section, subsection, entry) {
     return;
   }
   updateMetaTags(metadata);
+  if (metadata.published === 'draft') {
+    document.getElementById('draft-marker').style.display = 'block';
+  }
 
   document.getElementById('content').innerHTML = marked.parse(body);
 
@@ -554,6 +557,7 @@ async function renderPage() {
   document.getElementById('content').innerHTML = '';
   document.getElementById('about-me').style.display = 'none';
   document.getElementById('filterSortControls').style.display = 'none';
+  document.getElementById('draft-marker').style.display = 'none';
   const {section, subsection, entry} = await nerdLocation();
   try {
     if (entry) {

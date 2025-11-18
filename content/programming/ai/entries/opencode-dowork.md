@@ -5,7 +5,7 @@ published: true
 description: "In theory, theory and practice are the same. In practice, they are not"
 goal: N/A
 solution: N/A
-tags: []
+tags: ["programming","ai","opensource","opencode","openrourter"]
 ---
 ```flare
 Before you dive in, if you haven't read [OpenCode Setup](#programming/ai/opencode-setup), that might be a good starting point!

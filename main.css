@@ -87,7 +87,11 @@ pre code.language-assistant {
   overflow-wrap: break-word;
 }
 
-
+#draft-marker {
+  text-align: center;
+  font-weight: bold;
+  color: var(--flare);
+}
 
 /* Adjust pre padding to make room for buttons */
 pre {
@@ -597,7 +601,7 @@ tbody tr:nth-child(even) {
    ========================================================================== */
 
 #filterSortControls {
-  display: flex;
+  display: none;
   justify-content: center;
 }
 
