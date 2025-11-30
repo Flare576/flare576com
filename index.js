@@ -578,29 +578,50 @@ function enhanceMarked() {
   const renderer = {
     image ({href, title, text}) {
       const classes = ['thumbnail'];
-      let printTitle;
+      let actualImage = href;
+      let printTitle = title;
+      if (href.includes('youtu')) {
+        // Stolen from https://stackoverflow.com/questions/3452546/how-do-i-get-the-youtube-video-id-from-a-url
+        const tubeExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+        const match = href.match(tubeExp);
+        if (match && match[7].length == 11) {
+          const vidId = match[7];
+          actualImage = `http://img.youtube.com/vi/${vidId}/maxresdefault.jpg`;
+          printTitle = 'Youtube Link';
+          classes.push('youtube');
+        }
+      }
       if (title === 'huge') {
         classes.push('dangerous');
       } else if (title === 'med') {
         classes.push('medium');
-      } else {
-        printTitle = title;
       }
-      let out = `<img class="${classes.join(' ')}" src="${href}" alt="${text}"`;
+      let out = `<img class="${classes.join(' ')}" src="${actualImage}" alt="${text}"`;
       if (printTitle) {
         out += ` title="${printTitle}"`;
       }
       out += ' />';
-      return `<a href="${href}">${out}</a>`;
+
+      let a_tag = `<a href="${href}"`;
+      if (classes.includes('youtube')) {
+        a_tag += ' class="youtube-link"';
+      }
+      return `${a_tag}>${out}</a>`;
     },
     link ({href, title, text}) {
+      let realText = text;
+      if (text.includes("![")) {
+        // The Link is an image - make it so!
+        realText = marked.parse(text.trim());
+      }
+
       const isExternal = /^https?:\/\//i.test(href);
       const svgIcon = isExternal ? externalSvg.replace('external-icon','external-icon-inline') : '';
       const titleFull = title ? `title="${title}"` : '';
       return `<a
       ${titleFull}
       href="${href}"${isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''}
-      >${text}${svgIcon}</a>`;
+      >${realText}${svgIcon}</a>`;
     },
     heading ({text, depth}) {
       const slug = text

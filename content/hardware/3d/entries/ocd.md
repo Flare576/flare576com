@@ -1,11 +1,11 @@
 ---
 title: "OCD"
 date: Fri Oct 24 07:05:17 AM CDT 2025
-published: draft
+published: true
 description: "I talk about my Obsessive Container Desire (and introduce Gridfinity)"
 goal: N/A
 solution: N/A
-tags: ["hardware","printers","plastic","3d","project"]
+tags: ["hardware","printers","plastic","3d","project","gridfinity"]
 ---
 # OCD Anon Introduction
 
@@ -53,6 +53,9 @@ Way back in 2022, [Zack Freedman](https://www.youtube.com/c/ZackFreedman/about) 
 
 It's [grown a bit](https://github.com/jeffbarr/gridfinity-catalog) since then, and making your own containers is actually really straight forward. In a future post I'll try to walk you through the steps to making a basic bin!
 
+#### Bento3D
+
+Another option if you just want to make a tray to hold things is [Bento3D](https://bento3d.design/)!
 
 # OCD Existential
 

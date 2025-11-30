@@ -329,6 +329,26 @@ a:hover .external-icon-inline {
   max-height: 2200px;
 }
 
+.thumbnail.youtube:hover {
+  cursor: pointer;
+  max-height: 175px;
+}
+
+.youtube-link {
+  position: relative;
+  display: inline-block;
+}
+
+.youtube-link:before {
+    content: "";
+    position: absolute;
+    height: 25%;
+    width: 25%;
+    bottom: 10px;
+    z-index: 10;
+    background: transparent url("images/play.svg") center center no-repeat;
+}
+
 .loading_entries {
   height: 32px;
   width: 32px;

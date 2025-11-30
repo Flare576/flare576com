@@ -1,11 +1,11 @@
 ---
 title: "Project: Polish Tools"
 date: Fri Oct 24 06:54:50 PM CDT 2025
-published: draft
+published: true
 description: "Gridfinity-based polish tools"
 goal: N/A
 solution: N/A
-tags: ["hardware","printers","plastic","3d","project"]
+tags: ["hardware","printers","plastic","3d","project","gridfinity","freecad"]
 ---
 ```flare
 This post is related to my [OCD](#/hardware/3d/ocd), and is about a piece of my 3D Print Finishing Kit.
@@ -75,7 +75,7 @@ But, the tool by itself is useless - it needs attachments, and it didn't come wi
 
 # Would You Like One, Too?
 
-I think the likelihood of another person wanting to use this exact subset of tools, but just in case it's _close_ to something you want or need. I put it up on [Thingiverse.com](https://www.thingiverse.com/thing:7204377), along with the CAD file!
+I think the likelihood of another person wanting to use this exact subset of tools is very low, but just in case it's _close_ to something you want or need, I put it up on [Thingiverse.com](https://www.thingiverse.com/thing:7204377), along with the CAD file!
 
 > <sup>1</sup>: I just realized a term I grew up with probably isn't common knowledge. When I was young, my dad took my brother and I to a local roller skating rink that the owner converted to do remote control car racing every Sunday night. One of the things he taught us about cornering was to "feather" the throttle.
 >
