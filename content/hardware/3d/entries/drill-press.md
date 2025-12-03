@@ -29,7 +29,7 @@ So, I wondered "Is there a way I can 3D print a drill press mount for my rotary 
 
 [Here's what I built off of](https://www.thingiverse.com/thing:1642711), and [here's what I added to the Internet](https://www.thingiverse.com/thing:7216820).
 
-Basically, the original post had no instructions, a vague and incorrect Bill of Materials (he listed M5 screws and all the parts use M6 screws, for example) and the clamps the model used wouldn't fit on my tool, so I fixed all those things and posted up a remix.
+Essentially, the original post had no instructions, a vague and incorrect Bill of Materials (he listed M5 screws and all the parts use M6 screws, for example) and the clamps the model used wouldn't fit on my tool, so I fixed all those things and posted up a remix.
 
 ![It works!](https://youtu.be/mv6mbfXP1nQ)
 

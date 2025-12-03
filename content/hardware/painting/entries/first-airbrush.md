@@ -5,7 +5,7 @@ published: true
 description: "Early Inheritance"
 goal: N/A
 solution: N/A
-tags: ["hardware","plastic","paint","airbrush"]
+tags: ["hardware","plastic","paint","airbrush","storytime"]
 ---
 # Airbrush Saga Pt. 1
 

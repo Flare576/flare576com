@@ -601,9 +601,13 @@ tbody tr:nth-child(even) {
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 
+.social-links img.youtube {
+  filter: grayscale(1) invert(1) brightness(3);
+}
+
 .social-links img:hover {
   transform: scale(1.5);
-  filter: brightness(1) invert(0);
+  filter: grayscale(0) brightness(1) invert(0);
 }
 
 .calendar {
