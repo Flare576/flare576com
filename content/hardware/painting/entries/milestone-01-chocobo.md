@@ -35,4 +35,30 @@ After snipping, clipping, cutting, and praying:
 
 ![No Supports](https://youtu.be/u-gA5_oZMpY)
 
+## Prime
 
+Gray --> White
+
+![Primed Bird](https://youtube.com/shorts/XMdjuYJjVzQ?feature=share)
+
+## Tape
+
+I realized that re-painting something takes way more effort to conceal the first color, so for my first milestone I wanted to try out masking. My Dad gave me a tip that I could lay out the tape on glass, use a blade to cut the shape I needed, and then use it _again_ to peel it up and apply it to the model.
+
+Or you just keep wrapping until it looks "good enough"
+
+![Covah Up](/images/thumbnail/chocobo_taped.jpg)
+
+## Base Coat
+
+I started this part with the full [GoCheer](#hardware/painting/amazon-gabmle) setup, and I think I realized now why people 💩 on the portable air compressors.
+
+```flare
+Since the micro compressors can't really push the same air pressure as a full compressor, everything is a bit harder.
+```
+
+Your paint needs to be just a bit thinner, you need to be double-sure about how tight your nozzle/needle/etc. are, and cleaning is a bigger hassle because you can't just blast away the gunk.
+
+I'm going to keep practicing with it because I still love the idea of painting on my porch or something, but I'm starting to feel out the boundaries of what it's capable of.
+
+![Base Yellow](https://youtube.com/shorts/TEfN1bMSFlk)

@@ -581,11 +581,11 @@ function enhanceMarked() {
       let actualImage = href;
       let printTitle = title;
       if (href.includes('youtu')) {
-        // Stolen from https://stackoverflow.com/questions/3452546/how-do-i-get-the-youtube-video-id-from-a-url
-        const tubeExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+        // Stolen from https://stackoverflow.com/questions/71000139/javascript-regex-for-youtube-video-and-shorts-id
+        const tubeExp = /(youtu.*be.*)\/(watch\?v=|embed\/|v|shorts|)(.*?((?=[&#?])|$))/;
         const match = href.match(tubeExp);
-        if (match && match[7].length == 11) {
-          const vidId = match[7];
+        if (match && match[3].length == 11) {
+          const vidId = match[3];
           actualImage = `http://img.youtube.com/vi/${vidId}/maxresdefault.jpg`;
           printTitle = 'Youtube Link';
           classes.push('youtube');
