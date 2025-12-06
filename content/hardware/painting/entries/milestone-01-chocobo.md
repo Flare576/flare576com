@@ -1,7 +1,7 @@
 ---
 title: "Painting Milestone 01 - Intro De Chocobo"
 date: Sat Nov 29 09:11:51 AM CST 2025
-published: draft
+published: true
 description: "First entry into the milestone process"
 goal: N/A
 solution: N/A
@@ -43,7 +43,7 @@ Gray --> White
 
 ## Tape
 
-I realized that re-painting something takes way more effort to conceal the first color, so for my first milestone I wanted to try out masking. My Dad gave me a tip that I could lay out the tape on glass, use a blade to cut the shape I needed, and then use it _again_ to peel it up and apply it to the model.
+I learned that re-painting something takes way more effort to conceal the first color, so for my first milestone I wanted to try out masking. My Dad gave me a tip that I could lay out the tape on glass, use a blade to cut the shape I needed, and then use it _again_ to peel it up and apply it to the model.
 
 Or you just keep wrapping until it looks "good enough"
 
@@ -51,7 +51,7 @@ Or you just keep wrapping until it looks "good enough"
 
 ## Base Coat
 
-I started this part with the full [GoCheer](#hardware/painting/amazon-gabmle) setup, and I think I realized now why people 💩 on the portable air compressors.
+I started this part with the full [GoCheer](#hardware/painting/amazon-gamble) setup, and I think I realized now why people 💩 on the portable air compressors.
 
 ```flare
 Since the micro compressors can't really push the same air pressure as a full compressor, everything is a bit harder.
@@ -62,3 +62,14 @@ Your paint needs to be just a bit thinner, you need to be double-sure about how 
 I'm going to keep practicing with it because I still love the idea of painting on my porch or something, but I'm starting to feel out the boundaries of what it's capable of.
 
 ![Base Yellow](https://youtube.com/shorts/TEfN1bMSFlk)
+
+## Final
+
+I had intended to take photos of my progress at the end of each painting session, expecting the washing to take several hours, then hours more for the next color, etc... but I ended up moving on to the beak while waiting for the wash to dry, then the legs waiting for the first two to dry, until it was ~5h later and I had a wild Chocobo looking at me asking when it was bath time.
+
+![Dirty Chocobo](https://youtube.com/shorts/7cB1KGH64lw?feature=share)
+
+
+# Lessons Learned
+
+Ended up being really long - check out [Milestone 1 - Lessons Learned](#hardware/painting/milestone-01-lessons)!

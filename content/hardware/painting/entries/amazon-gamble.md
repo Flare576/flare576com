@@ -19,7 +19,9 @@ As I explained in [Part 1](#hardware/painting/first-airbrush), I needed a quiet 
 I found a video by [Saida Props](https://www.youtube.com/watch?v=MDIuEDJAWZI) where he talks about several air compressors, including one of the USB-powered units available on Amazon. He does a fantastic job breaking down the effectiveness and utility of each one, and his thoughts on the "NoName Cordless 2024" were:
 
 ```Saida
-"It has some big flaws, like significantly reduced airflow when the battery is at 50%. But It actually works exceptionally well for certain air brushes..."
+It has some big flaws, like significantly reduced airflow when the battery is at 50%.
+
+But It actually works exceptionally well for certain air brushes...
 ```
 
 So, it's viable, which was what I was hoping to hear, because the flip-side of the equation is that there are 20 different products on Amazon alone that follow this form factor, or one very similar to it.
