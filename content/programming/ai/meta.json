@@ -16,6 +16,9 @@
     "opencode-agents",
     "opencode-mcp",
     "opencode-commands",
-    "opencode-dowork"
+    "opencode-dowork",
+    "getting-started-local-llms",
+    "ei-your-local-first-ai-ecosystem",
+    "ei-developers-guide"
   ]
 }
