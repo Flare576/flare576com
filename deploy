@@ -59,7 +59,7 @@ CMS_FTP_PORT=${CMS_FTP_PORT:-22}
 
 echo "Generating social metadata stubs..."
 
-find content -type f -path "*/entries/*.md" | while read -r md_file; do
+while IFS= read -r md_file; do
   # Get file components
   slug=$(basename "$md_file" .md)
   IFS='/' read -r _ section subsection _ <<< "$md_file"
@@ -77,6 +77,13 @@ find content -type f -path "*/entries/*.md" | while read -r md_file; do
   out_file="$out_dir/$slug.html"
   url="$url/$slug"
 
+  # Raw markdown path (for LLM agents)
+  if [ "$subsection" != "entries" ]; then
+    md_url="https://flare576.com/content/$section/$subsection/entries/$slug.md"
+  else
+    md_url="https://flare576.com/content/$section/entries/$slug.md"
+  fi
+
   # Skip if up-to-date
   if [ -f "$out_file" ] && [ "$out_file" -nt "$md_file" ]; then
     echo "Skipping up-to-date: $out_file"
@@ -88,7 +95,6 @@ find content -type f -path "*/entries/*.md" | while read -r md_file; do
   description=$(get_meta "$md_file" "description")
   keywords=$(get_meta "$md_file" "tags")
   clean_keywords=$(echo "$keywords" | sed -E 's/[^a-zA-Z0-9,]+//g')
-
 
   # Fallbacks
   [ -z "$title" ] && title="Flare576 | $slug"
@@ -105,6 +111,7 @@ find content -type f -path "*/entries/*.md" | while read -r md_file; do
   <meta property="og:description" content="$description" />
   <meta name="keywords" content="$clean_keywords" />
   <meta property="og:url" content="$url" />
+  <meta name="llm-content" content="$md_url" />
   <meta http-equiv="refresh" content="0; url=$url">
   <title>$title</title>
 </head>
@@ -115,7 +122,90 @@ find content -type f -path "*/entries/*.md" | while read -r md_file; do
 EOF
 
   echo "Wrote: $out_file"
-done
+done < <(find content -type f -path "*/entries/*.md")
+
+echo "Generating llms.txt..."
+
+{
+  echo "# flare576.com"
+  echo ""
+  echo "> Personal site of Jeremy Scherer (Flare576) — programming, AI, hardware, gaming, and life."
+  echo ""
+
+  # Walk top-level sections
+  while IFS= read -r section_meta; do
+    section_dir=$(dirname "$section_meta")
+    section=$(basename "$section_dir")
+    section_title=$(python3 -c "import json,sys; d=json.load(open('$section_meta')); print(d.get('title',''))" 2>/dev/null)
+    section_desc=$(python3 -c "import json,sys; d=json.load(open('$section_meta')); print(d.get('description',''))" 2>/dev/null)
+    subsections=$(python3 -c "import json,sys; d=json.load(open('$section_meta')); print('\n'.join(d.get('subsections',[])))" 2>/dev/null)
+
+    has_section_content=false
+
+    if [ -n "$subsections" ]; then
+      # Emit section header, then each subsection as H3
+      section_header="## $section_title\n"
+      [ -n "$section_desc" ] && section_header="$section_header\n$section_desc\n"
+
+      while IFS= read -r subsection; do
+        [ -z "$subsection" ] && continue
+        sub_meta="$section_dir/$subsection/meta.json"
+        [ ! -f "$sub_meta" ] && continue
+        sub_title=$(python3 -c "import json; d=json.load(open('$sub_meta')); print(d.get('title',''))" 2>/dev/null)
+        entries=$(python3 -c "import json; d=json.load(open('$sub_meta')); print('\n'.join(d.get('entries',[])))" 2>/dev/null)
+
+        sub_lines=""
+        while IFS= read -r entry_slug; do
+          [ -z "$entry_slug" ] && continue
+          md_file="$section_dir/$subsection/entries/$entry_slug.md"
+          [ ! -f "$md_file" ] && continue
+          published=$(get_meta "$md_file" "published")
+          [ "$published" != "true" ] && continue
+          entry_title=$(get_meta "$md_file" "title")
+          entry_desc=$(get_meta "$md_file" "description")
+          [ -z "$entry_title" ] && entry_title="$entry_slug"
+          sub_lines="$sub_lines\n- [$entry_title](https://flare576.com/content/$section/$subsection/entries/$entry_slug.md): $entry_desc"
+        done <<< "$entries"
+
+        if [ -n "$sub_lines" ]; then
+          if [ "$has_section_content" = false ]; then
+            echo -e "$section_header"
+            has_section_content=true
+          fi
+          echo "### $sub_title"
+          echo ""
+          echo -e "$sub_lines"
+          echo ""
+        fi
+      done <<< "$subsections"
+    else
+      # Section has direct entries — flat list under H2
+      entries=$(python3 -c "import json; d=json.load(open('$section_meta')); print('\n'.join(d.get('entries',[])))" 2>/dev/null)
+      section_lines=""
+      while IFS= read -r entry_slug; do
+        [ -z "$entry_slug" ] && continue
+        md_file="$section_dir/entries/$entry_slug.md"
+        [ ! -f "$md_file" ] && continue
+        published=$(get_meta "$md_file" "published")
+        [ "$published" != "true" ] && continue
+        entry_title=$(get_meta "$md_file" "title")
+        entry_desc=$(get_meta "$md_file" "description")
+        [ -z "$entry_title" ] && entry_title="$entry_slug"
+        section_lines="$section_lines\n- [$entry_title](https://flare576.com/content/$section/entries/$entry_slug.md): $entry_desc"
+      done <<< "$entries"
+
+      if [ -n "$section_lines" ]; then
+        echo "## $section_title"
+        [ -n "$section_desc" ] && echo "" && echo "$section_desc" && echo ""
+        echo -e "$section_lines"
+        echo ""
+      fi
+    fi
+  done < <(find content -maxdepth 2 -name "meta.json" -not -path "*/entries/*" | sort)
+
+} > llms.txt
+
+echo "Wrote: llms.txt"
 
 echo "Adding uncache line to index.js and index.html"
 timestamp=$(date +%s)
