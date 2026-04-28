@@ -1,7 +1,7 @@
 ---
 title: "Developer's Guide to Ei"
 date: Tue Mar 17 02:00:00 PM CDT 2026
-published: false
+published: true
 description: "Give your AI coding tools a persistent memory — OpenCode, Claude Code, and Cursor all supported"
 goal: N/A
 solution: N/A

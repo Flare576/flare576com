@@ -69,6 +69,7 @@ I had intended to take photos of my progress at the end of each painting session
 
 ![Dirty Chocobo](https://youtube.com/shorts/7cB1KGH64lw?feature=share)
 
+![Chocobo Vanity Shot](/images/thumbnail/chocobo_final.jpg)
 
 # Lessons Learned
 

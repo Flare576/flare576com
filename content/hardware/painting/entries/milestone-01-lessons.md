@@ -31,7 +31,7 @@ I actually ended up over-thinning and under-darkening, which, now that I'm done,
 
 ### Highlights
 
-I just mixed a little white into my main color on my wet pallet and applied it where I wanted to bring out a highlight... I think is was probably the weakest aspect of Milestone 1, if I'm being honest. I need to do a little practice/research on dry brushing and highlight techniques.
+I just mixed a little white into my main color on my [wet pallet](https://a.co/d/bLMDqWV) and applied it where I wanted to bring out a highlight... I think is was probably the weakest aspect of Milestone 1, if I'm being honest. I need to do a little practice/research on dry brushing and highlight techniques.
 
 ## Airbrushing
 

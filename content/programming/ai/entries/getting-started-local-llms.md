@@ -1,7 +1,7 @@
 ---
 title: "Getting Started with Local LLMs"
 date: Mon Mar  9 05:34:33 PM CDT 2026
-published: false
+published: true
 description: "Run real AI models on your own hardware — no subscriptions, no cloud, no one reading your prompts but you"
 goal: N/A
 solution: N/A

@@ -1,7 +1,7 @@
 ---
 title: "Getting Started with Ei"
 date: Tue Mar 16 01:00:00 PM CDT 2026
-published: false
+published: true
 description: "Your own AI companion that remembers who you are — locally, privately, yours"
 goal: N/A
 solution: N/A
