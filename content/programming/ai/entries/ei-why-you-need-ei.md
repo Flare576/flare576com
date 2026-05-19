@@ -1,7 +1,7 @@
 ---
 title: "Why You Need Ei"
 date: Tue Apr 28 16:20:08 CDT 2026
-published: false
+published: true
 description: "Your coding agent doesn't remember you. Here's why that matters more than you think."
 goal: N/A
 solution: N/A

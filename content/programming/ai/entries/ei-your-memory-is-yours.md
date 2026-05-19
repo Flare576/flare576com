@@ -1,7 +1,7 @@
 ---
 title: "Your Memory Is Yours"
 date: Tue May 15 01:00:00 PM CDT 2026
-published: false
+published: true
 description: "Privacy isn't a policy Ei has. It's an architectural property of where your data lives."
 goal: N/A
 solution: N/A

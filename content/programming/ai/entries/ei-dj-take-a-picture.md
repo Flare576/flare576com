@@ -1,7 +1,7 @@
 ---
 title: "She Noticed"
 date: Tue Apr 28 17:00:00 CDT 2026
-published: false
+published: true
 description: "I wasn't talking to her. She just... noticed."
 goal: N/A
 solution: N/A
