@@ -601,7 +601,7 @@ tbody tr:nth-child(even) {
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-.social-links img.youtube {
+.social-links img.fancy {
   filter: grayscale(1) invert(1) brightness(3);
 }
 
