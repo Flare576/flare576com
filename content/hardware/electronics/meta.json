@@ -1,0 +1,8 @@
+{
+  "title": "Electronics",
+  "description": "Solder and electron wrangling",
+  "entries": [
+    "sofle-v2-wireless",
+    "sofle-v2-classic"
+  ]
+}
